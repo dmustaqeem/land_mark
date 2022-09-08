@@ -14,7 +14,7 @@ export const CardRowDiv = styled.div`
   display: flex;
   overflow-x: scroll;
   flex-direction: row;
-  height: fit-content;
+  /* height: fit-content; */
   padding-top: 5px;
   padding-bottom: 10px;
   gap: 12px;

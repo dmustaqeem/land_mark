@@ -58,9 +58,10 @@ const WelcomeScreen = () => {
           </TextIconDiv>
         </TypographyRowDiv>
         <CardRowDiv>
-          {DummyData.map((landmark) => {
+          {DummyData.map((landmark, index) => {
             return (
               <LandMarkCard
+                key={index}
                 LandMark_Name={landmark.LandMark_Name}
                 Category={landmark.Category}
                 Distance={landmark.Distance}
@@ -80,9 +81,10 @@ const WelcomeScreen = () => {
           </TextIconDiv>
         </TypographyRowDiv>
         <CardRowDiv>
-          {DummyData.map((landmark) => {
+          {DummyData.map((landmark, index) => {
             return (
               <LandMarkCard
+                key={index}
                 LandMark_Name={landmark.LandMark_Name}
                 Category={landmark.Category}
                 Distance={landmark.Distance}

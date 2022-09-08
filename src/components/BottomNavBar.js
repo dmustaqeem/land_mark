@@ -25,6 +25,9 @@ const NavigationBottomAction = styled(BottomNavigationAction)(`
 const NavigationBottom = styled(BottomNavigation)`
   display: "flex";
   height: 100px;
+  @media (max-height: 700px) {
+    height: 70px;
+  }
   align-items: center;
   position: absolute;
   width: 100%;
@@ -50,12 +53,17 @@ const MoreIcon = styled(MoreHorizIcon)`
 const FloatingButton = styled(Fab)`
   height: 88px;
   width: 90px;
+  min-width: 80px;
   border-width: 50px;
   border: 10px solid #eceef2;
   background-color: #005d9e;
   box-shadow: none;
   color: white;
-  margin-bottom: 50px;
+  @media (max-height: 700px) {
+    margin-bottom: 60px;
+    height: 78px;
+  }
+  margin-bottom: 100px;
 `;
 
 const BottomNavBar = () => {
@@ -82,21 +90,22 @@ const BottomNavBar = () => {
       >
         <NavigationBottomAction label="Welcome" icon={<HomeIcon />} />
         <NavigationBottomAction label="Discover" icon={<GlobeIcon />} />
-        <Fab
-          style={{
-            height: "88px",
-            width: "90px",
-            borderWidth: "50px",
-            border: "10px solid #eceef2",
-            backgroundColor: "#005d9e",
-            boxShadow: "none",
-            marginBottom: "100px",
-            color: "white",
-          }}
-          aria-label="add"
+        <FloatingButton
+        // style={{
+        //   height: "88px",
+        //   width: "90px",
+        //   minWidth: "80px",
+        //   borderWidth: "50px",
+        //   border: "10px solid #eceef2",
+        //   backgroundColor: "#005d9e",
+        //   boxShadow: "none",
+        //   marginBottom: "100px",
+        //   color: "white",
+        // }}
+        // aria-label="add"
         >
           <AddIcon style={{ height: "60px", width: "55px" }} />
-        </Fab>
+        </FloatingButton>
         <NavigationBottomAction label="Experience" icon={<StarIcon />} />
         <NavigationBottomAction label="More" icon={<MoreIcon />} />
       </NavigationBottom>
