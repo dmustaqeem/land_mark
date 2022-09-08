@@ -24,6 +24,10 @@ const ImageDiv = styled.div`
   background-size: contain;
   /* background-repeat: no-repeat; */
   height: 150px;
+  @media (max-height: 700px) {
+    height: 90px;
+  }
+  min-height: 50px;
   border-radius: 10px;
   margin: 10px;
   justify-content: space-between;
@@ -48,7 +52,7 @@ const LandMarkCard = ({ LandMark_Name, Category, Distance }) => {
       sx={{
         minWidth: "160px",
         maxWidth: "160px",
-        height: "fit-content",
+        // height: "fit-content",
         borderRadius: "12px",
         "&:hover": {
           border: "3px solid #0099F1",
