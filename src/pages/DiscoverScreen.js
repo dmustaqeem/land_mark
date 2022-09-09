@@ -8,12 +8,13 @@ import { useWindowDimensions } from "../utils/WindowWidthHeight";
 import { Typography } from "@mui/material";
 import Searchbar from "../components/SearchBar";
 import LandMarkCard from "../components/LandMarkCard";
-import DummyData from "../DummyData";
+import { DummyData } from "../DummyData";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import SliderWrapper from "../components/SlickSliderDots";
 import { settings } from "../utils/SlickSliderSettings";
+import styled from "styled-components";
 
 const DiscoverScreen = () => {
   const { height, width } = useWindowDimensions();
