@@ -32,7 +32,6 @@ export const Heading_SearchDiv = styled.div`
   width: 100%;
   padding-left: 25px;
   padding-right: 25px;
-  background-color: red;
 `;
 
 export const MainDiv = styled.div`
