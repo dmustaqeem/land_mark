@@ -23,13 +23,13 @@ export const SubHeadingCardDiv = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 25px;
+  margin-top: 20px;
 `;
 
 export const Heading_SearchDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: fit-content;
   padding-left: 25px;
   padding-right: 25px;
 `;
@@ -38,7 +38,8 @@ export const MainDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  justify-content: space-around;
+  overflow-y: auto;
+  position: absolute;
 `;
 
 export const BackgroundDiv = styled.div`

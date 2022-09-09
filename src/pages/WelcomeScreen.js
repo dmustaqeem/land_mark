@@ -3,7 +3,7 @@ import Searchbar from "../components/SearchBar";
 import styled from "styled-components";
 import { Typography } from "@mui/material";
 import ArrowForwardSharpIcon from "@mui/icons-material/ArrowForwardSharp";
-import DummyData from "../DummyData";
+import { DummyData } from "../DummyData";
 import { useWindowDimensions } from "../utils/WindowWidthHeight";
 import {
   MainDiv,

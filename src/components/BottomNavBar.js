@@ -23,13 +23,13 @@ const NavigationBottomAction = styled(BottomNavigationAction)(`
 `);
 
 const NavigationBottom = styled(BottomNavigation)`
+  position: fixed;
   display: "flex";
   height: 100px;
   @media (max-height: 700px) {
     height: 70px;
   }
   align-items: center;
-  position: absolute;
   width: 100%;
   bottom: 0;
   box-shadow: 0px -9px 13px -7px rgba(0, 0, 0, 0.31);

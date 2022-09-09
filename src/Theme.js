@@ -43,6 +43,18 @@ const theme = createTheme({
   },
   palette: {},
   typography: {
+    long_card_name: {
+      // fontFamily: "Lato",
+      fontWeight: 800,
+      fontSize: 18,
+      color: "#0C143D",
+    },
+    long_card_category: {
+      // fontFamily: "Lato",
+      // fontWeight: 100,
+      fontSize: 20,
+      color: "white",
+    },
     screen_heading: {
       fontFamily: "Archivo Black",
       fontSize: 35,
