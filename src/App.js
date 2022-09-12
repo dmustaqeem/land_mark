@@ -1,3 +1,4 @@
+import React from "react";
 import SignInScreen from "./pages/SignInScreen";
 import SignUpScreen from "./pages/SignUpScreen";
 import ForgotPasswordScreen from "./pages/ForgotPasswordScreen";

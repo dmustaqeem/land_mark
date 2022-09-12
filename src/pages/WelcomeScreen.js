@@ -1,3 +1,4 @@
+import React from "react";
 import LandMarkCard from "../components/LandMarkCard";
 import Searchbar from "../components/SearchBar";
 import styled from "styled-components";
