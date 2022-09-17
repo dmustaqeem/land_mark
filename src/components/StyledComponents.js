@@ -39,7 +39,8 @@ export const MainDiv = styled.div`
   flex-direction: column;
   width: 100%;
   overflow-y: auto;
-  position: absolute;
+  /* position: absolute; */
+  margin-bottom: 100px;
 `;
 
 export const BackgroundDiv = styled.div`

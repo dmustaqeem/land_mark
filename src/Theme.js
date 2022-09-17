@@ -8,6 +8,20 @@ import "@fontsource/archivo-black";
 import "@fontsource/catamaran";
 
 const theme = createTheme({
+  more_divider: {
+    backgroundColor: "#F4F5F8",
+    border: "none",
+    height: 1,
+  },
+  more_screen_icons_style: {
+    color: "005D9E",
+    backgroundColor: "#E0F1F8",
+    borderRadius: "15px",
+    fontSize: "30px",
+    padding: "4px",
+    marginRight: "25px",
+  },
+
   Submit_Button_blue: {
     backgroundColor: "#0099F1",
     color: "white",
@@ -43,6 +57,17 @@ const theme = createTheme({
   },
   palette: {},
   typography: {
+    more_under_heading: {
+      color: "#9DA7C0",
+      fontWeight: 500,
+      fontSize: 19,
+    },
+    more_option_text: {
+      color: "#0C143D",
+      fontFamily: "Lato",
+      fontSize: 17,
+      fontWeight: 600,
+    },
     long_card_name: {
       // fontFamily: "Lato",
       fontWeight: 800,
