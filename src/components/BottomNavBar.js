@@ -20,6 +20,11 @@ import ExperienceScreen from "../pages/ExperiencesScreen";
 
 const NavigationBottomAction = styled(BottomNavigationAction)(`
   color: #9DA7C0;
+
+  &.Mui-selected {
+  border-top: 1px solid #0099F1;
+  }
+  height: 100%;
 `);
 
 const NavigationBottom = styled(BottomNavigation)`
