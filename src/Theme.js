@@ -1,3 +1,4 @@
+import React, { Component }  from 'react';
 import { createTheme } from "@mui/material/styles";
 import "@fontsource/lato";
 import "@fontsource/poppins";
