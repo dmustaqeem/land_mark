@@ -1,3 +1,4 @@
+import React, { Component }  from 'react';
 import styled from "styled-components";
 import Background from "../assets/images/Background.png";
 import * as Mui from "@mui/material";

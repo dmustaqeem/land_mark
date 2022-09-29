@@ -1,3 +1,4 @@
+import React, { Component }  from 'react';
 import styled from "styled-components";
 import { MainDiv, Heading_SearchDiv } from "../components/StyledComponents";
 import { Typography } from "@mui/material";

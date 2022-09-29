@@ -1,3 +1,4 @@
+import React, { Component }  from 'react';
 import styled from "styled-components";
 import ShareRoundedIcon from "@mui/icons-material/ShareRounded";
 import FavoriteIcon from "@mui/icons-material/Favorite";

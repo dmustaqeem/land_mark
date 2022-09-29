@@ -1,3 +1,4 @@
+import React, { Component }  from 'react';
 import styled from "styled-components";
 import Envelope_Open from "../assets/images/Envelope_Open_Icon.svg";
 import Logo1 from "../assets/images/LndMark_logo.svg";

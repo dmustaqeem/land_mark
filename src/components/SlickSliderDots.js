@@ -1,5 +1,6 @@
 // import styled from "react-emotion";
 import styled from "styled-components";
+import React, { Component }  from 'react';
 
 const SliderWrapper = styled("div")`
   .slick-list {

@@ -1,3 +1,4 @@
+import React, { Component }  from 'react';
 import styled from "styled-components";
 import Background from "../assets/images/Background.png";
 import PW_Icon from "../assets/images/Pw_Icon.svg";
