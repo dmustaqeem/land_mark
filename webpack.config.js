@@ -18,12 +18,12 @@ module.exports = {
         },
       },
       {
-        test: /\.(png|jpe?g|gif|mpc|mps|mpb|cxc|cxs|cxb|tga|mtl|fbx|ico)$/i,
+        test: /\.(png|jpe?g|gif|mpc|mps|mpb|cxc|cxs|cxb|tga|mtl|fbx|ico|jpg)$/i,
         use: [
           {
             loader: "file-loader",
             options: {
-              name: "[name].[fullhash].[ext]",
+              name: "[name].[ext]",
               outputPath: "assets",
             },
           },
