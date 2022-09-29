@@ -1,4 +1,4 @@
-import React, { Component }  from 'react';
+import React, { Component } from "react";
 import {
   MainDiv,
   Heading_SearchDiv,
@@ -15,7 +15,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import SliderWrapper from "../components/SlickSliderDots";
 import { settings } from "../utils/SlickSliderSettings";
-import styled from "styled-components";
 
 const DiscoverScreen = () => {
   const { height, width } = useWindowDimensions();
