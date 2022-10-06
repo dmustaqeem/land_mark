@@ -11,14 +11,15 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
+        test: /\.js$/,
+        loader: "esbuild-loader",
+        options: {
+          loader: "jsx", // Remove this if you're not using JSX
+          target: "es2015", // Syntax to compile to (see options below for possible values)
         },
       },
       {
-        test: /\.(png|jpe?g|gif|mpc|mps|mpb|cxc|cxs|cxb|tga|mtl|fbx|ico|jpg)$/i,
+        test: /\.(png|jpe?g|gif|mpc|mps|mpb|cxc|cxs|cxb|tga|mtl|fbx|ico|jpg|svg)$/i,
         use: [
           {
             loader: "file-loader",
@@ -31,7 +32,17 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: [
+          "style-loader",
+          "css-loader",
+          {
+            loader: "esbuild-loader",
+            options: {
+              loader: "css",
+              minify: true,
+            },
+          },
+        ],
       },
       {
         test: /\.json$/,
@@ -41,10 +52,6 @@ module.exports = {
       {
         test: /\.obj$/,
         loader: "webpack-obj-loader",
-      },
-      {
-        test: /\.svg$/,
-        loader: "svg-inline-loader",
       },
     ],
   },
