@@ -1,4 +1,4 @@
-import React, { Component }  from 'react';
+import React, { Component } from "react";
 import styled from "styled-components";
 import { MainDiv, Heading_SearchDiv } from "../components/StyledComponents";
 import { Typography } from "@mui/material";
@@ -11,6 +11,8 @@ import InfoIcon from "@mui/icons-material/Info";
 import LogoutIcon from "@mui/icons-material/Logout";
 import theme from "../Theme";
 import Divider from "@mui/material/Divider";
+import { Auth } from "aws-amplify";
+import { useNavigate } from "react-router-dom";
 
 const FirstContainer = styled.div`
   display: flex;
@@ -55,12 +57,14 @@ const IconTextContainer = styled.div`
   flex-direction: row;
   width: 180px;
   align-items: center;
+  cursor: pointer;
 `;
 const OptionDivider = styled(Divider)`
   width: 90%;
 `;
 
 const MoreScreen = () => {
+  let navigate = useNavigate();
   return (
     <MainDiv>
       <Heading_SearchDiv>
@@ -114,7 +118,17 @@ const MoreScreen = () => {
       </SecondContainer>
       <ThirdContainer>
         <OptionRowDiv>
-          <IconTextContainer>
+          <IconTextContainer
+            onClick={async () => {
+              try {
+                const userSignout = await Auth.signOut();
+                navigate("/signIn");
+                console.log("Sign out :", userSignout);
+              } catch (error) {
+                console.log("error signing out: ", error);
+              }
+            }}
+          >
             <LogoutIcon style={theme.more_screen_icons_style} />
             <Typography variant="more_option_text">Logout</Typography>
           </IconTextContainer>

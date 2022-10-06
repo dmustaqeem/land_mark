@@ -35,9 +35,9 @@ import { useNavigate } from "react-router-dom";
 
 const ReviewSchema = yup.object({
   UserName: yup.string().required("Please Enter Username"),
-  Password: yup.string().required("Password error"),
+  Code: yup.number(),
 });
-const SignInScreen = () => {
+const ConfirmSignUp = () => {
   let navigate = useNavigate();
   return (
     <BackgroundDiv>
@@ -47,23 +47,26 @@ const SignInScreen = () => {
           Login to your account
         </Typography>
         <Typography variant="login_gray_heading">
-          Enter your username and password to login.
+          Enter verification code to sign up.
         </Typography>
         <Formik
           validationSchema={ReviewSchema}
           initialValues={{
             UserName: "",
-            Password: "",
+            Code: "",
           }}
           onSubmit={async (values, { resetForm }) => {
             console.log("OnSubmit click", values);
             resetForm();
             try {
-              const user = await Auth.signIn(values.UserName, values.Password);
+              const confirmSignUp = await Auth.confirmSignUp(
+                values.UserName,
+                values.Code
+              );
+              console.log(confirmSignUp);
               navigate("/welcome");
-              console.log("Login screen :", user);
             } catch (error) {
-              console.log("error signing in", error);
+              console.log("error confirming sign up", error);
             }
           }}
         >
@@ -86,12 +89,11 @@ const SignInScreen = () => {
                   <TextfieldIcon src={PW_Icon} />
                 </TextfieldIconContainerDiv>
                 <InputField
-                  onChange={props.handleChange("Password")}
+                  onChange={props.handleChange("Code")}
                   value={props.values.Password}
-                  type="password"
                   sx={{ input: { color: "black" } }}
                   size="small"
-                  placeholder="Password"
+                  placeholder="Verification code"
                 />
               </TextFieldContainerRowDiv>
               {!props.isSubmitting ? (
@@ -109,8 +111,19 @@ const SignInScreen = () => {
           )}
         </Formik>
 
-        <ClickText href="/forgotpassword" underline="none">
-          {"Forgot your password?"}
+        <ClickText
+          onClick={async () => {
+            console.log("Resend verification code clicked");
+            //    try {
+            //     await Auth.resendSignUp();
+            //     console.log('code resent successfully');
+            // } catch (err) {
+            //     console.log('error resending code: ', err);
+            // }
+          }}
+          underline="none"
+        >
+          {"Resend verification code"}
         </ClickText>
       </MainColDiv>
       <LowerRowDiv>
@@ -138,4 +151,4 @@ const SignInScreen = () => {
     </BackgroundDiv>
   );
 };
-export default SignInScreen;
+export default ConfirmSignUp;
