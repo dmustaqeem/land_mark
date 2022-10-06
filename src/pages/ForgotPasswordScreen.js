@@ -40,7 +40,6 @@ const ReviewSchema = yup.object({
 });
 const ForgotPasswordScreen = () => {
   let navigate = useNavigate();
-
   return (
     <BackgroundDiv>
       <MainColDiv>
@@ -70,31 +69,33 @@ const ForgotPasswordScreen = () => {
           }}
         >
           {(props) => {
-            <>
-              <TextFieldContainerRowDiv>
-                <TextfieldIconContainerDiv>
-                  <TextfieldIcon src={Envelope_Open} />
-                </TextfieldIconContainerDiv>
-                <InputField
-                  onChange={props.handleChange("Email")}
-                  value={props.values.Email}
-                  size="small"
-                  placeholder="E-mail address"
-                  sx={{ input: { color: "black" } }}
-                />
-              </TextFieldContainerRowDiv>
-              <ButtonRowDiv>
-                <ClickButton
-                  onClick={props.handleSubmit}
-                  style={theme.Submit_Button_blue}
-                >
-                  Submit
-                </ClickButton>
-                <ClickButton style={theme.Submit_Button_gray}>
-                  Cancel
-                </ClickButton>
-              </ButtonRowDiv>
-            </>;
+            return (
+              <>
+                <TextFieldContainerRowDiv>
+                  <TextfieldIconContainerDiv>
+                    <TextfieldIcon src={Envelope_Open} />
+                  </TextfieldIconContainerDiv>
+                  <InputField
+                    onChange={props.handleChange("Email")}
+                    value={props.values.Email}
+                    size="small"
+                    placeholder="E-mail address"
+                    sx={{ input: { color: "black" } }}
+                  />
+                </TextFieldContainerRowDiv>
+                <ButtonRowDiv>
+                  <ClickButton
+                    onClick={props.handleSubmit}
+                    style={theme.Submit_Button_blue}
+                  >
+                    Submit
+                  </ClickButton>
+                  <ClickButton style={theme.Submit_Button_gray}>
+                    Cancel
+                  </ClickButton>
+                </ButtonRowDiv>
+              </>
+            );
           }}
         </Formik>
       </MainColDiv>
