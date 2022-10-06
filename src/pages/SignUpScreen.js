@@ -1,4 +1,4 @@
-import React, { Component }  from 'react';
+import React, { Component } from "react";
 import styled from "styled-components";
 import PW_Icon from "../assets/images/Pw_Icon.svg";
 import User_Icon from "../assets/images/User_Icon.svg";
@@ -30,6 +30,8 @@ import {
 } from "../components/StyledComponents";
 import { Formik } from "formik";
 import * as yup from "yup";
+import { Auth } from "aws-amplify";
+import { useNavigate } from "react-router-dom";
 
 const ReviewSchema = yup.object({
   UserName: yup.string().required("Please Enter Username"),
@@ -38,6 +40,7 @@ const ReviewSchema = yup.object({
 });
 
 const SignUpScreen = () => {
+  let navigate = useNavigate();
   return (
     <BackgroundDiv>
       <MainColDiv>
@@ -55,9 +58,22 @@ const SignUpScreen = () => {
             Email: "",
             Password: "",
           }}
-          onSubmit={(values, { resetForm }) => {
+          onSubmit={async (values, { resetForm }) => {
             console.log("OnSubmit click", values);
             resetForm();
+            try {
+              const { user } = await Auth.signUp({
+                username: values.UserName,
+                password: values.Password,
+                attributes: {
+                  email: values.Email, // optional
+                },
+              });
+              console.log(user);
+              navigate("/confirmSignUp");
+            } catch (error) {
+              console.log("error signing up:", error);
+            }
           }}
         >
           {(props) => (

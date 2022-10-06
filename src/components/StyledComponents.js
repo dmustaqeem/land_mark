@@ -1,4 +1,4 @@
-import React, { Component }  from 'react';
+import React, { Component } from "react";
 import styled from "styled-components";
 import Background from "../assets/images/Background.png";
 import * as Mui from "@mui/material";
@@ -115,6 +115,7 @@ export const ClickText = styled(Mui.Link)`
   font-weight: 400;
   font-size: 10px;
   color: #005d9e;
+  cursor: pointer;
 `;
 
 export const ClickTextLower = styled(Mui.Link)``;
