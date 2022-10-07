@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+// import React, { Component } from "react";
 import styled from "styled-components";
 import PW_Icon from "../assets/images/Pw_Icon.svg";
 import User_Icon from "../assets/images/User_Icon.svg";
@@ -60,7 +60,6 @@ const SignUpScreen = () => {
           }}
           onSubmit={async (values, { resetForm }) => {
             console.log("OnSubmit click", values);
-            resetForm();
             try {
               const { user } = await Auth.signUp({
                 username: values.UserName,
@@ -71,6 +70,7 @@ const SignUpScreen = () => {
               });
               console.log(user);
               navigate("/confirmSignUp");
+              resetForm();
             } catch (error) {
               console.log("error signing up:", error);
             }
