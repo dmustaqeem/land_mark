@@ -11,12 +11,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        loader: "esbuild-loader",
-        options: {
-          loader: "jsx", // Remove this if you're not using JSX
-          target: "es2015", // Syntax to compile to (see options below for possible values)
-        },
+        test:/\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use:{
+            loader:"babel-loader"
+        }
       },
       {
         test: /\.(png|jpe?g|gif|mpc|mps|mpb|cxc|cxs|cxb|tga|mtl|fbx|ico|jpg|svg)$/i,
