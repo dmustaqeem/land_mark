@@ -1,4 +1,4 @@
-import React, { Component }  from 'react';
+import React, { Component } from "react";
 import { createTheme } from "@mui/material/styles";
 import "@fontsource/lato";
 import "@fontsource/poppins";
@@ -125,6 +125,7 @@ const theme = createTheme({
       fontSize: 10,
       fontWeight: 500,
       color: "#4B4D52",
+      marginBottom: "14px",
       //   lineHeight: "43.2px",
     },
     clicktext_lower_blue: {

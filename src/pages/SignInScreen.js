@@ -1,14 +1,12 @@
 import React, { Component } from "react";
-import styled from "styled-components";
-import Background from "../assets/images/Background.png";
 import PW_Icon from "../assets/images/Pw_Icon.svg";
 import User_Icon from "../assets/images/User_Icon.svg";
 import Logo1 from "../assets/images/LndMark_logo.svg";
 import {
   Typography,
   CircularProgress,
-  OutlinedInput,
-  Link,
+  Snackbar,
+  Alert,
   Button,
 } from "@mui/material";
 import theme from "../Theme";
@@ -18,6 +16,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import {
   LowerIcon,
+  Error,
   LowerButtonContainerDiv,
   BackgroundDiv,
   MainColDiv,
@@ -29,15 +28,21 @@ import {
   LowerRowDiv,
   ClickTextLower,
   ClickText,
+  TextFieldColumn,
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import styled from "styled-components";
 
 const ReviewSchema = yup.object({
   UserName: yup.string().required("Please Enter Username"),
   Password: yup.string().required("Password error"),
 });
 const SignInScreen = () => {
+  const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [snackBarMessage, setSnackBarMessage] = useState("");
+  const [severity, setSeverity] = useState("info");
   let navigate = useNavigate();
   return (
     <BackgroundDiv>
@@ -57,43 +62,62 @@ const SignInScreen = () => {
           }}
           onSubmit={async (values, { resetForm }) => {
             console.log("OnSubmit click", values);
-            resetForm();
             try {
               const user = await Auth.signIn(values.UserName, values.Password);
+              setSnackBarMessage("Success");
+              setOpenSnackBar(true);
+              setSeverity("success");
               navigate("/welcome");
+              resetForm();
               console.log("Login screen :", user);
             } catch (error) {
+              setSnackBarMessage("Error");
+              setOpenSnackBar(true);
+              setSeverity("error");
               console.log("error signing in", error);
+            } finally {
+              setSeverity("info");
             }
           }}
         >
           {(props) => (
             <>
-              <TextFieldContainerRowDiv>
-                <TextfieldIconContainerDiv>
-                  <TextfieldIcon src={User_Icon} />
-                </TextfieldIconContainerDiv>
-                <InputField
-                  onChange={props.handleChange("UserName")}
-                  value={props.values.UserName}
-                  sx={{ input: { color: "black" } }}
-                  size="small"
-                  placeholder="Username"
-                />
-              </TextFieldContainerRowDiv>
-              <TextFieldContainerRowDiv>
-                <TextfieldIconContainerDiv>
-                  <TextfieldIcon src={PW_Icon} />
-                </TextfieldIconContainerDiv>
-                <InputField
-                  onChange={props.handleChange("Password")}
-                  value={props.values.Password}
-                  type="password"
-                  sx={{ input: { color: "black" } }}
-                  size="small"
-                  placeholder="Password"
-                />
-              </TextFieldContainerRowDiv>
+              <TextFieldColumn>
+                <TextFieldContainerRowDiv>
+                  <TextfieldIconContainerDiv>
+                    <TextfieldIcon src={User_Icon} />
+                  </TextfieldIconContainerDiv>
+                  <InputField
+                    onChange={props.handleChange("UserName")}
+                    value={props.values.UserName}
+                    sx={{ input: { color: "black" } }}
+                    size="small"
+                    placeholder="Username"
+                  />
+                </TextFieldContainerRowDiv>
+                {props.errors.UserName && props.touched.UserName ? (
+                  <Error>{props.errors.UserName}</Error>
+                ) : null}
+              </TextFieldColumn>
+              <TextFieldColumn>
+                <TextFieldContainerRowDiv>
+                  <TextfieldIconContainerDiv>
+                    <TextfieldIcon src={PW_Icon} />
+                  </TextfieldIconContainerDiv>
+                  <InputField
+                    onChange={props.handleChange("Password")}
+                    value={props.values.Password}
+                    type="password"
+                    sx={{ input: { color: "black" } }}
+                    size="small"
+                    placeholder="Password"
+                  />
+                </TextFieldContainerRowDiv>
+                {props.errors.Password && props.touched.Password ? (
+                  <Error>{props.errors.Password}</Error>
+                ) : null}
+              </TextFieldColumn>
+
               {!props.isSubmitting ? (
                 <Button
                   sx={{ marginBottom: "10px" }}
@@ -103,11 +127,28 @@ const SignInScreen = () => {
                   Sign in
                 </Button>
               ) : (
-                <CircularProgress sx={{ alignSelf: "center" }} />
+                <CircularProgress
+                  sx={{ alignSelf: "center", margin: "10px" }}
+                />
               )}
             </>
           )}
         </Formik>
+        <Snackbar
+          open={openSnackBar}
+          autoHideDuration={4000}
+          message={snackBarMessage}
+          onClose={() => setOpenSnackBar(false)}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          <Alert
+            onClose={() => setOpenSnackBar(false)}
+            severity={severity}
+            sx={{ width: "100%" }}
+          >
+            {snackBarMessage}
+          </Alert>
+        </Snackbar>
 
         <ClickText href="/forgotpassword" underline="none">
           {"Forgot your password?"}

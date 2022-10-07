@@ -1,15 +1,13 @@
 import React, { Component } from "react";
-import styled from "styled-components";
-import Background from "../assets/images/Background.png";
 import PW_Icon from "../assets/images/Pw_Icon.svg";
 import User_Icon from "../assets/images/User_Icon.svg";
 import Logo1 from "../assets/images/LndMark_logo.svg";
 import {
   Typography,
   CircularProgress,
-  OutlinedInput,
-  Link,
   Button,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import theme from "../Theme";
 import Signup_Icon from "../assets/images/Signup_Icon.svg";
@@ -29,15 +27,21 @@ import {
   LowerRowDiv,
   ClickTextLower,
   ClickText,
+  TextFieldColumn,
+  Error,
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ReviewSchema = yup.object({
   UserName: yup.string().required("Please Enter Username"),
-  Code: yup.number(),
+  Code: yup.number().required(),
 });
 const ConfirmSignUp = () => {
+  const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [snackBarMessage, setSnackBarMessage] = useState("");
+  const [severity, setSeverity] = useState("info");
   let navigate = useNavigate();
   return (
     <BackgroundDiv>
@@ -57,45 +61,61 @@ const ConfirmSignUp = () => {
           }}
           onSubmit={async (values, { resetForm }) => {
             console.log("OnSubmit click", values);
-            resetForm();
             try {
               const confirmSignUp = await Auth.confirmSignUp(
                 values.UserName,
                 values.Code
               );
-              console.log(confirmSignUp);
+              setSnackBarMessage("Success");
+              setOpenSnackBar(true);
+              setSeverity("success");
+              console.log("ConfirmSign up : ", confirmSignUp);
+              resetForm();
               navigate("/welcome");
             } catch (error) {
+              setSnackBarMessage("Error");
+              setOpenSnackBar(true);
+              setSeverity("error");
               console.log("error confirming sign up", error);
+            } finally {
+              setSeverity("info");
             }
           }}
         >
           {(props) => (
             <>
-              <TextFieldContainerRowDiv>
-                <TextfieldIconContainerDiv>
-                  <TextfieldIcon src={User_Icon} />
-                </TextfieldIconContainerDiv>
-                <InputField
-                  onChange={props.handleChange("UserName")}
-                  value={props.values.UserName}
-                  sx={{ input: { color: "black" } }}
-                  size="small"
-                  placeholder="Username"
-                />
-              </TextFieldContainerRowDiv>
-              <TextFieldContainerRowDiv>
-                <TextfieldIconContainerDiv>
-                  <TextfieldIcon src={PW_Icon} />
-                </TextfieldIconContainerDiv>
-                <InputField
-                  onChange={props.handleChange("Code")}
-                  value={props.values.Password}
-                  sx={{ input: { color: "black" } }}
-                  size="small"
-                  placeholder="Verification code"
-                />
-              </TextFieldContainerRowDiv>
+              <TextFieldColumn>
+                <TextFieldContainerRowDiv>
+                  <TextfieldIconContainerDiv>
+                    <TextfieldIcon src={User_Icon} />
+                  </TextfieldIconContainerDiv>
+                  <InputField
+                    onChange={props.handleChange("UserName")}
+                    value={props.values.UserName}
+                    sx={{ input: { color: "black" } }}
+                    size="small"
+                    placeholder="Username"
+                  />
+                </TextFieldContainerRowDiv>
+              </TextFieldColumn>
+              <TextFieldColumn>
+                <TextFieldContainerRowDiv>
+                  <TextfieldIconContainerDiv>
+                    <TextfieldIcon src={PW_Icon} />
+                  </TextfieldIconContainerDiv>
+                  <InputField
+                    onChange={props.handleChange("Code")}
+                    value={props.values.Password}
+                    sx={{ input: { color: "black" } }}
+                    size="small"
+                    placeholder="Verification code"
+                  />
+                </TextFieldContainerRowDiv>
+                {props.errors.Code && props.touched.Code ? (
+                  <Error>{props.errors.Code}</Error>
+                ) : null}
+              </TextFieldColumn>
+
               {!props.isSubmitting ? (
                 <Button
                   sx={{ marginBottom: "10px" }}
@@ -105,12 +125,28 @@ const ConfirmSignUp = () => {
                   Sign in
                 </Button>
               ) : (
-                <CircularProgress sx={{ alignSelf: "center" }} />
+                <CircularProgress
+                  sx={{ alignSelf: "center", margin: "10px" }}
+                />
               )}
             </>
           )}
         </Formik>
-
+        <Snackbar
+          open={openSnackBar}
+          autoHideDuration={4000}
+          message={snackBarMessage}
+          onClose={() => setOpenSnackBar(false)}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          <Alert
+            onClose={() => setOpenSnackBar(false)}
+            severity={severity}
+            sx={{ width: "100%" }}
+          >
+            {snackBarMessage}
+          </Alert>
+        </Snackbar>
         <ClickText
           onClick={async () => {
             console.log("Resend verification code clicked");

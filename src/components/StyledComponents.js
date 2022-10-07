@@ -20,6 +20,18 @@ export const CardRowDiv = styled.div`
   padding-bottom: 10px;
   gap: 12px;
 `;
+export const Error = styled.div`
+  color: red;
+  font-size: 13px;
+`;
+
+export const TextFieldColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 60px;
+  margin-bottom: 5px;
+  align-items: center;
+`;
 export const SubHeadingCardDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -95,7 +107,6 @@ export const TextFieldContainerRowDiv = styled.div`
   width: 100%;
   height: fit-content;
   justify-content: center;
-  margin-top: 20px;
 `;
 export const TextfieldIcon = styled.img`
   background-color: #005d9e;

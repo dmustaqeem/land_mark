@@ -10,6 +10,8 @@ import {
   OutlinedInput,
   Link,
   Button,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import theme from "../Theme";
 import Signup_Icon from "../assets/images/Signup_Icon.svg";
@@ -29,16 +31,22 @@ import {
   LowerRowDiv,
   ClickTextLower,
   ClickText,
+  TextFieldColumn,
+  Error,
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const ReviewSchema = yup.object({
   UserName: yup.string().required("Please Enter Username"),
-  Code: yup.number(),
+  Code: yup.number().required(),
   NewPassword: yup.string().required("Password error"),
 });
 const ForgotPasswordSubmitScreen = () => {
+  const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [snackBarMessage, setSnackBarMessage] = useState("");
+  const [severity, setSeverity] = useState("info");
   let navigate = useNavigate();
   return (
     <BackgroundDiv>
@@ -67,81 +75,126 @@ const ForgotPasswordSubmitScreen = () => {
               )
                 .then((data) => console.log(data))
                 .catch((err) => console.log(err));
+              setSnackBarMessage("Success");
+              setOpenSnackBar(true);
+              setSeverity("success");
               resetForm();
               navigate("/signIn");
             } catch (error) {
+              setSnackBarMessage("Error");
+              setOpenSnackBar(true);
+              setSeverity("error");
               console.log("error confirming sign up", error);
+            } finally {
+              setSeverity("info");
             }
           }}
         >
           {(props) => (
             <>
-              <TextFieldContainerRowDiv>
-                <TextfieldIconContainerDiv>
-                  <TextfieldIcon src={User_Icon} />
-                </TextfieldIconContainerDiv>
-                <InputField
-                  onChange={props.handleChange("UserName")}
-                  value={props.values.UserName}
-                  sx={{ input: { color: "black" } }}
-                  size="small"
-                  placeholder="Username"
-                />
-              </TextFieldContainerRowDiv>
-              <TextFieldContainerRowDiv>
-                <TextfieldIconContainerDiv>
-                  <TextfieldIcon src={PW_Icon} />
-                </TextfieldIconContainerDiv>
-                <InputField
-                  onChange={props.handleChange("Code")}
-                  value={props.values.Password}
-                  sx={{ input: { color: "black" } }}
-                  size="small"
-                  placeholder="Verification code"
-                />
-              </TextFieldContainerRowDiv>
-              <TextFieldContainerRowDiv>
-                <TextfieldIconContainerDiv>
-                  <TextfieldIcon src={PW_Icon} />
-                </TextfieldIconContainerDiv>
-                <InputField
-                  onChange={props.handleChange("NewPassword")}
-                  value={props.values.NewPassword}
-                  type="password"
-                  sx={{ input: { color: "black" } }}
-                  size="small"
-                  placeholder="New password"
-                />
-              </TextFieldContainerRowDiv>
+              <TextFieldColumn>
+                <TextFieldContainerRowDiv>
+                  <TextfieldIconContainerDiv>
+                    <TextfieldIcon src={User_Icon} />
+                  </TextfieldIconContainerDiv>
+                  <InputField
+                    onChange={props.handleChange("UserName")}
+                    value={props.values.UserName}
+                    sx={{ input: { color: "black" } }}
+                    size="small"
+                    placeholder="Username"
+                  />
+                </TextFieldContainerRowDiv>
+                {props.errors.UserName && props.touched.UserName ? (
+                  <Error>{props.errors.UserName}</Error>
+                ) : null}
+              </TextFieldColumn>
+              <TextFieldColumn>
+                <TextFieldContainerRowDiv>
+                  <TextfieldIconContainerDiv>
+                    <TextfieldIcon src={PW_Icon} />
+                  </TextfieldIconContainerDiv>
+                  <InputField
+                    onChange={props.handleChange("Code")}
+                    value={props.values.Password}
+                    sx={{ input: { color: "black" } }}
+                    size="small"
+                    placeholder="Verification code"
+                  />
+                </TextFieldContainerRowDiv>
+                {props.errors.UserName && props.touched.UserName ? (
+                  <Error>{props.errors.UserName}</Error>
+                ) : null}
+              </TextFieldColumn>
+              <TextFieldColumn>
+                <TextFieldContainerRowDiv>
+                  <TextfieldIconContainerDiv>
+                    <TextfieldIcon src={PW_Icon} />
+                  </TextfieldIconContainerDiv>
+                  <InputField
+                    onChange={props.handleChange("NewPassword")}
+                    value={props.values.NewPassword}
+                    type="password"
+                    sx={{ input: { color: "black" } }}
+                    size="small"
+                    placeholder="New password"
+                  />
+                </TextFieldContainerRowDiv>
+                {props.errors.NewPassword && props.touched.NewPassword ? (
+                  <Error>{props.errors.NewPassword}</Error>
+                ) : null}
+              </TextFieldColumn>
+
               {!props.isSubmitting ? (
                 <Button
                   sx={{ marginBottom: "10px" }}
                   style={theme.login_Button}
                   onClick={props.handleSubmit}
                 >
-                  Sign in
+                  Change Password
                 </Button>
               ) : (
                 <CircularProgress sx={{ alignSelf: "center" }} />
               )}
+              <ClickText
+                onClick={async () => {
+                  console.log("Resend verification code clicked");
+                  console.log("Username value : ", props.values.UserName);
+                  try {
+                    await Auth.forgotPassword(props.values.UserName);
+                    setSnackBarMessage("Success");
+                    setOpenSnackBar(true);
+                    setSeverity("success");
+                    console.log("code resent successfully");
+                  } catch (err) {
+                    setSnackBarMessage("Error");
+                    setOpenSnackBar(true);
+                    setSeverity("error");
+                    console.log("error resending code: ", err);
+                  }
+                }}
+                underline="none"
+              >
+                {"Resend verification code"}
+              </ClickText>
             </>
           )}
         </Formik>
-
-        <ClickText
-          onClick={async () => {
-            console.log("Resend verification code clicked");
-            //    try {
-            //     await Auth.resendSignUp();
-            //     console.log('code resent successfully');
-            // } catch (err) {
-            //     console.log('error resending code: ', err);
-            // }
-          }}
-          underline="none"
+        <Snackbar
+          open={openSnackBar}
+          autoHideDuration={4000}
+          message={snackBarMessage}
+          onClose={() => setOpenSnackBar(false)}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
         >
-          {"Resend verification code"}
-        </ClickText>
+          <Alert
+            onClose={() => setOpenSnackBar(false)}
+            severity={severity}
+            sx={{ width: "100%" }}
+          >
+            {snackBarMessage}
+          </Alert>
+        </Snackbar>
       </MainColDiv>
       <LowerRowDiv>
         <LowerButtonContainerDiv>

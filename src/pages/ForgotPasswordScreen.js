@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Envelope_Open from "../assets/images/Envelope_Open_Icon.svg";
 import Logo1 from "../assets/images/LndMark_logo.svg";
-import { Typography } from "@mui/material";
+import { Typography, Snackbar, Alert } from "@mui/material";
 import Button from "@mui/material/Button";
 import theme from "../Theme";
 import User_Icon2 from "../assets/images/User_Icon2.svg";
 import Help_Icon from "../assets/images/Help_Icon.svg";
+import { useState } from "react";
+
 import {
   LowerIcon,
   LowerButtonContainerDiv,
@@ -19,6 +21,8 @@ import {
   InputField,
   LowerRowDiv,
   ClickTextLower,
+  TextFieldColumn,
+  Error,
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { Formik } from "formik";
@@ -36,9 +40,12 @@ const ButtonRowDiv = styled.div`
 `;
 
 const ReviewSchema = yup.object({
-  Email: yup.string().required("Please Enter Username"),
+  UserName: yup.string().required("Please enter correct Username"),
 });
 const ForgotPasswordScreen = () => {
+  const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [snackBarMessage, setSnackBarMessage] = useState("");
+  const [severity, setSeverity] = useState("info");
   let navigate = useNavigate();
   return (
     <BackgroundDiv>
@@ -48,41 +55,54 @@ const ForgotPasswordScreen = () => {
           Forgot your Password?
         </Typography>
         <Typography variant="login_gray_heading">
-          Enter your email below to reset your password.
+          Enter your username below to reset your password.
         </Typography>
         <Formik
           validationSchema={ReviewSchema}
           initialValues={{
-            Email: "",
+            UserName: "",
           }}
           onSubmit={async (values, { resetForm }) => {
             console.log("OnSubmit click", values);
             try {
-              await Auth.forgotPassword(values.Email)
-                .then((data) => console.log(data))
-                .catch((err) => console.log(err));
-              navigate("/forgotpasswordsubmit");
+              await Auth.forgotPassword(values.UserName);
+              // .then((data) => console.log(data))
+              // .catch((err) => console.log(err));
+              setSnackBarMessage("Success");
+              setOpenSnackBar(true);
+              setSeverity("success");
               resetForm();
+              navigate("/forgotpasswordsubmit");
             } catch (error) {
+              setSnackBarMessage("Error");
+              setOpenSnackBar(true);
+              setSeverity("error");
               console.log("Forgot Password error : ", error);
+            } finally {
+              setSeverity("info");
             }
           }}
         >
           {(props) => {
             return (
               <>
-                <TextFieldContainerRowDiv>
-                  <TextfieldIconContainerDiv>
-                    <TextfieldIcon src={Envelope_Open} />
-                  </TextfieldIconContainerDiv>
-                  <InputField
-                    onChange={props.handleChange("Email")}
-                    value={props.values.Email}
-                    size="small"
-                    placeholder="E-mail address"
-                    sx={{ input: { color: "black" } }}
-                  />
-                </TextFieldContainerRowDiv>
+                <TextFieldColumn>
+                  <TextFieldContainerRowDiv>
+                    <TextfieldIconContainerDiv>
+                      <TextfieldIcon src={Envelope_Open} />
+                    </TextfieldIconContainerDiv>
+                    <InputField
+                      onChange={props.handleChange("UserName")}
+                      value={props.values.UserName}
+                      size="small"
+                      placeholder="User name"
+                      sx={{ input: { color: "black" } }}
+                    />
+                  </TextFieldContainerRowDiv>
+                  {props.errors.UserName && props.touched.UserName ? (
+                    <Error>{props.errors.UserName}</Error>
+                  ) : null}
+                </TextFieldColumn>
                 <ButtonRowDiv>
                   <ClickButton
                     onClick={props.handleSubmit}
@@ -98,6 +118,21 @@ const ForgotPasswordScreen = () => {
             );
           }}
         </Formik>
+        <Snackbar
+          open={openSnackBar}
+          autoHideDuration={4000}
+          message={snackBarMessage}
+          onClose={() => setOpenSnackBar(false)}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          <Alert
+            onClose={() => setOpenSnackBar(false)}
+            severity={severity}
+            sx={{ width: "100%" }}
+          >
+            {snackBarMessage}
+          </Alert>
+        </Snackbar>
       </MainColDiv>
       <LowerRowDiv>
         <LowerButtonContainerDiv>

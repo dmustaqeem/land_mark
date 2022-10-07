@@ -1,15 +1,14 @@
 // import React, { Component } from "react";
-import styled from "styled-components";
 import PW_Icon from "../assets/images/Pw_Icon.svg";
 import User_Icon from "../assets/images/User_Icon.svg";
 import Envelope_Close from "../assets/images/Envelope_Close_Icon.svg";
 import Logo1 from "../assets/images/LndMark_logo.svg";
 import {
   Typography,
-  OutlinedInput,
-  Link,
   Button,
   CircularProgress,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import theme from "../Theme";
 import User_Icon2 from "../assets/images/User_Icon2.svg";
@@ -27,19 +26,25 @@ import {
   LowerRowDiv,
   ClickTextLower,
   ClickText,
+  TextFieldColumn,
+  Error,
 } from "../components/StyledComponents";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const ReviewSchema = yup.object({
   UserName: yup.string().required("Please Enter Username"),
-  Email: yup.string().email("Please enter a valid email"),
+  Email: yup.string().email().required("Please enter a valid email"),
   Password: yup.string().required("Password error"),
 });
 
 const SignUpScreen = () => {
+  const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [snackBarMessage, setSnackBarMessage] = useState("");
+  const [severity, setSeverity] = useState("info");
   let navigate = useNavigate();
   return (
     <BackgroundDiv>
@@ -68,53 +73,77 @@ const SignUpScreen = () => {
                   email: values.Email, // optional
                 },
               });
+              setSnackBarMessage("Success");
+              setOpenSnackBar(true);
+              setSeverity("success");
               console.log(user);
-              navigate("/confirmSignUp");
               resetForm();
+              navigate("/confirmSignUp");
             } catch (error) {
+              setSnackBarMessage("Error");
+              setOpenSnackBar(true);
+              setSeverity("error");
               console.log("error signing up:", error);
+            } finally {
+              setSeverity("info");
             }
           }}
         >
           {(props) => (
             <>
-              <TextFieldContainerRowDiv>
-                <TextfieldIconContainerDiv>
-                  <TextfieldIcon src={User_Icon} />
-                </TextfieldIconContainerDiv>
-                <InputField
-                  onChange={props.handleChange("UserName")}
-                  value={props.values.UserName}
-                  sx={{ input: { color: "black" } }}
-                  size="small"
-                  placeholder="Username"
-                />
-              </TextFieldContainerRowDiv>
-              <TextFieldContainerRowDiv>
-                <TextfieldIconContainerDiv>
-                  <TextfieldIcon src={Envelope_Close} />
-                </TextfieldIconContainerDiv>
-                <InputField
-                  onChange={props.handleChange("Email")}
-                  value={props.values.Email}
-                  sx={{ input: { color: "black" } }}
-                  size="small"
-                  placeholder="Email"
-                />
-              </TextFieldContainerRowDiv>
-              <TextFieldContainerRowDiv>
-                <TextfieldIconContainerDiv>
-                  <TextfieldIcon src={PW_Icon} />
-                </TextfieldIconContainerDiv>
-                <InputField
-                  type="password"
-                  onChange={props.handleChange("Password")}
-                  value={props.values.Password}
-                  sx={{ input: { color: "black" } }}
-                  size="small"
-                  placeholder="Password"
-                />
-              </TextFieldContainerRowDiv>
+              <TextFieldColumn>
+                <TextFieldContainerRowDiv>
+                  <TextfieldIconContainerDiv>
+                    <TextfieldIcon src={User_Icon} />
+                  </TextfieldIconContainerDiv>
+                  <InputField
+                    onChange={props.handleChange("UserName")}
+                    value={props.values.UserName}
+                    sx={{ input: { color: "black" } }}
+                    size="small"
+                    placeholder="Username"
+                  />
+                </TextFieldContainerRowDiv>
+                {props.errors.UserName && props.touched.UserName ? (
+                  <Error>{props.errors.UserName}</Error>
+                ) : null}
+              </TextFieldColumn>
+              <TextFieldColumn>
+                <TextFieldContainerRowDiv>
+                  <TextfieldIconContainerDiv>
+                    <TextfieldIcon src={Envelope_Close} />
+                  </TextfieldIconContainerDiv>
+                  <InputField
+                    onChange={props.handleChange("Email")}
+                    value={props.values.Email}
+                    sx={{ input: { color: "black" } }}
+                    size="small"
+                    placeholder="Email"
+                  />
+                </TextFieldContainerRowDiv>
+                {props.errors.Email && props.touched.Email ? (
+                  <Error>{props.errors.Email}</Error>
+                ) : null}
+              </TextFieldColumn>
+              <TextFieldColumn>
+                <TextFieldContainerRowDiv>
+                  <TextfieldIconContainerDiv>
+                    <TextfieldIcon src={PW_Icon} />
+                  </TextfieldIconContainerDiv>
+                  <InputField
+                    type="password"
+                    onChange={props.handleChange("Password")}
+                    value={props.values.Password}
+                    sx={{ input: { color: "black" } }}
+                    size="small"
+                    placeholder="Password"
+                  />
+                </TextFieldContainerRowDiv>
+                {props.errors.Password && props.touched.Password ? (
+                  <Error>{props.errors.Password}</Error>
+                ) : null}
+              </TextFieldColumn>
+
               {!props.isSubmitting ? (
                 <Button
                   sx={{ marginBottom: "10px" }}
@@ -125,12 +154,28 @@ const SignUpScreen = () => {
                   Create Account
                 </Button>
               ) : (
-                <CircularProgress sx={{ alignSelf: "center" }} />
+                <CircularProgress
+                  sx={{ alignSelf: "center", margin: "10px" }}
+                />
               )}
             </>
           )}
         </Formik>
-
+        <Snackbar
+          open={openSnackBar}
+          autoHideDuration={4000}
+          message={snackBarMessage}
+          onClose={() => setOpenSnackBar(false)}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          <Alert
+            onClose={() => setOpenSnackBar(false)}
+            severity={severity}
+            sx={{ width: "100%" }}
+          >
+            {snackBarMessage}
+          </Alert>
+        </Snackbar>
         <Typography variant="login_gray_heading">
           By creating an account, you agree to our
           <ClickText href="#" underline="none">
