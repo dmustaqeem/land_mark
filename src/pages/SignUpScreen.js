@@ -64,7 +64,6 @@ const SignUpScreen = () => {
             Password: "",
           }}
           onSubmit={async (values, { resetForm }) => {
-            console.log("OnSubmit click", values);
             try {
               const { user } = await Auth.signUp({
                 username: values.UserName,
@@ -76,7 +75,7 @@ const SignUpScreen = () => {
               setSnackBarMessage("Success");
               setOpenSnackBar(true);
               setSeverity("success");
-              console.log(user);
+              console.log("sign up screen: ", user);
               resetForm();
               navigate("/confirmSignUp");
             } catch (error) {

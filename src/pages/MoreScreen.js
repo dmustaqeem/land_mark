@@ -63,7 +63,7 @@ const OptionDivider = styled(Divider)`
   width: 90%;
 `;
 
-const MoreScreen = () => {
+const MoreScreen = ({ setIsLoggedIn }) => {
   let navigate = useNavigate();
   return (
     <MainDiv>
@@ -122,6 +122,7 @@ const MoreScreen = () => {
             onClick={async () => {
               try {
                 const userSignout = await Auth.signOut();
+                setIsLoggedIn(false);
                 navigate("/signIn");
                 console.log("Sign out :", userSignout);
               } catch (error) {

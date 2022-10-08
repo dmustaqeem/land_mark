@@ -31,19 +31,16 @@ import {
   TextFieldColumn,
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import styled from "styled-components";
 
 const ReviewSchema = yup.object({
   UserName: yup.string().required("Please Enter Username"),
   Password: yup.string().required("Password error"),
 });
-const SignInScreen = () => {
+const SignInScreen = ({ setIsLoggedIn }) => {
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState("");
   const [severity, setSeverity] = useState("info");
-  let navigate = useNavigate();
   return (
     <BackgroundDiv>
       <MainColDiv>
@@ -64,12 +61,11 @@ const SignInScreen = () => {
             console.log("OnSubmit click", values);
             try {
               const user = await Auth.signIn(values.UserName, values.Password);
+              setIsLoggedIn(true);
               setSnackBarMessage("Success");
               setOpenSnackBar(true);
               setSeverity("success");
-              navigate("/welcome");
               resetForm();
-              console.log("Login screen :", user);
             } catch (error) {
               setSnackBarMessage("Error");
               setOpenSnackBar(true);

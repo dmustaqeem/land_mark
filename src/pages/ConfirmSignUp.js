@@ -32,17 +32,15 @@ import {
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const ReviewSchema = yup.object({
   UserName: yup.string().required("Please Enter Username"),
   Code: yup.number().required(),
 });
-const ConfirmSignUp = () => {
+const ConfirmSignUp = ({ setIsLoggedIn }) => {
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState("");
   const [severity, setSeverity] = useState("info");
-  let navigate = useNavigate();
   return (
     <BackgroundDiv>
       <MainColDiv>
@@ -70,8 +68,8 @@ const ConfirmSignUp = () => {
               setOpenSnackBar(true);
               setSeverity("success");
               console.log("ConfirmSign up : ", confirmSignUp);
+              setIsLoggedIn(true);
               resetForm();
-              navigate("/welcome");
             } catch (error) {
               setSnackBarMessage("Error");
               setOpenSnackBar(true);

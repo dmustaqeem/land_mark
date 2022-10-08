@@ -1,4 +1,4 @@
-import React, { Component }  from 'react';
+import React, { Component } from "react";
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 // import {
 //   HouseTwoToneIcon,
@@ -72,7 +72,7 @@ const FloatingButton = styled(Fab)`
   margin-bottom: 100px;
 `;
 
-const BottomNavBar = () => {
+const BottomNavBar = ({ setIsLoggedIn }) => {
   const [value, setValue] = useState(0);
   return (
     <>
@@ -83,7 +83,7 @@ const BottomNavBar = () => {
       ) : value == 3 ? (
         <ExperienceScreen />
       ) : value == 4 ? (
-        <MoreScreen />
+        <MoreScreen setIsLoggedIn={setIsLoggedIn} />
       ) : null}
 
       <NavigationBottom
