@@ -123,7 +123,7 @@ const MoreScreen = ({ setIsLoggedIn }) => {
               try {
                 const userSignout = await Auth.signOut();
                 setIsLoggedIn(false);
-                navigate("/signIn");
+                navigate("/");
                 console.log("Sign out :", userSignout);
               } catch (error) {
                 console.log("error signing out: ", error);

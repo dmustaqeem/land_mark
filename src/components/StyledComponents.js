@@ -130,6 +130,4 @@ export const ClickText = styled(Mui.Link)`
 `;
 
 export const ClickTextLower = styled(Mui.Link)``;
-export const InputField = styled(Mui.OutlinedInput)`
-  background-color: white;
-`;
+export const InputField = styled(Mui.OutlinedInput)``;

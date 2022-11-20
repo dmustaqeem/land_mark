@@ -79,7 +79,7 @@ const ForgotPasswordSubmitScreen = () => {
               setOpenSnackBar(true);
               setSeverity("success");
               resetForm();
-              navigate("/signIn");
+              navigate("/");
             } catch (error) {
               setSnackBarMessage("Error");
               setOpenSnackBar(true);

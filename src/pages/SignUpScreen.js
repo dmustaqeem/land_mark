@@ -187,7 +187,7 @@ const SignUpScreen = () => {
           <LowerIcon src={User_Icon2} />
           <ClickTextLower
             style={theme.typography.clicktext_lower_blue}
-            href="/signIn"
+            href="/"
             underline="none"
           >
             {"Login"}

@@ -5,12 +5,14 @@ import ForgotPasswordScreen from "./pages/ForgotPasswordScreen";
 import BottomNavBar from "./components/BottomNavBar";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import awsmobile from "./aws-exports";
-import { Auth } from "aws-amplify";
+import { Auth, API, Storage } from "aws-amplify";
 import ConfirmSignUp from "./pages/ConfirmSignUp";
 import ForgotPasswordSubmitScreen from "./pages/ForgotPasswordSubmitScreen";
 import { useEffect, useState } from "react";
 import ProtectedRoute from "./utils/ProtectedRoute";
 Auth.configure(awsmobile);
+API.configure(awsmobile);
+Storage.configure(awsmobile);
 
 const App = () => {
   const [loggedIn, setIsLoggedIn] = useState(false);
@@ -27,13 +29,12 @@ const App = () => {
       }
     };
     getCurrentUser();
-    console.log("App.js", loggedIn);
   }, [loggedIn]);
 
   return (
     <Routes>
       <Route
-        path="/signIn"
+        path="/"
         element={<SignInScreen setIsLoggedIn={setIsLoggedIn} />}
       />
       <Route path="/signUp" element={<SignUpScreen />} />

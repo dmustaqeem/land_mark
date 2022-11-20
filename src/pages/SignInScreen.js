@@ -1,14 +1,10 @@
 import React, { Component } from "react";
 import PW_Icon from "../assets/images/Pw_Icon.svg";
-import User_Icon from "../assets/images/User_Icon.svg";
+import User_Icon from "../assets/images/User_Icon.png";
 import Logo1 from "../assets/images/LndMark_logo.svg";
-import {
-  Typography,
-  CircularProgress,
-  Snackbar,
-  Alert,
-  Button,
-} from "@mui/material";
+import styled from "styled-components";
+import { Typography, CircularProgress, Snackbar, Alert } from "@mui/material";
+import Button from "@mui/material/Button";
 import theme from "../Theme";
 import Signup_Icon from "../assets/images/Signup_Icon.svg";
 import Help_Icon from "../assets/images/Help_Icon.svg";
@@ -32,11 +28,14 @@ import {
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { useState } from "react";
+import { Gradient } from "@mui/icons-material";
+import { yellow } from "@mui/material/colors";
 
 const ReviewSchema = yup.object({
   UserName: yup.string().required("Please Enter Username"),
   Password: yup.string().required("Password error"),
 });
+
 const SignInScreen = ({ setIsLoggedIn }) => {
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState("");
