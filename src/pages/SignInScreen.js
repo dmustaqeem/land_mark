@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PW_Icon from "../assets/images/Pw_Icon.svg";
-import User_Icon from "../assets/images/User_Icon.png";
+import User_Icon from "../assets/images/User_Icon.svg";
 import Logo1 from "../assets/images/LndMark_logo.svg";
 import styled from "styled-components";
 import { Typography, CircularProgress, Snackbar, Alert } from "@mui/material";
