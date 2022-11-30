@@ -1,43 +1,33 @@
 import React, { Component } from "react";
-import styled from "styled-components";
-import Envelope_Open from "../assets/images/Envelope_Open_Icon.svg";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+import QuestionMarkSharpIcon from "@mui/icons-material/QuestionMarkSharp";
 import Logo1 from "../assets/images/LndMark_logo.svg";
-import { Typography, Snackbar, Alert } from "@mui/material";
+import { Typography, Snackbar, Alert, CircularProgress } from "@mui/material";
 import Button from "@mui/material/Button";
 import theme from "../Theme";
-import User_Icon2 from "../assets/images/User_Icon2.svg";
-import Help_Icon from "../assets/images/Help_Icon.svg";
 import { useState } from "react";
-
 import {
-  LowerIcon,
-  LowerButtonContainerDiv,
-  BackgroundDiv,
-  MainColDiv,
   Logo,
-  TextFieldContainerRowDiv,
-  TextfieldIconContainerDiv,
-  TextfieldIcon,
-  InputField,
-  LowerRowDiv,
   ClickTextLower,
-  TextFieldColumn,
   Error,
+  MainContainer,
+  LogoHeader,
+  HelpButton,
+  ColumnContainer,
+  signUpHeadingStylePrimary,
+  signUpHeadingStyleSecondary,
+  ItemsCard,
+  RowContainer,
+  iconStyle,
+  textFieldLabelStyle,
+  StyledTextField,
+  ButtonStyle,
+  LinkStyle,
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
-
-const ClickButton = styled(Button)``;
-const ButtonRowDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 95%;
-  height: fit-content;
-  justify-content: space-between;
-  margin-top: 15px;
-`;
 
 const ReviewSchema = yup.object({
   UserName: yup.string().required("Please enter correct Username"),
@@ -48,15 +38,37 @@ const ForgotPasswordScreen = () => {
   const [severity, setSeverity] = useState("info");
   let navigate = useNavigate();
   return (
-    <BackgroundDiv>
-      <MainColDiv>
+    <MainContainer>
+      <LogoHeader>
+        <div
+          style={{
+            height: "30px",
+            width: "30px",
+          }}
+        ></div>
         <Logo src={Logo1} />
-        <Typography variant="login_blue_heading">
-          Forgot your Password?
+        <HelpButton>
+          <QuestionMarkSharpIcon
+            style={{
+              fontSize: "22px",
+              color: "#9DA7C1",
+            }}
+          />
+        </HelpButton>
+      </LogoHeader>
+      <ColumnContainer
+        style={{
+          gap: theme.spacing(3),
+        }}
+      >
+        <Typography style={signUpHeadingStylePrimary}>
+          Forgot Your Password?
         </Typography>
-        <Typography variant="login_gray_heading">
-          Enter your username below to reset your password.
+        <Typography style={signUpHeadingStyleSecondary}>
+          Enter your username to recover password.
         </Typography>
+      </ColumnContainer>
+      <ItemsCard>
         <Formik
           validationSchema={ReviewSchema}
           initialValues={{
@@ -83,80 +95,80 @@ const ForgotPasswordScreen = () => {
             }
           }}
         >
-          {(props) => {
-            return (
-              <>
-                <TextFieldColumn>
-                  <TextFieldContainerRowDiv>
-                    <TextfieldIconContainerDiv>
-                      <TextfieldIcon src={Envelope_Open} />
-                    </TextfieldIconContainerDiv>
-                    <InputField
-                      onChange={props.handleChange("UserName")}
-                      value={props.values.UserName}
-                      size="small"
-                      placeholder="User name"
-                      sx={{ input: { color: "black" } }}
-                    />
-                  </TextFieldContainerRowDiv>
-                  {props.errors.UserName && props.touched.UserName ? (
-                    <Error>{props.errors.UserName}</Error>
-                  ) : null}
-                </TextFieldColumn>
-                <ButtonRowDiv>
-                  <ClickButton
-                    onClick={props.handleSubmit}
-                    style={theme.Submit_Button_blue}
-                  >
-                    Submit
-                  </ClickButton>
-                  <ClickButton style={theme.Submit_Button_gray}>
-                    Cancel
-                  </ClickButton>
-                </ButtonRowDiv>
-              </>
-            );
-          }}
+          {(props) => (
+            <>
+              <ColumnContainer>
+                <RowContainer>
+                  <PersonRoundedIcon style={iconStyle} />
+                  <Typography style={textFieldLabelStyle}>Username</Typography>
+                </RowContainer>
+                <StyledTextField
+                  onChange={props.handleChange("UserName")}
+                  value={props.values.UserName}
+                  size="medium"
+                  variant="outlined"
+                />
+                {props.errors.UserName && props.touched.UserName ? (
+                  <Error>{props.errors.UserName}</Error>
+                ) : null}
+              </ColumnContainer>
+              {!props.isSubmitting ? (
+                <Button
+                  onClick={props.handleSubmit}
+                  style={ButtonStyle}
+                  variant="contained"
+                >
+                  Submit
+                </Button>
+              ) : (
+                <CircularProgress
+                  sx={{ alignSelf: "center", margin: "10px" }}
+                />
+              )}
+            </>
+          )}
         </Formik>
-        <Snackbar
-          open={openSnackBar}
-          autoHideDuration={4000}
-          message={snackBarMessage}
+      </ItemsCard>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography style={signUpHeadingStyleSecondary}>Read our</Typography>
+        <ClickTextLower style={LinkStyle} href="#">
+          {"Terms & Privacy Policy"}
+        </ClickTextLower>
+      </div>
+
+      <Snackbar
+        open={openSnackBar}
+        autoHideDuration={4000}
+        message={snackBarMessage}
+        onClose={() => setOpenSnackBar(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
           onClose={() => setOpenSnackBar(false)}
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          severity={severity}
+          sx={{ width: "100%" }}
         >
-          <Alert
-            onClose={() => setOpenSnackBar(false)}
-            severity={severity}
-            sx={{ width: "100%" }}
-          >
-            {snackBarMessage}
-          </Alert>
-        </Snackbar>
-      </MainColDiv>
-      <LowerRowDiv>
-        <LowerButtonContainerDiv>
-          <LowerIcon src={User_Icon2} />
-          <ClickTextLower
-            style={theme.typography.clicktext_lower_blue}
-            href="/"
-            underline="none"
-          >
-            {"Login"}
-          </ClickTextLower>
-        </LowerButtonContainerDiv>
-        <LowerButtonContainerDiv>
-          <LowerIcon src={Help_Icon} />
-          <ClickTextLower
-            style={theme.typography.clicktext_lower_blue}
-            href="#"
-            underline="none"
-          >
-            {"Help"}
-          </ClickTextLower>
-        </LowerButtonContainerDiv>
-      </LowerRowDiv>
-    </BackgroundDiv>
+          {snackBarMessage}
+        </Alert>
+      </Snackbar>
+      <Typography
+        style={{
+          fontSize: "16px",
+          lineHeight: "19.79px",
+        }}
+      >
+        Already have an account?{" "}
+        <ClickTextLower style={LinkStyle} href="/">
+          {"Log In"}
+        </ClickTextLower>
+      </Typography>
+    </MainContainer>
   );
 };
 export default ForgotPasswordScreen;

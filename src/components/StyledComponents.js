@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Background from "../assets/images/Background.png";
 import * as Mui from "@mui/material";
+import theme from "../Theme";
 
 export const TypographyRowDiv = styled.div`
   display: flex;
@@ -25,13 +26,6 @@ export const Error = styled.div`
   font-size: 13px;
 `;
 
-export const TextFieldColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 60px;
-  margin-bottom: 5px;
-  align-items: center;
-`;
 export const SubHeadingCardDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -56,78 +50,127 @@ export const MainDiv = styled.div`
   margin-bottom: 100px;
 `;
 
-export const BackgroundDiv = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  background-image: url(${Background});
-  position: absolute;
-  background-attachment: fixed;
-  background-size: cover;
-  justify-content: space-around;
-  align-items: center;
-`;
-export const MainColDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 80%;
-  max-width: 290px;
-  align-items: center;
-  justify-content: center;
-`;
-export const LowerRowDiv = styled.div`
-  justify-content: space-between;
-  display: flex;
-  flex-direction: row;
-  height: 5%;
-  width: 95%;
-`;
 export const Logo = styled.img`
-  width: 80%;
-  margin-bottom: 20px;
-`;
-export const LowerButtonContainerDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  width: 80px;
-  justify-content: center;
-  align-items: center;
-`;
-export const LowerIcon = styled.img`
-  height: 35%;
-  width: 35%;
-  color: #005d9e;
+  width: 190px;
+  height: 59px;
+  /* margin-bottom: 20px; */
 `;
 
-export const TextFieldContainerRowDiv = styled.div`
+export const StyledTextField = styled(Mui.TextField)`
+  fieldset {
+    border-radius: 14px;
+  }
+`;
+
+export const MainContainer = styled.div`
+  display: flex;
+  /* padding-top: ${theme.spacing(6)}; */
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(180deg, #f3faff 0%, rgba(243, 250, 255, 0) 100%);
+  justify-content: space-evenly;
+`;
+
+export const LogoHeader = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: fit-content;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-evenly;
 `;
-export const TextfieldIcon = styled.img`
-  background-color: #005d9e;
-  height: 50%;
+
+export const RowContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: ${theme.spacing(2)};
 `;
-export const TextfieldIconContainerDiv = styled.div`
+export const ColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #005d9e;
+  gap: ${theme.spacing(2)};
+`;
+
+export const socialButtonStyle = {
+  height: 60,
+  width: 60,
+  borderRadius: 60,
+  boxShadow: ` 0px 6px 30px rgba(30, 61, 83, 0.08)`,
+};
+export const HelpButton = styled.div`
+  display: flex;
+  flex-direction: row;
+  height: 43.5px;
+  width: 43.5px;
+  border-radius: 12px;
+  border: 1px solid #dcecf6;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  width: 50px;
-`;
-export const ClickText = styled(Mui.Link)`
-  font-family: "Lato";
-  font-weight: 400;
-  font-size: 10px;
-  color: #005d9e;
   cursor: pointer;
 `;
+export const signUpHeadingStylePrimary = {
+  fontFamily: "Lato",
+  fontWeight: "600",
+  fontSize: "20px",
+  lineHeight: "25px",
+  textAlign: "center",
+  color: "#0088DF",
+};
+export const signUpHeadingStyleSecondary = {
+  fontFamily: "Lato",
+  fontWeight: "400",
+  fontSize: "14px",
+  lineHeight: "17px",
+  textAlign: "center",
+  color: "#8EA2AF",
+};
+export const textFieldLabelStyle = {
+  fontFamily: "Lato",
 
-export const ClickTextLower = styled(Mui.Link)``;
-export const InputField = styled(Mui.OutlinedInput)``;
+  fontWeight: 400,
+  fontSize: "13px",
+  lineHeight: "16px",
+  color: " #656565",
+};
+export const LinkStyle = {
+  color: "#0088df",
+  fontSize: "14px",
+  fontWeight: 600,
+};
+
+export const iconStyle = {
+  color: "#0088DF",
+  height: "20px",
+  width: "20px",
+};
+
+export const ButtonStyle = {
+  height: "50px",
+  BackgroundColor: "#0088DF",
+  borderRadius: "12px",
+  fontWeight: "600",
+  fontSize: "13px",
+  lineHeight: "20px",
+  textTransform: "unset",
+};
+export const ItemsCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  @media (max-width: 340px) {
+    width: 310px;
+  }
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  background-color: white;
+  border-radius: 12px;
+  gap: ${theme.spacing(5)};
+  padding: ${theme.spacing(4)};
+`;
+
+export const ClickTextLower = styled(Mui.Link)`
+  align-self: center;
+  cursor: pointer;
+`;
+// export const InputField = styled(Mui.OutlinedInput)``;

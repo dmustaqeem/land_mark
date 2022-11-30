@@ -9,6 +9,31 @@ import "@fontsource/archivo-black";
 import "@fontsource/catamaran";
 
 const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
+  palette: {
+    primary: {
+      main: "red",
+      dark: "#13413B",
+    },
+    secondary: {
+      main: "red",
+    },
+    text: {
+      primary: "#13413B",
+      secondary: "blue",
+    },
+  },
+
+  spacing: [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024],
+
   more_divider: {
     backgroundColor: "#F4F5F8",
     border: "none",
@@ -113,19 +138,21 @@ const theme = createTheme({
     },
     login_blue_heading: {
       fontFamily: "Lato",
-      fontSize: 17,
-      fontWeight: 900,
-      color: "#0099F1",
+      fontSize: "20px",
+      lineHeight: "24.66px",
+      fontWeight: 600,
+      // color: "#0099F1",
       textAlign: "center",
       //   lineHeight: "43.2px",
     },
     login_gray_heading: {
       textAlign: "center",
       fontFamily: "Lato",
-      fontSize: 10,
+      fontSize: 14,
+      lineHeight: "17.26px",
       fontWeight: 500,
-      color: "#4B4D52",
-      marginBottom: "14px",
+      // color: "#4B4D52",
+      // marginBottom: "14px",
       //   lineHeight: "43.2px",
     },
     clicktext_lower_blue: {

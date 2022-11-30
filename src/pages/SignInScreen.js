@@ -1,55 +1,83 @@
 import React, { Component } from "react";
-import PW_Icon from "../assets/images/Pw_Icon.svg";
-import User_Icon from "../assets/images/User_Icon.svg";
 import Logo1 from "../assets/images/LndMark_logo.svg";
-import styled from "styled-components";
+import "@fontsource/lato";
 import { Typography, CircularProgress, Snackbar, Alert } from "@mui/material";
 import Button from "@mui/material/Button";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import theme from "../Theme";
-import Signup_Icon from "../assets/images/Signup_Icon.svg";
-import Help_Icon from "../assets/images/Help_Icon.svg";
+
 import { Formik } from "formik";
+import "@fontsource/lato";
+import { SocialIcon } from "react-social-icons";
+import QuestionMarkSharpIcon from "@mui/icons-material/QuestionMarkSharp";
 import * as yup from "yup";
 import {
-  LowerIcon,
   Error,
-  LowerButtonContainerDiv,
-  BackgroundDiv,
-  MainColDiv,
   Logo,
-  TextFieldContainerRowDiv,
-  TextfieldIconContainerDiv,
-  TextfieldIcon,
-  InputField,
-  LowerRowDiv,
   ClickTextLower,
-  ClickText,
-  TextFieldColumn,
+  MainContainer,
+  LogoHeader,
+  HelpButton,
+  ColumnContainer,
+  signUpHeadingStylePrimary,
+  signUpHeadingStyleSecondary,
+  ItemsCard,
+  RowContainer,
+  iconStyle,
+  textFieldLabelStyle,
+  StyledTextField,
+  ButtonStyle,
+  LinkStyle,
+  socialButtonStyle,
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { useState } from "react";
-import { Gradient } from "@mui/icons-material";
-import { yellow } from "@mui/material/colors";
-
-const ReviewSchema = yup.object({
-  UserName: yup.string().required("Please Enter Username"),
-  Password: yup.string().required("Password error"),
-});
+import LockIcon from "@mui/icons-material/Lock";
+import { useNavigate } from "react-router-dom";
 
 const SignInScreen = ({ setIsLoggedIn }) => {
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState("");
   const [severity, setSeverity] = useState("info");
+
+  const navigate = useNavigate();
+
+  const ReviewSchema = yup.object({
+    UserName: yup.string().required("Please Enter Username"),
+    Password: yup.string().required("Password error"),
+  });
   return (
-    <BackgroundDiv>
-      <MainColDiv>
+    <MainContainer>
+      <LogoHeader>
+        <div
+          style={{
+            height: "30px",
+            width: "30px",
+          }}
+        ></div>
         <Logo src={Logo1} />
-        <Typography variant="login_blue_heading">
-          Login to your account
+        <HelpButton>
+          <QuestionMarkSharpIcon
+            style={{
+              fontSize: "22px",
+              color: "#9DA7C1",
+            }}
+          />
+        </HelpButton>
+      </LogoHeader>
+      <ColumnContainer
+        style={{
+          gap: theme.spacing(3),
+        }}
+      >
+        <Typography style={signUpHeadingStylePrimary}>
+          Login to Your Account
         </Typography>
-        <Typography variant="login_gray_heading">
-          Enter your username and password to login.
+        <Typography style={signUpHeadingStyleSecondary}>
+          Enter your username and password to login
         </Typography>
+      </ColumnContainer>
+      <ItemsCard>
         <Formik
           validationSchema={ReviewSchema}
           initialValues={{
@@ -77,49 +105,46 @@ const SignInScreen = ({ setIsLoggedIn }) => {
         >
           {(props) => (
             <>
-              <TextFieldColumn>
-                <TextFieldContainerRowDiv>
-                  <TextfieldIconContainerDiv>
-                    <TextfieldIcon src={User_Icon} />
-                  </TextfieldIconContainerDiv>
-                  <InputField
-                    onChange={props.handleChange("UserName")}
-                    value={props.values.UserName}
-                    sx={{ input: { color: "black" } }}
-                    size="small"
-                    placeholder="Username"
-                  />
-                </TextFieldContainerRowDiv>
+              <ColumnContainer>
+                <RowContainer>
+                  <PersonRoundedIcon style={iconStyle} />
+                  <Typography style={textFieldLabelStyle}>Username</Typography>
+                </RowContainer>
+                <StyledTextField
+                  onChange={props.handleChange("UserName")}
+                  value={props.values.UserName}
+                  size="medium"
+                  variant="outlined"
+                />
                 {props.errors.UserName && props.touched.UserName ? (
                   <Error>{props.errors.UserName}</Error>
                 ) : null}
-              </TextFieldColumn>
-              <TextFieldColumn>
-                <TextFieldContainerRowDiv>
-                  <TextfieldIconContainerDiv>
-                    <TextfieldIcon src={PW_Icon} />
-                  </TextfieldIconContainerDiv>
-                  <InputField
-                    onChange={props.handleChange("Password")}
-                    value={props.values.Password}
-                    type="password"
-                    sx={{ input: { color: "black" } }}
-                    size="small"
-                    placeholder="Password"
-                  />
-                </TextFieldContainerRowDiv>
-                {props.errors.Password && props.touched.Password ? (
+              </ColumnContainer>
+              <ColumnContainer>
+                <RowContainer>
+                  <LockIcon style={iconStyle} />
+                  <Typography style={textFieldLabelStyle}>Password</Typography>
+                </RowContainer>
+                <StyledTextField
+                  onChange={props.handleChange("Password")}
+                  value={props.values.Password}
+                  type={"password"}
+                  size="medium"
+                  variant="outlined"
+                />
+
+                {props.errors.UserName && props.touched.Password ? (
                   <Error>{props.errors.Password}</Error>
                 ) : null}
-              </TextFieldColumn>
+              </ColumnContainer>
 
               {!props.isSubmitting ? (
                 <Button
-                  sx={{ marginBottom: "10px" }}
-                  style={theme.login_Button}
                   onClick={props.handleSubmit}
+                  style={ButtonStyle}
+                  variant="contained"
                 >
-                  Sign in
+                  Login
                 </Button>
               ) : (
                 <CircularProgress
@@ -129,49 +154,63 @@ const SignInScreen = ({ setIsLoggedIn }) => {
             </>
           )}
         </Formik>
-        <Snackbar
-          open={openSnackBar}
-          autoHideDuration={4000}
-          message={snackBarMessage}
-          onClose={() => setOpenSnackBar(false)}
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        >
-          <Alert
-            onClose={() => setOpenSnackBar(false)}
-            severity={severity}
-            sx={{ width: "100%" }}
-          >
-            {snackBarMessage}
-          </Alert>
-        </Snackbar>
 
-        <ClickText href="/forgotpassword" underline="none">
-          {"Forgot your password?"}
-        </ClickText>
-      </MainColDiv>
-      <LowerRowDiv>
-        <LowerButtonContainerDiv>
-          <LowerIcon src={Signup_Icon} />
-          <ClickTextLower
-            style={theme.typography.clicktext_lower_blue}
-            href="/signUp"
-            underline="none"
-          >
-            {"Sign up"}
-          </ClickTextLower>
-        </LowerButtonContainerDiv>
-        <LowerButtonContainerDiv>
-          <LowerIcon src={Help_Icon} />
-          <ClickTextLower
-            style={theme.typography.clicktext_lower_blue}
-            href="#"
-            underline="none"
-          >
-            {"Help"}
-          </ClickTextLower>
-        </LowerButtonContainerDiv>
-      </LowerRowDiv>
-    </BackgroundDiv>
+        <ClickTextLower style={LinkStyle} href="/forgotpassword">
+          {"Forgot Your Password?"}
+        </ClickTextLower>
+      </ItemsCard>
+      <Typography style={signUpHeadingStyleSecondary}>or login with</Typography>
+      <RowContainer
+        style={{
+          gap: theme.spacing(4),
+        }}
+      >
+        <SocialIcon
+          style={socialButtonStyle}
+          network="facebook"
+          bgColor="white"
+          fgColor="#4E74C3"
+        />
+        <SocialIcon
+          style={socialButtonStyle}
+          network="twitter"
+          bgColor="white"
+          fgColor="#15B6FC"
+        />
+        <SocialIcon
+          style={socialButtonStyle}
+          network="google"
+          bgColor="white"
+          fgColor="blue"
+        />
+      </RowContainer>
+      <Snackbar
+        open={openSnackBar}
+        autoHideDuration={4000}
+        message={snackBarMessage}
+        onClose={() => setOpenSnackBar(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          onClose={() => setOpenSnackBar(false)}
+          severity={severity}
+          sx={{ width: "100%" }}
+        >
+          {snackBarMessage}
+        </Alert>
+      </Snackbar>
+      <Typography
+        style={{
+          fontSize: "16px",
+          lineHeight: "19.79px",
+        }}
+      >
+        Don’t have an account?{" "}
+        <ClickTextLower style={LinkStyle} href="/signup">
+          {"Sign Up"}
+        </ClickTextLower>
+      </Typography>
+    </MainContainer>
   );
 };
 export default SignInScreen;

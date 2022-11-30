@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import PW_Icon from "../assets/images/Pw_Icon.svg";
-import User_Icon from "../assets/images/User_Icon.svg";
 import Logo1 from "../assets/images/LndMark_logo.svg";
 import {
   Typography,
@@ -9,29 +7,34 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import theme from "../Theme";
-import Signup_Icon from "../assets/images/Signup_Icon.svg";
-import Help_Icon from "../assets/images/Help_Icon.svg";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+import { useNavigate } from "react-router-dom";
+
 import { Formik } from "formik";
 import * as yup from "yup";
 import {
-  LowerIcon,
-  LowerButtonContainerDiv,
-  BackgroundDiv,
-  MainColDiv,
   Logo,
-  TextFieldContainerRowDiv,
-  TextfieldIconContainerDiv,
-  TextfieldIcon,
-  InputField,
-  LowerRowDiv,
   ClickTextLower,
-  ClickText,
-  TextFieldColumn,
   Error,
+  MainContainer,
+  LogoHeader,
+  HelpButton,
+  ColumnContainer,
+  signUpHeadingStylePrimary,
+  signUpHeadingStyleSecondary,
+  ItemsCard,
+  RowContainer,
+  iconStyle,
+  textFieldLabelStyle,
+  StyledTextField,
+  ButtonStyle,
+  LinkStyle,
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { useState } from "react";
+import QuestionMarkSharpIcon from "@mui/icons-material/QuestionMarkSharp";
 
 const ReviewSchema = yup.object({
   UserName: yup.string().required("Please Enter Username"),
@@ -41,16 +44,40 @@ const ConfirmSignUp = ({ setIsLoggedIn }) => {
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState("");
   const [severity, setSeverity] = useState("info");
+  let navigate = useNavigate();
+
   return (
-    <BackgroundDiv>
-      <MainColDiv>
+    <MainContainer>
+      <LogoHeader>
+        <div
+          style={{
+            height: "30px",
+            width: "30px",
+          }}
+        ></div>
         <Logo src={Logo1} />
-        <Typography variant="login_blue_heading">
-          Login to your account
+        <HelpButton>
+          <QuestionMarkSharpIcon
+            style={{
+              fontSize: "22px",
+              color: "#9DA7C1",
+            }}
+          />
+        </HelpButton>
+      </LogoHeader>
+      <ColumnContainer
+        style={{
+          gap: theme.spacing(3),
+        }}
+      >
+        <Typography style={signUpHeadingStylePrimary}>
+          Verify Your Email
         </Typography>
-        <Typography variant="login_gray_heading">
-          Enter verification code to sign up.
+        <Typography style={signUpHeadingStyleSecondary}>
+          Enter your verification code sent to entered email address.
         </Typography>
+      </ColumnContainer>
+      <ItemsCard>
         <Formik
           validationSchema={ReviewSchema}
           initialValues={{
@@ -82,107 +109,119 @@ const ConfirmSignUp = ({ setIsLoggedIn }) => {
         >
           {(props) => (
             <>
-              <TextFieldColumn>
-                <TextFieldContainerRowDiv>
-                  <TextfieldIconContainerDiv>
-                    <TextfieldIcon src={User_Icon} />
-                  </TextfieldIconContainerDiv>
-                  <InputField
-                    onChange={props.handleChange("UserName")}
-                    value={props.values.UserName}
-                    sx={{ input: { color: "black" } }}
-                    size="small"
-                    placeholder="Username"
-                  />
-                </TextFieldContainerRowDiv>
-              </TextFieldColumn>
-              <TextFieldColumn>
-                <TextFieldContainerRowDiv>
-                  <TextfieldIconContainerDiv>
-                    <TextfieldIcon src={PW_Icon} />
-                  </TextfieldIconContainerDiv>
-                  <InputField
-                    onChange={props.handleChange("Code")}
-                    value={props.values.Password}
-                    sx={{ input: { color: "black" } }}
-                    size="small"
-                    placeholder="Verification code"
-                  />
-                </TextFieldContainerRowDiv>
+              <ColumnContainer>
+                <RowContainer>
+                  <PersonRoundedIcon style={iconStyle} />
+                  <Typography style={textFieldLabelStyle}>Username</Typography>
+                </RowContainer>
+                <StyledTextField
+                  onChange={props.handleChange("UserName")}
+                  value={props.values.UserName}
+                  size="medium"
+                  variant="outlined"
+                />
+                {props.errors.UserName && props.touched.UserName ? (
+                  <Error>{props.errors.UserName}</Error>
+                ) : null}
+              </ColumnContainer>
+              <ColumnContainer>
+                <RowContainer>
+                  <VerifiedUserIcon style={iconStyle} />
+                  <Typography style={textFieldLabelStyle}>
+                    Verification Code
+                  </Typography>
+                </RowContainer>
+                <StyledTextField
+                  onChange={props.handleChange("Code")}
+                  value={props.values.Code}
+                  size="medium"
+                  variant="outlined"
+                  type={"number"}
+                />
                 {props.errors.Code && props.touched.Code ? (
                   <Error>{props.errors.Code}</Error>
                 ) : null}
-              </TextFieldColumn>
-
+              </ColumnContainer>
               {!props.isSubmitting ? (
                 <Button
-                  sx={{ marginBottom: "10px" }}
-                  style={theme.login_Button}
                   onClick={props.handleSubmit}
+                  style={ButtonStyle}
+                  variant="contained"
                 >
-                  Sign in
+                  Login
                 </Button>
               ) : (
                 <CircularProgress
                   sx={{ alignSelf: "center", margin: "10px" }}
                 />
               )}
+
+              <ClickTextLower
+                onClick={async () => {
+                  console.log("Resend verification code clicked");
+                  if (props.values.UserName) {
+                    try {
+                      await Auth.resendSignUp(props.values.UserName);
+                      console.log("code resent successfully");
+                    } catch (err) {
+                      console.log("error resending code: ", err);
+                    }
+                  } else {
+                    setSnackBarMessage("Error. Enter username please.");
+                    setOpenSnackBar(true);
+                    setSeverity("error");
+                  }
+                }}
+                // underline="none"
+              >
+                {"Resend verification code"}
+              </ClickTextLower>
             </>
           )}
         </Formik>
-        <Snackbar
-          open={openSnackBar}
-          autoHideDuration={4000}
-          message={snackBarMessage}
+      </ItemsCard>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography style={signUpHeadingStyleSecondary}>
+          By creating an account, you agree to our
+        </Typography>
+        <ClickTextLower style={LinkStyle} href="#">
+          {"Terms & Privacy Policy"}
+        </ClickTextLower>
+      </div>
+
+      <Snackbar
+        open={openSnackBar}
+        autoHideDuration={4000}
+        message={snackBarMessage}
+        onClose={() => setOpenSnackBar(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
           onClose={() => setOpenSnackBar(false)}
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          severity={severity}
+          sx={{ width: "100%" }}
         >
-          <Alert
-            onClose={() => setOpenSnackBar(false)}
-            severity={severity}
-            sx={{ width: "100%" }}
-          >
-            {snackBarMessage}
-          </Alert>
-        </Snackbar>
-        <ClickText
-          onClick={async () => {
-            console.log("Resend verification code clicked");
-            //    try {
-            //     await Auth.resendSignUp();
-            //     console.log('code resent successfully');
-            // } catch (err) {
-            //     console.log('error resending code: ', err);
-            // }
-          }}
-          underline="none"
-        >
-          {"Resend verification code"}
-        </ClickText>
-      </MainColDiv>
-      <LowerRowDiv>
-        <LowerButtonContainerDiv>
-          <LowerIcon src={Signup_Icon} />
-          <ClickTextLower
-            style={theme.typography.clicktext_lower_blue}
-            href="/signUp"
-            underline="none"
-          >
-            {"Sign up"}
-          </ClickTextLower>
-        </LowerButtonContainerDiv>
-        <LowerButtonContainerDiv>
-          <LowerIcon src={Help_Icon} />
-          <ClickTextLower
-            style={theme.typography.clicktext_lower_blue}
-            href="#"
-            underline="none"
-          >
-            {"Help"}
-          </ClickTextLower>
-        </LowerButtonContainerDiv>
-      </LowerRowDiv>
-    </BackgroundDiv>
+          {snackBarMessage}
+        </Alert>
+      </Snackbar>
+      <Typography
+        style={{
+          fontSize: "16px",
+          lineHeight: "19.79px",
+        }}
+      >
+        Already have an account?{" "}
+        <ClickTextLower style={LinkStyle} href="/">
+          {"Log In"}
+        </ClickTextLower>
+      </Typography>
+    </MainContainer>
   );
 };
 export default ConfirmSignUp;

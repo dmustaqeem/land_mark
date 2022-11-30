@@ -1,38 +1,36 @@
 import React, { Component } from "react";
-import styled from "styled-components";
-import Background from "../assets/images/Background.png";
-import PW_Icon from "../assets/images/Pw_Icon.svg";
-import User_Icon from "../assets/images/User_Icon.svg";
 import Logo1 from "../assets/images/LndMark_logo.svg";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+import QuestionMarkSharpIcon from "@mui/icons-material/QuestionMarkSharp";
+import LockIcon from "@mui/icons-material/Lock";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import {
   Typography,
   CircularProgress,
-  OutlinedInput,
-  Link,
   Button,
   Snackbar,
   Alert,
 } from "@mui/material";
 import theme from "../Theme";
-import Signup_Icon from "../assets/images/Signup_Icon.svg";
-import Help_Icon from "../assets/images/Help_Icon.svg";
 import { Formik } from "formik";
 import * as yup from "yup";
 import {
-  LowerIcon,
-  LowerButtonContainerDiv,
-  BackgroundDiv,
-  MainColDiv,
   Logo,
-  TextFieldContainerRowDiv,
-  TextfieldIconContainerDiv,
-  TextfieldIcon,
-  InputField,
-  LowerRowDiv,
   ClickTextLower,
-  ClickText,
-  TextFieldColumn,
   Error,
+  MainContainer,
+  LogoHeader,
+  HelpButton,
+  ColumnContainer,
+  signUpHeadingStylePrimary,
+  signUpHeadingStyleSecondary,
+  ItemsCard,
+  RowContainer,
+  iconStyle,
+  textFieldLabelStyle,
+  StyledTextField,
+  ButtonStyle,
+  LinkStyle,
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
@@ -49,15 +47,37 @@ const ForgotPasswordSubmitScreen = () => {
   const [severity, setSeverity] = useState("info");
   let navigate = useNavigate();
   return (
-    <BackgroundDiv>
-      <MainColDiv>
+    <MainContainer>
+      <LogoHeader>
+        <div
+          style={{
+            height: "30px",
+            width: "30px",
+          }}
+        ></div>
         <Logo src={Logo1} />
-        <Typography variant="login_blue_heading">
-          Login to your account
+        <HelpButton>
+          <QuestionMarkSharpIcon
+            style={{
+              fontSize: "22px",
+              color: "#9DA7C1",
+            }}
+          />
+        </HelpButton>
+      </LogoHeader>
+      <ColumnContainer
+        style={{
+          gap: theme.spacing(3),
+        }}
+      >
+        <Typography style={signUpHeadingStylePrimary}>
+          Reset Your Password?
         </Typography>
-        <Typography variant="login_gray_heading">
-          Enter verification code to sign up.
+        <Typography style={signUpHeadingStyleSecondary}>
+          Enter verification code along with new password.
         </Typography>
+      </ColumnContainer>
+      <ItemsCard>
         <Formik
           validationSchema={ReviewSchema}
           initialValues={{
@@ -92,133 +112,115 @@ const ForgotPasswordSubmitScreen = () => {
         >
           {(props) => (
             <>
-              <TextFieldColumn>
-                <TextFieldContainerRowDiv>
-                  <TextfieldIconContainerDiv>
-                    <TextfieldIcon src={User_Icon} />
-                  </TextfieldIconContainerDiv>
-                  <InputField
-                    onChange={props.handleChange("UserName")}
-                    value={props.values.UserName}
-                    sx={{ input: { color: "black" } }}
-                    size="small"
-                    placeholder="Username"
-                  />
-                </TextFieldContainerRowDiv>
+              <ColumnContainer>
+                <RowContainer>
+                  <PersonRoundedIcon style={iconStyle} />
+                  <Typography style={textFieldLabelStyle}>Username</Typography>
+                </RowContainer>
+                <StyledTextField
+                  onChange={props.handleChange("UserName")}
+                  value={props.values.UserName}
+                  size="medium"
+                  variant="outlined"
+                />
                 {props.errors.UserName && props.touched.UserName ? (
                   <Error>{props.errors.UserName}</Error>
                 ) : null}
-              </TextFieldColumn>
-              <TextFieldColumn>
-                <TextFieldContainerRowDiv>
-                  <TextfieldIconContainerDiv>
-                    <TextfieldIcon src={PW_Icon} />
-                  </TextfieldIconContainerDiv>
-                  <InputField
-                    onChange={props.handleChange("Code")}
-                    value={props.values.Password}
-                    sx={{ input: { color: "black" } }}
-                    size="small"
-                    placeholder="Verification code"
-                  />
-                </TextFieldContainerRowDiv>
-                {props.errors.UserName && props.touched.UserName ? (
-                  <Error>{props.errors.UserName}</Error>
+              </ColumnContainer>
+              <ColumnContainer>
+                <RowContainer>
+                  <VerifiedUserIcon style={iconStyle} />
+                  <Typography style={textFieldLabelStyle}>
+                    Verification Code
+                  </Typography>
+                </RowContainer>
+                <StyledTextField
+                  onChange={props.handleChange("Code")}
+                  value={props.values.Code}
+                  size="medium"
+                  variant="outlined"
+                  type={"number"}
+                />
+                {props.errors.Code && props.touched.Code ? (
+                  <Error>{props.errors.Code}</Error>
                 ) : null}
-              </TextFieldColumn>
-              <TextFieldColumn>
-                <TextFieldContainerRowDiv>
-                  <TextfieldIconContainerDiv>
-                    <TextfieldIcon src={PW_Icon} />
-                  </TextfieldIconContainerDiv>
-                  <InputField
-                    onChange={props.handleChange("NewPassword")}
-                    value={props.values.NewPassword}
-                    type="password"
-                    sx={{ input: { color: "black" } }}
-                    size="small"
-                    placeholder="New password"
-                  />
-                </TextFieldContainerRowDiv>
+              </ColumnContainer>
+              <ColumnContainer>
+                <RowContainer>
+                  <LockIcon style={iconStyle} />
+                  <Typography style={textFieldLabelStyle}>
+                    New Password
+                  </Typography>
+                </RowContainer>
+                <StyledTextField
+                  onChange={props.handleChange("NewPassword")}
+                  value={props.values.NewPassword}
+                  type={"password"}
+                  size="medium"
+                  variant="outlined"
+                />
+
                 {props.errors.NewPassword && props.touched.NewPassword ? (
                   <Error>{props.errors.NewPassword}</Error>
                 ) : null}
-              </TextFieldColumn>
-
+              </ColumnContainer>
               {!props.isSubmitting ? (
                 <Button
-                  sx={{ marginBottom: "10px" }}
-                  style={theme.login_Button}
                   onClick={props.handleSubmit}
+                  style={ButtonStyle}
+                  variant="contained"
                 >
-                  Change Password
+                  Submit
                 </Button>
               ) : (
-                <CircularProgress sx={{ alignSelf: "center" }} />
+                <CircularProgress
+                  sx={{ alignSelf: "center", margin: "10px" }}
+                />
               )}
-              <ClickText
-                onClick={async () => {
-                  console.log("Resend verification code clicked");
-                  console.log("Username value : ", props.values.UserName);
-                  try {
-                    await Auth.forgotPassword(props.values.UserName);
-                    setSnackBarMessage("Success");
-                    setOpenSnackBar(true);
-                    setSeverity("success");
-                    console.log("code resent successfully");
-                  } catch (err) {
-                    setSnackBarMessage("Error");
-                    setOpenSnackBar(true);
-                    setSeverity("error");
-                    console.log("error resending code: ", err);
-                  }
-                }}
-                underline="none"
-              >
-                {"Resend verification code"}
-              </ClickText>
             </>
           )}
         </Formik>
-        <Snackbar
-          open={openSnackBar}
-          autoHideDuration={4000}
-          message={snackBarMessage}
+      </ItemsCard>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography style={signUpHeadingStyleSecondary}>Read our</Typography>
+        <ClickTextLower style={LinkStyle} href="#">
+          {"Terms & Privacy Policy"}
+        </ClickTextLower>
+      </div>
+
+      <Snackbar
+        open={openSnackBar}
+        autoHideDuration={4000}
+        message={snackBarMessage}
+        onClose={() => setOpenSnackBar(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
           onClose={() => setOpenSnackBar(false)}
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          severity={severity}
+          sx={{ width: "100%" }}
         >
-          <Alert
-            onClose={() => setOpenSnackBar(false)}
-            severity={severity}
-            sx={{ width: "100%" }}
-          >
-            {snackBarMessage}
-          </Alert>
-        </Snackbar>
-      </MainColDiv>
-      <LowerRowDiv>
-        <LowerButtonContainerDiv>
-          <LowerIcon src={Signup_Icon} />
-          <ClickTextLower
-            style={theme.typography.clicktext_lower_blue}
-            href="/signUp"
-            underline="none"
-          >
-            {"Sign up"}
-          </ClickTextLower>
-        </LowerButtonContainerDiv>
-        <LowerButtonContainerDiv>
-          <LowerIcon src={Help_Icon} />
-          <ClickTextLower
-            style={theme.typography.clicktext_lower_blue}
-            href="#"
-            underline="none"
-          >
-            {"Help"}
-          </ClickTextLower>
-        </LowerButtonContainerDiv>
-      </LowerRowDiv>
-    </BackgroundDiv>
+          {snackBarMessage}
+        </Alert>
+      </Snackbar>
+      <Typography
+        style={{
+          fontSize: "16px",
+          lineHeight: "19.79px",
+        }}
+      >
+        Already have an account?{" "}
+        <ClickTextLower style={LinkStyle} href="/">
+          {"Log In"}
+        </ClickTextLower>
+      </Typography>
+    </MainContainer>
   );
 };
 export default ForgotPasswordSubmitScreen;
