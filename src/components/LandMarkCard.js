@@ -20,16 +20,16 @@ const TypoRowDiv = styled.div`
 const ImageDiv = styled.div`
   display: flex;
   flex-direction: row;
-  background-image: url(${FM});
+  background-image: ${(props) => `url(${props.image})`};
   background-size: contain;
-  /* background-repeat: no-repeat; */
+  background-repeat: no-repeat;
   height: 150px;
   @media (max-height: 700px) {
     height: 90px;
   }
   min-height: 50px;
   border-radius: 10px;
-  margin: 10px;
+  /* margin: 10px; */
   justify-content: space-between;
   padding: 6px;
 `;
@@ -37,10 +37,10 @@ const ImageDiv = styled.div`
 const MuiCardContent = styled(CardContent)`
   padding-top: 0;
   padding-bottom: 0;
-  margin-bottom: 6px;
+  /* margin-bottom: 6px; */
 `;
 
-const LandMarkCard = ({ LandMark_Name, Category, Distance }) => {
+const LandMarkCard = ({ LandMark_Name, Category, Distance, image }) => {
   const [redHeart, setRedHeart] = useState("white");
 
   const handleHeartClick = () => {
@@ -61,7 +61,7 @@ const LandMarkCard = ({ LandMark_Name, Category, Distance }) => {
       }}
     >
       <CardActionArea>
-        <ImageDiv>
+        <ImageDiv image={image}>
           <FavoriteIcon sx={{ color: redHeart }} onClick={handleHeartClick} />
           <ShareRoundedIcon
             sx={{ color: "white" }}

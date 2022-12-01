@@ -16,13 +16,16 @@ Storage.configure(awsmobile);
 
 const App = () => {
   const [loggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
   let navigate = useNavigate();
 
   useEffect(() => {
     const getCurrentUser = async () => {
       let user = await Auth.currentAuthenticatedUser();
+
       if (user) {
         setIsLoggedIn(true);
+        setUsername(user.signInUserSession.accessToken.payload.username);
         navigate("/welcome");
       } else {
         setIsLoggedIn(false);
@@ -51,7 +54,9 @@ const App = () => {
       <Route element={<ProtectedRoute user={loggedIn} />}>
         <Route
           path="/welcome"
-          element={<BottomNavBar setIsLoggedIn={setIsLoggedIn} />}
+          element={
+            <BottomNavBar username={username} setIsLoggedIn={setIsLoggedIn} />
+          }
         />
       </Route>
     </Routes>

@@ -63,6 +63,7 @@ const DiscoverScreen = () => {
                 LandMark_Name={landmark.LandMark_Name}
                 Category={landmark.Category}
                 Distance={landmark.Distance}
+                image={landmark.image}
               />
             );
           })}

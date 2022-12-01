@@ -10,7 +10,7 @@ import { useState } from "react";
 const WhiteBorderTextField = styled(TextField)`
   & .MuiOutlinedInput-root {
     & fieldset {
-      border-color: white;
+      border-color: #dcecf6;
     }
     &:hover fieldset {
       border-color: white;
@@ -20,8 +20,9 @@ const WhiteBorderTextField = styled(TextField)`
 
 const MuiStack = styled(Stack)`
   width: 100%;
-  box-shadow: 0px 10px 24px -13px rgba(0, 0, 0, 0.39);
-  border-radius: 10px;
+  border: 1px solid #dcecf6;
+  /* box-shadow: 0px 10px 24px -13px rgba(0, 0, 0, 0.39); */
+  border-radius: 14px;
 `;
 
 const Searchbar = () => {
@@ -37,14 +38,14 @@ const Searchbar = () => {
         options={top100Films.map((option) => option.title)}
         renderInput={(params) => (
           <WhiteBorderTextField
-            placeholder="Where would you like to discover?"
+            placeholder="Search Landmarks or Experiences"
             variant="outlined"
             {...params}
             InputProps={{
               ...params.InputProps,
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon sx={{ color: "#0099F1" }} />
+                  <SearchIcon sx={{ color: "#005D9E" }} />
                 </InputAdornment>
               ),
             }}

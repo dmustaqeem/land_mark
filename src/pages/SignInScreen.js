@@ -133,7 +133,7 @@ const SignInScreen = ({ setIsLoggedIn }) => {
                   variant="outlined"
                 />
 
-                {props.errors.UserName && props.touched.Password ? (
+                {props.errors.Password && props.touched.Password ? (
                   <Error>{props.errors.Password}</Error>
                 ) : null}
               </ColumnContainer>

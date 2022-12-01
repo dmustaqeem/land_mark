@@ -14,7 +14,7 @@ export const TypographyRowDiv = styled.div`
 `;
 export const CardRowDiv = styled.div`
   display: flex;
-  overflow-x: scroll;
+  overflow-x: auto;
   flex-direction: row;
   /* height: fit-content; */
   padding-top: 5px;
@@ -48,6 +48,7 @@ export const MainDiv = styled.div`
   overflow-y: auto;
   /* position: absolute; */
   margin-bottom: 100px;
+  background: linear-gradient(180deg, #f3faff 0%, rgba(243, 250, 255, 0) 100%);
 `;
 
 export const Logo = styled.img`
@@ -128,7 +129,6 @@ export const signUpHeadingStyleSecondary = {
 };
 export const textFieldLabelStyle = {
   fontFamily: "Lato",
-
   fontWeight: 400,
   fontSize: "13px",
   lineHeight: "16px",

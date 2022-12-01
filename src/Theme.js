@@ -40,12 +40,11 @@ const theme = createTheme({
     height: 1,
   },
   more_screen_icons_style: {
-    color: "005D9E",
+    color: "#0088DF",
     backgroundColor: "#E0F1F8",
-    borderRadius: "15px",
+    borderRadius: "10px",
     fontSize: "30px",
     padding: "4px",
-    marginRight: "25px",
   },
 
   Submit_Button_blue: {
@@ -136,25 +135,7 @@ const theme = createTheme({
       fontWeight: 100,
       color: "#0099F1",
     },
-    login_blue_heading: {
-      fontFamily: "Lato",
-      fontSize: "20px",
-      lineHeight: "24.66px",
-      fontWeight: 600,
-      // color: "#0099F1",
-      textAlign: "center",
-      //   lineHeight: "43.2px",
-    },
-    login_gray_heading: {
-      textAlign: "center",
-      fontFamily: "Lato",
-      fontSize: 14,
-      lineHeight: "17.26px",
-      fontWeight: 500,
-      // color: "#4B4D52",
-      // marginBottom: "14px",
-      //   lineHeight: "43.2px",
-    },
+
     clicktext_lower_blue: {
       fontFamily: "Lato",
       fontSize: 14,

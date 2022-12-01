@@ -1,14 +1,14 @@
-import React, { Component }  from 'react';
+import React, { Component } from "react";
 import styled from "styled-components";
 import ShareRoundedIcon from "@mui/icons-material/ShareRounded";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import FM from "../assets/images/FM.jpg";
+import longImg from "../assets/images/largeImg.png";
 import { useState } from "react";
 import { Typography } from "@mui/material";
 
 const ImageDiv = styled.div`
   display: flex;
-  background-image: url(${FM});
+  background-image: url(${longImg});
   background-size: contain;
   /* background-repeat: no-repeat; */
   /* @media (max-height: 700px) {

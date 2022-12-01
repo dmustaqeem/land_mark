@@ -21,9 +21,16 @@ import ExperienceScreen from "../pages/ExperiencesScreen";
 
 const NavigationBottomAction = styled(BottomNavigationAction)(`
   color: #9DA7C0;
-
+  font-weight:700;
+  min-width:50px;
+    max-width:150px;
+    padding: 0px;
+  /* &.MuiButtonBase-root-MuiBottomNavigationAction-root {
+    min-width:10px;
+    max-width:10px;
+  } */
   &.Mui-selected {
-  border-top: 1px solid #0099F1;
+  border-top: 3px solid #0099F1;
   }
   height: 100%;
 `);
@@ -40,44 +47,18 @@ const NavigationBottom = styled(BottomNavigation)`
   bottom: 0;
   box-shadow: 0px -9px 13px -7px rgba(0, 0, 0, 0.31);
 `;
-const HomeIcon = styled(HomeRoundedIcon)`
-  font-size: 35px;
-  padding-bottom: 1px;
-`;
-const GlobeIcon = styled(PublicTwoToneIcon)`
-  font-size: 35px;
-  padding-bottom: 1px;
-`;
-const StarIcon = styled(StarRoundedIcon)`
-  font-size: 35px;
-  padding-bottom: 1px;
-`;
-const MoreIcon = styled(MoreHorizIcon)`
-  font-size: 35px;
-  padding-bottom: 1px;
-`;
-const FloatingButton = styled(Fab)`
-  height: 88px;
-  width: 90px;
-  min-width: 80px;
-  border-width: 50px;
-  border: 10px solid #eceef2;
-  background-color: #005d9e;
-  box-shadow: none;
-  color: white;
-  @media (max-height: 700px) {
-    margin-bottom: 60px;
-    height: 78px;
-  }
-  margin-bottom: 100px;
-`;
 
-const BottomNavBar = ({ setIsLoggedIn }) => {
+const iconStyle = {
+  fontSize: "35px",
+  paddingBottom: "1px",
+};
+
+const BottomNavBar = ({ setIsLoggedIn, username }) => {
   const [value, setValue] = useState(0);
   return (
     <>
       {value == 0 ? (
-        <WelcomeScreen />
+        <WelcomeScreen username={username} />
       ) : value == 1 ? (
         <DiscoverScreen />
       ) : value == 3 ? (
@@ -94,26 +75,54 @@ const BottomNavBar = ({ setIsLoggedIn }) => {
           // console.log(newValue);
         }}
       >
-        <NavigationBottomAction label="Welcome" icon={<HomeIcon />} />
-        <NavigationBottomAction label="Discover" icon={<GlobeIcon />} />
-        <FloatingButton
-        // style={{
-        //   height: "88px",
-        //   width: "90px",
-        //   minWidth: "80px",
-        //   borderWidth: "50px",
-        //   border: "10px solid #eceef2",
-        //   backgroundColor: "#005d9e",
-        //   boxShadow: "none",
-        //   marginBottom: "100px",
-        //   color: "white",
-        // }}
-        // aria-label="add"
-        >
-          <AddIcon style={{ height: "60px", width: "55px" }} />
-        </FloatingButton>
-        <NavigationBottomAction label="Experience" icon={<StarIcon />} />
-        <NavigationBottomAction label="More" icon={<MoreIcon />} />
+        <NavigationBottomAction
+          sx={{
+            width: 10,
+          }}
+          label="Welcome"
+          icon={<HomeRoundedIcon style={iconStyle} />}
+        />
+
+        <NavigationBottomAction
+          label="Discover"
+          icon={<PublicTwoToneIcon style={iconStyle} />}
+        />
+        <NavigationBottomAction
+          style={{
+            minWidth: "80px",
+            maxWidth: "80px",
+          }}
+          icon={
+            <div
+              style={{
+                display: "flex",
+                backgroundColor: "#005D9E",
+                height: "75%",
+                width: "95%",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: "100%",
+              }}
+            >
+              <AddIcon
+                style={{
+                  height: 40,
+                  width: 40,
+                  color: "white",
+                }}
+              />
+            </div>
+          }
+        />
+
+        <NavigationBottomAction
+          label="Experience"
+          icon={<StarRoundedIcon style={iconStyle} />}
+        />
+        <NavigationBottomAction
+          label="More"
+          icon={<MoreHorizIcon style={iconStyle} />}
+        />
       </NavigationBottom>
     </>
   );
