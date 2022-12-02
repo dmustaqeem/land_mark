@@ -52,7 +52,7 @@ const LandMarkCard = ({ LandMark_Name, Category, Distance, image }) => {
       sx={{
         minWidth: "160px",
         maxWidth: "160px",
-        // height: "fit-content",
+        height: "fit-content",
         borderRadius: "12px",
         "&:hover": {
           border: "3px solid #0099F1",

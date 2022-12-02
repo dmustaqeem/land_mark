@@ -20,15 +20,16 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: "red",
-      dark: "#13413B",
+      light: "#0088DF",
+      dark: "#005D9E",
     },
     secondary: {
-      main: "red",
+      main: "#DCECF6",
     },
     text: {
-      primary: "#13413B",
-      secondary: "blue",
+      primary: "#000000",
+      secondary: "#8EA2AF",
+      light_blue: "#0088DF",
     },
   },
 
@@ -46,7 +47,13 @@ const theme = createTheme({
     fontSize: "30px",
     padding: "4px",
   },
-
+  achievement_icon_style: {
+    color: "#0088DF",
+    backgroundColor: "#E0F1F8",
+    borderRadius: "100%",
+    fontSize: "60px",
+    padding: "12px",
+  },
   Submit_Button_blue: {
     backgroundColor: "#0099F1",
     color: "white",

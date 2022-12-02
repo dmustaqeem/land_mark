@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import {
   MainDiv,
-  signUpHeadingStylePrimary,
-  signUpHeadingStyleSecondary,
+  headingStylePrimary,
+  headingStyleSecondary,
+  outlinedButtonStyle,
 } from "../components/StyledComponents";
 import { Typography } from "@mui/material";
 import BarChartIcon from "@mui/icons-material/BarChart";
@@ -17,13 +18,16 @@ import Button from "@mui/material/Button";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import OptionsCard from "../components/OptionsCard";
+import { useWindowDimensions } from "../utils/WindowWidthHeight";
 
 const groupElements = {
   display: "flex",
   flexDirection: "column",
 };
-const MoreScreen = ({ setIsLoggedIn }) => {
+const MoreScreen = ({ setIsLoggedIn, setValue }) => {
   let navigate = useNavigate();
+  const { height, width } = useWindowDimensions();
+
   return (
     <MainDiv
       style={{
@@ -32,15 +36,22 @@ const MoreScreen = ({ setIsLoggedIn }) => {
         alignItems: "center",
         justifyContent: "center",
         gap: theme.spacing(6),
-        height: "100vh",
+        height: height - 100,
       }}
     >
-      <div style={{ ...groupElements, gap: theme.spacing(4) }}>
+      <div
+        style={{
+          ...groupElements,
+          gap: theme.spacing(4),
+          width: "100%",
+          maxWidth: "350px",
+        }}
+      >
         <div style={groupElements}>
-          <Typography style={{ ...signUpHeadingStylePrimary, color: "black" }}>
+          <Typography style={{ ...headingStylePrimary, color: "black" }}>
             More
           </Typography>
-          <Typography style={signUpHeadingStyleSecondary}>
+          <Typography style={headingStyleSecondary}>
             View & edit your profile, plus more!
           </Typography>
         </div>
@@ -53,6 +64,9 @@ const MoreScreen = ({ setIsLoggedIn }) => {
           <OptionsCard
             label={"Profile"}
             icon={<PersonIcon style={theme.more_screen_icons_style} />}
+            onClick={() => {
+              setValue(5);
+            }}
           />
           <OptionsCard
             label={"Achievements"}
@@ -84,14 +98,7 @@ const MoreScreen = ({ setIsLoggedIn }) => {
             console.log("error signing out: ", error);
           }
         }}
-        style={{
-          borderRadius: "12px",
-          border: "2px solid #0088DF",
-          fontWeight: 700,
-          textTransform: "unset",
-          width: "200px",
-          height: "50px",
-        }}
+        style={outlinedButtonStyle}
         variant="outlined"
       >
         Log Out

@@ -1,18 +1,19 @@
 // import styled from "react-emotion";
 import styled from "styled-components";
-import React, { Component }  from 'react';
+import React, { Component } from "react";
 
 const SliderWrapper = styled("div")`
+  width: 100%;
+  margin-bottom: 40px;
   .slick-list {
     overflow: ${(props) => (props.overflow ? "visible" : "hidden")};
   }
   /* Slider */
   .slick-slider {
-    margin-bottom: 8px;
+    margin-bottom: 0px;
+
     position: relative;
-    @media (max-width: 414px) {
-      width: 380px;
-    }
+
     display: block;
     box-sizing: border-box;
 
@@ -30,9 +31,10 @@ const SliderWrapper = styled("div")`
 
   .slick-list {
     position: relative;
+
     display: block;
     /* overflow: hidden; */
-    height: 250px;
+
     margin: 0;
     padding: 0;
   }
@@ -121,7 +123,7 @@ const SliderWrapper = styled("div")`
 
     display: block;
 
-    width: 20px;
+    width: 10px;
     height: 20px;
     padding: 0;
     -webkit-transform: translate(0, -50%);
@@ -168,10 +170,10 @@ const SliderWrapper = styled("div")`
   }
 
   .slick-prev {
-    left: -25px;
+    left: 0px;
   }
   [dir="rtl"] .slick-prev {
-    right: -25px;
+    right: 0px;
     left: auto;
   }
   .slick-prev:before {
@@ -182,11 +184,11 @@ const SliderWrapper = styled("div")`
   }
 
   .slick-next {
-    right: -25px;
+    right: 0px;
   }
   [dir="rtl"] .slick-next {
     right: auto;
-    left: -25px;
+    left: 0px;
   }
   .slick-next:before {
     content: "→";
@@ -197,12 +199,12 @@ const SliderWrapper = styled("div")`
 
   /* Dots */
   .slick-dotted.slick-slider {
-    margin-bottom: 30px;
+    margin-bottom: 0px;
   }
 
   .slick-dots {
     position: absolute;
-    bottom: -10px;
+    bottom: -40px;
 
     display: block;
 
@@ -219,7 +221,7 @@ const SliderWrapper = styled("div")`
     display: inline-block;
     width: 10px;
     height: 10px;
-    margin: 0 5px;
+    margin: 0 0px;
     padding: 0;
     cursor: pointer;
     transition: width 0.3s ease-in-out;
@@ -229,9 +231,10 @@ const SliderWrapper = styled("div")`
     line-height: 0;
 
     display: block;
+
     width: 10px;
     height: 10px;
-    padding: 5px;
+    /* padding: 5px; */
 
     cursor: pointer;
 
@@ -251,13 +254,14 @@ const SliderWrapper = styled("div")`
   .slick-dots li button:before {
     font-family: "slick";
     font-size: 6px;
-    line-height: 20px;
+    /* line-height: 20px; */
+
     position: absolute;
     top: 0;
     left: 0;
 
     width: 10px;
-    height: 10px;
+    /* height: 10px; */
 
     content: "•";
     text-align: center;
@@ -273,31 +277,42 @@ const SliderWrapper = styled("div")`
     color: black;
   }
 
+  /* Custom Slick Dots */
+
+  @keyframes loading {
+    from {
+      width: 0%;
+    }
+
+    to {
+      width: 100%;
+    }
+  }
+
   .ft-slick__dots--custom {
     height: 8px;
     width: 10px;
-    background-color: #d9d9d9;
-    border-radius: 4px;
+    background-color: rgba(0, 136, 223, 0.1);
+    border-radius: 100%;
     position: relative;
   }
-
   .slick-dots li {
-    width: 14px;
+    width: 10px;
     margin: 0 2px;
+    color: red;
     transition: width 0.3s ease-in-out;
   }
 
   .slick-dots .slick-active {
-    width: 28px;
+    width: 10px;
     transition: width 0.3s ease-in-out;
   }
 
   .slick-dots .slick-active .ft-slick__dots--custom {
-    width: 28px;
+    width: 10px;
     top: 0px;
     overflow: hidden;
     background-color: #0099f1;
   }
 `;
-
 export default SliderWrapper;

@@ -20,21 +20,22 @@ import {
   Error,
   MainContainer,
   LogoHeader,
-  HelpButton,
   ColumnContainer,
-  signUpHeadingStylePrimary,
-  signUpHeadingStyleSecondary,
-  ItemsCard,
+  headingStylePrimary,
+  headingStyleSecondary,
+  CustomCard,
   RowContainer,
   iconStyle,
   textFieldLabelStyle,
   StyledTextField,
   ButtonStyle,
   LinkStyle,
+  squareButtonIconStyle,
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import SquareButton from "../components/SquareButton";
 
 const ReviewSchema = yup.object({
   UserName: yup.string().required("Please Enter Username"),
@@ -56,28 +57,23 @@ const ForgotPasswordSubmitScreen = () => {
           }}
         ></div>
         <Logo src={Logo1} />
-        <HelpButton>
-          <QuestionMarkSharpIcon
-            style={{
-              fontSize: "22px",
-              color: "#9DA7C1",
-            }}
-          />
-        </HelpButton>
+        <SquareButton>
+          <QuestionMarkSharpIcon style={squareButtonIconStyle} />
+        </SquareButton>
       </LogoHeader>
       <ColumnContainer
         style={{
           gap: theme.spacing(3),
         }}
       >
-        <Typography style={signUpHeadingStylePrimary}>
+        <Typography style={headingStylePrimary}>
           Reset Your Password?
         </Typography>
-        <Typography style={signUpHeadingStyleSecondary}>
+        <Typography style={headingStyleSecondary}>
           Enter verification code along with new password.
         </Typography>
       </ColumnContainer>
-      <ItemsCard>
+      <CustomCard>
         <Formik
           validationSchema={ReviewSchema}
           initialValues={{
@@ -180,7 +176,7 @@ const ForgotPasswordSubmitScreen = () => {
             </>
           )}
         </Formik>
-      </ItemsCard>
+      </CustomCard>
       <div
         style={{
           display: "flex",
@@ -188,7 +184,7 @@ const ForgotPasswordSubmitScreen = () => {
           alignItems: "center",
         }}
       >
-        <Typography style={signUpHeadingStyleSecondary}>Read our</Typography>
+        <Typography style={headingStyleSecondary}>Read our</Typography>
         <ClickTextLower style={LinkStyle} href="#">
           {"Terms & Privacy Policy"}
         </ClickTextLower>

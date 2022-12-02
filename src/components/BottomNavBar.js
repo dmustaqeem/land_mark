@@ -11,13 +11,13 @@ import PublicTwoToneIcon from "@mui/icons-material/PublicTwoTone";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import AddIcon from "@mui/icons-material/Add";
-import Fab from "@mui/material/Fab";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import WelcomeScreen from "../pages/WelcomeScreen";
 import DiscoverScreen from "../pages/DiscoverScreen";
 import MoreScreen from "../pages/MoreScreen";
-import ExperienceScreen from "../pages/ExperiencesScreen";
+import Activate from "../pages/ActivateScreen";
+import UserProfile from "../pages/UserProfile";
 
 const NavigationBottomAction = styled(BottomNavigationAction)(`
   color: #9DA7C0;
@@ -38,7 +38,7 @@ const NavigationBottomAction = styled(BottomNavigationAction)(`
 const NavigationBottom = styled(BottomNavigation)`
   position: fixed;
   display: "flex";
-  height: 100px;
+  min-height: 100px;
   @media (max-height: 700px) {
     height: 70px;
   }
@@ -62,9 +62,11 @@ const BottomNavBar = ({ setIsLoggedIn, username }) => {
       ) : value == 1 ? (
         <DiscoverScreen />
       ) : value == 3 ? (
-        <ExperienceScreen />
+        <Activate />
       ) : value == 4 ? (
-        <MoreScreen setIsLoggedIn={setIsLoggedIn} />
+        <MoreScreen setValue={setValue} setIsLoggedIn={setIsLoggedIn} />
+      ) : value == 5 ? (
+        <UserProfile setValue={setValue} />
       ) : null}
 
       <NavigationBottom
@@ -116,7 +118,7 @@ const BottomNavBar = ({ setIsLoggedIn, username }) => {
         />
 
         <NavigationBottomAction
-          label="Experience"
+          label="Activate"
           icon={<StarRoundedIcon style={iconStyle} />}
         />
         <NavigationBottomAction

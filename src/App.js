@@ -10,6 +10,7 @@ import ConfirmSignUp from "./pages/ConfirmSignUp";
 import ForgotPasswordSubmitScreen from "./pages/ForgotPasswordSubmitScreen";
 import { useEffect, useState } from "react";
 import ProtectedRoute from "./utils/ProtectedRoute";
+import UserProfile from "./pages/UserProfile";
 Auth.configure(awsmobile);
 API.configure(awsmobile);
 Storage.configure(awsmobile);
@@ -21,14 +22,17 @@ const App = () => {
 
   useEffect(() => {
     const getCurrentUser = async () => {
-      let user = await Auth.currentAuthenticatedUser();
+      try {
+        let user = await Auth.currentAuthenticatedUser();
 
-      if (user) {
-        setIsLoggedIn(true);
-        setUsername(user.signInUserSession.accessToken.payload.username);
-        navigate("/welcome");
-      } else {
+        if (user) {
+          setIsLoggedIn(true);
+          setUsername(user.username);
+          navigate("/welcome");
+        }
+      } catch (err) {
         setIsLoggedIn(false);
+        console.log(err);
       }
     };
     getCurrentUser();
@@ -51,7 +55,8 @@ const App = () => {
         element={<ForgotPasswordSubmitScreen />}
       />
 
-      <Route element={<ProtectedRoute user={loggedIn} />}>
+      <Route element={<ProtectedRoute loggedIn={loggedIn} />}>
+        <Route path="/profile" element={<UserProfile />} />
         <Route
           path="/welcome"
           element={
