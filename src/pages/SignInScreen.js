@@ -17,11 +17,10 @@ import {
   ClickTextLower,
   MainContainer,
   LogoHeader,
-  HelpButton,
   ColumnContainer,
-  signUpHeadingStylePrimary,
-  signUpHeadingStyleSecondary,
-  ItemsCard,
+  headingStylePrimary,
+  headingStyleSecondary,
+  CustomCard,
   RowContainer,
   iconStyle,
   textFieldLabelStyle,
@@ -29,11 +28,13 @@ import {
   ButtonStyle,
   LinkStyle,
   socialButtonStyle,
+  squareButtonIconStyle,
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { useState } from "react";
 import LockIcon from "@mui/icons-material/Lock";
 import { useNavigate } from "react-router-dom";
+import SquareButton from "../components/SquareButton";
 
 const SignInScreen = ({ setIsLoggedIn }) => {
   const [openSnackBar, setOpenSnackBar] = useState(false);
@@ -56,28 +57,23 @@ const SignInScreen = ({ setIsLoggedIn }) => {
           }}
         ></div>
         <Logo src={Logo1} />
-        <HelpButton>
-          <QuestionMarkSharpIcon
-            style={{
-              fontSize: "22px",
-              color: "#9DA7C1",
-            }}
-          />
-        </HelpButton>
+        <SquareButton>
+          <QuestionMarkSharpIcon style={squareButtonIconStyle} />
+        </SquareButton>
       </LogoHeader>
       <ColumnContainer
         style={{
           gap: theme.spacing(3),
         }}
       >
-        <Typography style={signUpHeadingStylePrimary}>
+        <Typography style={headingStylePrimary}>
           Login to Your Account
         </Typography>
-        <Typography style={signUpHeadingStyleSecondary}>
+        <Typography style={headingStyleSecondary}>
           Enter your username and password to login
         </Typography>
       </ColumnContainer>
-      <ItemsCard>
+      <CustomCard>
         <Formik
           validationSchema={ReviewSchema}
           initialValues={{
@@ -88,11 +84,14 @@ const SignInScreen = ({ setIsLoggedIn }) => {
             console.log("OnSubmit click", values);
             try {
               const user = await Auth.signIn(values.UserName, values.Password);
-              setIsLoggedIn(true);
-              setSnackBarMessage("Success");
-              setOpenSnackBar(true);
-              setSeverity("success");
-              resetForm();
+              if (user) {
+                setIsLoggedIn(true);
+                setSnackBarMessage("Success");
+                setOpenSnackBar(true);
+                setSeverity("success");
+                resetForm();
+                navigate("/welcome");
+              }
             } catch (error) {
               setSnackBarMessage("Error");
               setOpenSnackBar(true);
@@ -158,8 +157,8 @@ const SignInScreen = ({ setIsLoggedIn }) => {
         <ClickTextLower style={LinkStyle} href="/forgotpassword">
           {"Forgot Your Password?"}
         </ClickTextLower>
-      </ItemsCard>
-      <Typography style={signUpHeadingStyleSecondary}>or login with</Typography>
+      </CustomCard>
+      <Typography style={headingStyleSecondary}>or login with</Typography>
       <RowContainer
         style={{
           gap: theme.spacing(4),

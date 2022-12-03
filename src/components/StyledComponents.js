@@ -4,41 +4,25 @@ import Background from "../assets/images/Background.png";
 import * as Mui from "@mui/material";
 import theme from "../Theme";
 
-export const TypographyRowDiv = styled.div`
+export const TextButtonRow = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
   height: fit-content;
   justify-content: space-between;
-  margin-bottom: 15px;
 `;
 export const CardRowDiv = styled.div`
   display: flex;
   overflow-x: auto;
   flex-direction: row;
-  /* height: fit-content; */
-  padding-top: 5px;
-  padding-bottom: 10px;
-  gap: 12px;
+  width: 100%;
+  align-items: center;
+  height: 215px;
+  gap: ${theme.spacing(4)};
 `;
 export const Error = styled.div`
   color: red;
   font-size: 13px;
-`;
-
-export const SubHeadingCardDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding-left: 25px;
-  margin-top: 20px;
-`;
-
-export const Heading_SearchDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding-left: 25px;
-  padding-right: 25px;
 `;
 
 export const MainDiv = styled.div`
@@ -46,9 +30,11 @@ export const MainDiv = styled.div`
   flex-direction: column;
   width: 100%;
   overflow-y: auto;
+  align-items: center;
   /* position: absolute; */
-  margin-bottom: 100px;
   background: linear-gradient(180deg, #f3faff 0%, rgba(243, 250, 255, 0) 100%);
+  padding: ${theme.spacing(4)};
+  gap: ${theme.spacing(3)};
 `;
 
 export const Logo = styled.img`
@@ -56,6 +42,32 @@ export const Logo = styled.img`
   height: 59px;
   /* margin-bottom: 20px; */
 `;
+export const solidButtonStyle = {
+  backgroundColor: theme.palette.primary.light,
+  borderRadius: "12px",
+  border: "0",
+  fontWeight: 700,
+  textTransform: "unset",
+  width: "169px",
+  height: "42px",
+};
+export const outlinedButtonStyle = {
+  borderRadius: "12px",
+  border: "2px solid #0088DF",
+  fontWeight: 700,
+  textTransform: "unset",
+  width: "200px",
+  height: "50px",
+};
+
+export const viewAllCardsButtonStyle = {
+  textDecoration: "underline",
+  fontWeight: 600,
+  fontSize: "16px",
+  lineHeight: "20px",
+  color: "#0088DF",
+  textTransform: "unset",
+};
 
 export const StyledTextField = styled(Mui.TextField)`
   fieldset {
@@ -100,32 +112,27 @@ export const socialButtonStyle = {
   borderRadius: 60,
   boxShadow: ` 0px 6px 30px rgba(30, 61, 83, 0.08)`,
 };
-export const HelpButton = styled.div`
-  display: flex;
-  flex-direction: row;
-  height: 43.5px;
-  width: 43.5px;
-  border-radius: 12px;
-  border: 1px solid #dcecf6;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-`;
-export const signUpHeadingStylePrimary = {
+
+export const headingStylePrimary = {
   fontFamily: "Lato",
   fontWeight: "600",
   fontSize: "20px",
   lineHeight: "25px",
   textAlign: "center",
-  color: "#0088DF",
+  color: theme.palette.text.light_blue,
 };
-export const signUpHeadingStyleSecondary = {
+
+export const squareButtonIconStyle = {
+  fontSize: "22px",
+  color: "#9DA7C1",
+};
+export const headingStyleSecondary = {
   fontFamily: "Lato",
   fontWeight: "400",
   fontSize: "14px",
   lineHeight: "17px",
   textAlign: "center",
-  color: "#8EA2AF",
+  color: theme.palette.text.secondary,
 };
 export const textFieldLabelStyle = {
   fontFamily: "Lato",
@@ -155,13 +162,11 @@ export const ButtonStyle = {
   lineHeight: "20px",
   textTransform: "unset",
 };
-export const ItemsCard = styled.div`
+export const CustomCard = styled.div`
   display: flex;
   flex-direction: column;
-  width: 350px;
-  @media (max-width: 340px) {
-    width: 310px;
-  }
+  width: 100%;
+  max-width: 350px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   background-color: white;
   border-radius: 12px;

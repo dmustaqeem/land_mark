@@ -11,7 +11,7 @@ const ContentContainer = styled.div`
   align-items: center;
   padding-left: ${theme.spacing(3)};
   padding-right: ${theme.spacing(3)};
-  width: 350px;
+  width: 100%;
   height: 60px;
   display: flex;
   cursor: pointer;
@@ -28,9 +28,9 @@ const IconTextContainer = styled.div`
   display: flex;
   align-items: center;
 `;
-const OptionsCard = ({ icon, label }) => {
+const OptionsCard = ({ icon, label, onClick }) => {
   return (
-    <ContentContainer>
+    <ContentContainer onClick={onClick}>
       <IconTextContainer>
         {icon}
         <Typography variant="more_option_text">{label}</Typography>

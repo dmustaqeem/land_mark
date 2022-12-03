@@ -1,23 +1,19 @@
 import React, { Component, useState } from "react";
 import {
   MainDiv,
-  Heading_SearchDiv,
-  SubHeadingCardDiv,
-  TypographyRowDiv,
+  TextButtonRow,
+  viewAllCardsButtonStyle,
 } from "../components/StyledComponents";
 import { useWindowDimensions } from "../utils/WindowWidthHeight";
 import { Typography, Button } from "@mui/material";
 import Searchbar from "../components/SearchBar";
 import LandMarkCard from "../components/LandMarkCard";
 import { DummyData } from "../DummyData";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import SliderWrapper from "../components/SlickSliderDots";
-import { settings } from "../utils/SlickSliderSettings";
 import { API, graphqlOperation, Storage } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
 import * as queries from "../graphql/queries";
+import Header from "../components/Header";
+import { Carousel } from "../components/Carousel";
 
 const DiscoverScreen = () => {
   const { height, width } = useWindowDimensions();
@@ -43,33 +39,29 @@ const DiscoverScreen = () => {
 
   return (
     <MainDiv style={{ height: height - 100 }}>
-      <Heading_SearchDiv>
-        <Typography sx={{ marginBottom: "20px" }} variant="screen_heading">
-          Discover
-        </Typography>
-        <Searchbar />
-      </Heading_SearchDiv>
-      <SubHeadingCardDiv>
-        <TypographyRowDiv>
-          <Typography variant="screen_sub_heading">Nearby Landmarks</Typography>
-        </TypographyRowDiv>
-      </SubHeadingCardDiv>
-      <SliderWrapper>
-        <Slider {...settings}>
-          {DummyData.map((landmark, index) => {
-            return (
-              <LandMarkCard
-                key={index}
-                LandMark_Name={landmark.LandMark_Name}
-                Category={landmark.Category}
-                Distance={landmark.Distance}
-                image={landmark.image}
-              />
-            );
-          })}
-        </Slider>
-      </SliderWrapper>
-      <Button
+      <Header screenName={"Discover"} />
+
+      <Searchbar />
+      <TextButtonRow>
+        <Typography variant="screen_sub_heading">Nearby Landmarks</Typography>
+        <Button style={viewAllCardsButtonStyle} variant="text">
+          View All
+        </Button>
+      </TextButtonRow>
+      <Carousel>
+        {DummyData.map((landmark, index) => {
+          return (
+            <LandMarkCard
+              key={index}
+              LandMark_Name={landmark.LandMark_Name}
+              Category={landmark.Category}
+              Distance={landmark.Distance}
+              image={landmark.image}
+            />
+          );
+        })}
+      </Carousel>
+      {/* <Button
         onClick={async () => {
           try {
             const newEntry = await API.graphql({
@@ -118,7 +110,7 @@ const DiscoverScreen = () => {
           multiple
           type="file"
         />
-      </Button>
+      </Button> */}
     </MainDiv>
   );
 };

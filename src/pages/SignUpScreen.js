@@ -17,16 +17,16 @@ import {
   ClickTextLower,
   ColumnContainer,
   Error,
-  HelpButton,
   iconStyle,
-  ItemsCard,
+  CustomCard,
   LinkStyle,
   Logo,
   LogoHeader,
   MainContainer,
   RowContainer,
-  signUpHeadingStylePrimary,
-  signUpHeadingStyleSecondary,
+  headingStylePrimary,
+  headingStyleSecondary,
+  squareButtonIconStyle,
   StyledTextField,
   textFieldLabelStyle,
 } from "../components/StyledComponents";
@@ -36,6 +36,7 @@ import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import QuestionMarkSharpIcon from "@mui/icons-material/QuestionMarkSharp";
+import SquareButton from "../components/SquareButton";
 
 const ReviewSchema = yup.object({
   UserName: yup.string().required("Please Enter Username"),
@@ -61,28 +62,23 @@ const SignUpScreen = () => {
           }}
         ></div>
         <Logo src={Logo1} />
-        <HelpButton>
-          <QuestionMarkSharpIcon
-            style={{
-              fontSize: "22px",
-              color: "#9DA7C1",
-            }}
-          />
-        </HelpButton>
+        <SquareButton>
+          <QuestionMarkSharpIcon style={squareButtonIconStyle} />
+        </SquareButton>
       </LogoHeader>
       <ColumnContainer
         style={{
           gap: theme.spacing(3),
         }}
       >
-        <Typography style={signUpHeadingStylePrimary}>
+        <Typography style={headingStylePrimary}>
           Create Your Account For FREE!
         </Typography>
-        <Typography style={signUpHeadingStyleSecondary}>
+        <Typography style={headingStyleSecondary}>
           Enter your information below to get signed up.
         </Typography>
       </ColumnContainer>
-      <ItemsCard>
+      <CustomCard>
         <Formik
           validationSchema={ReviewSchema}
           initialValues={{
@@ -203,7 +199,7 @@ const SignUpScreen = () => {
             </>
           )}
         </Formik>
-      </ItemsCard>
+      </CustomCard>
       <div
         style={{
           display: "flex",
@@ -211,7 +207,7 @@ const SignUpScreen = () => {
           alignItems: "center",
         }}
       >
-        <Typography style={signUpHeadingStyleSecondary}>
+        <Typography style={headingStyleSecondary}>
           By creating an account, you agree to our
         </Typography>
         <ClickTextLower style={LinkStyle} href="#">

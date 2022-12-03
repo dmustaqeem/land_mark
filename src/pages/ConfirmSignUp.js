@@ -20,21 +20,22 @@ import {
   Error,
   MainContainer,
   LogoHeader,
-  HelpButton,
   ColumnContainer,
-  signUpHeadingStylePrimary,
-  signUpHeadingStyleSecondary,
-  ItemsCard,
+  headingStylePrimary,
+  headingStyleSecondary,
+  CustomCard,
   RowContainer,
   iconStyle,
   textFieldLabelStyle,
   StyledTextField,
   ButtonStyle,
   LinkStyle,
+  squareButtonIconStyle,
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { useState } from "react";
 import QuestionMarkSharpIcon from "@mui/icons-material/QuestionMarkSharp";
+import SquareButton from "../components/SquareButton";
 
 const ReviewSchema = yup.object({
   UserName: yup.string().required("Please Enter Username"),
@@ -56,28 +57,21 @@ const ConfirmSignUp = ({ setIsLoggedIn }) => {
           }}
         ></div>
         <Logo src={Logo1} />
-        <HelpButton>
-          <QuestionMarkSharpIcon
-            style={{
-              fontSize: "22px",
-              color: "#9DA7C1",
-            }}
-          />
-        </HelpButton>
+        <SquareButton>
+          <QuestionMarkSharpIcon style={squareButtonIconStyle} />
+        </SquareButton>
       </LogoHeader>
       <ColumnContainer
         style={{
           gap: theme.spacing(3),
         }}
       >
-        <Typography style={signUpHeadingStylePrimary}>
-          Verify Your Email
-        </Typography>
-        <Typography style={signUpHeadingStyleSecondary}>
+        <Typography style={headingStylePrimary}>Verify Your Email</Typography>
+        <Typography style={headingStyleSecondary}>
           Enter your verification code sent to entered email address.
         </Typography>
       </ColumnContainer>
-      <ItemsCard>
+      <CustomCard>
         <Formik
           validationSchema={ReviewSchema}
           initialValues={{
@@ -179,7 +173,7 @@ const ConfirmSignUp = ({ setIsLoggedIn }) => {
             </>
           )}
         </Formik>
-      </ItemsCard>
+      </CustomCard>
       <div
         style={{
           display: "flex",
@@ -187,7 +181,7 @@ const ConfirmSignUp = ({ setIsLoggedIn }) => {
           alignItems: "center",
         }}
       >
-        <Typography style={signUpHeadingStyleSecondary}>
+        <Typography style={headingStyleSecondary}>
           By creating an account, you agree to our
         </Typography>
         <ClickTextLower style={LinkStyle} href="#">

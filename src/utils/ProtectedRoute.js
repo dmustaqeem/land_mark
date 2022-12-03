@@ -1,7 +1,8 @@
+import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoute = ({ user, redirectPath = "/", children }) => {
-  if (user === false) {
+const ProtectedRoute = ({ loggedIn, redirectPath = "/", children }) => {
+  if (loggedIn === false) {
     return <Navigate to={redirectPath} replace />;
   }
 
