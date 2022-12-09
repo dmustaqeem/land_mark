@@ -20,7 +20,7 @@ const Container = styled.div`
   font-family: "Poppins";
   cursor: pointer;
 `;
-const CategoryButton = ({ categoryName }) => {
+const ExperienceCategoryButton = ({ categoryName }) => {
   const [clicked, setIsClicked] = useState(false);
   return (
     <Container
@@ -34,4 +34,4 @@ const CategoryButton = ({ categoryName }) => {
   );
 };
 
-export default CategoryButton;
+export default ExperienceCategoryButton;

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import Logo1 from "../assets/images/LndMark_logo.svg";
-import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import QuestionMarkSharpIcon from "@mui/icons-material/QuestionMarkSharp";
 import LockIcon from "@mui/icons-material/Lock";
+import { ReactComponent as PasswordIcon } from "../assets/svgs/passwordIcon.svg";
+import { ReactComponent as ProfileIcon } from "../assets/svgs/profileIcon.svg";
+
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import {
   Typography,
@@ -10,15 +12,15 @@ import {
   Button,
   Snackbar,
   Alert,
+  Link,
 } from "@mui/material";
 import theme from "../Theme";
 import { Formik } from "formik";
 import * as yup from "yup";
 import {
   Logo,
-  ClickTextLower,
   Error,
-  MainContainer,
+  Background,
   LogoHeader,
   ColumnContainer,
   headingStylePrimary,
@@ -28,9 +30,9 @@ import {
   iconStyle,
   textFieldLabelStyle,
   StyledTextField,
-  ButtonStyle,
   LinkStyle,
   squareButtonIconStyle,
+  solidButtonStyle,
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
@@ -48,7 +50,13 @@ const ForgotPasswordSubmitScreen = () => {
   const [severity, setSeverity] = useState("info");
   let navigate = useNavigate();
   return (
-    <MainContainer>
+    <Background
+      style={{
+        justifyContent: "space-evenly",
+        padding: 0,
+        gap: 0,
+      }}
+    >
       <LogoHeader>
         <div
           style={{
@@ -82,15 +90,13 @@ const ForgotPasswordSubmitScreen = () => {
             NewPassword: "",
           }}
           onSubmit={async (values, { resetForm }) => {
-            console.log("OnSubmit click", values);
+            // console.log("OnSubmit click", values);
             try {
               await Auth.forgotPasswordSubmit(
                 values.UserName,
-                values.Code,
+                `${values.Code}`,
                 values.NewPassword
-              )
-                .then((data) => console.log(data))
-                .catch((err) => console.log(err));
+              );
               setSnackBarMessage("Success");
               setOpenSnackBar(true);
               setSeverity("success");
@@ -110,7 +116,7 @@ const ForgotPasswordSubmitScreen = () => {
             <>
               <ColumnContainer>
                 <RowContainer>
-                  <PersonRoundedIcon style={iconStyle} />
+                  <ProfileIcon />
                   <Typography style={textFieldLabelStyle}>Username</Typography>
                 </RowContainer>
                 <StyledTextField
@@ -143,7 +149,7 @@ const ForgotPasswordSubmitScreen = () => {
               </ColumnContainer>
               <ColumnContainer>
                 <RowContainer>
-                  <LockIcon style={iconStyle} />
+                  <PasswordIcon />
                   <Typography style={textFieldLabelStyle}>
                     New Password
                   </Typography>
@@ -163,7 +169,7 @@ const ForgotPasswordSubmitScreen = () => {
               {!props.isSubmitting ? (
                 <Button
                   onClick={props.handleSubmit}
-                  style={ButtonStyle}
+                  style={solidButtonStyle}
                   variant="contained"
                 >
                   Submit
@@ -185,9 +191,9 @@ const ForgotPasswordSubmitScreen = () => {
         }}
       >
         <Typography style={headingStyleSecondary}>Read our</Typography>
-        <ClickTextLower style={LinkStyle} href="#">
+        <Link style={LinkStyle} href="#">
           {"Terms & Privacy Policy"}
-        </ClickTextLower>
+        </Link>
       </div>
 
       <Snackbar
@@ -212,11 +218,11 @@ const ForgotPasswordSubmitScreen = () => {
         }}
       >
         Already have an account?{" "}
-        <ClickTextLower style={LinkStyle} href="/">
+        <Link style={{ ...LinkStyle, fontWeight: "700" }} href="/">
           {"Log In"}
-        </ClickTextLower>
+        </Link>
       </Typography>
-    </MainContainer>
+    </Background>
   );
 };
 export default ForgotPasswordSubmitScreen;

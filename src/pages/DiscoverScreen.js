@@ -1,13 +1,13 @@
 import React, { Component, useState } from "react";
 import {
-  MainDiv,
+  Background,
   TextButtonRow,
   viewAllCardsButtonStyle,
 } from "../components/StyledComponents";
 import { useWindowDimensions } from "../utils/WindowWidthHeight";
 import { Typography, Button } from "@mui/material";
 import Searchbar from "../components/SearchBar";
-import LandMarkCard from "../components/LandMarkCard";
+import LndMrkCard from "../components/LndMrkCard";
 import { DummyData } from "../DummyData";
 import { API, graphqlOperation, Storage } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
@@ -20,9 +20,9 @@ const DiscoverScreen = () => {
   const [fileData, setFileData] = useState("null");
 
   const handleOnChange = async (e) => {
-    console.log("image::", e.target.files[0]);
+    // console.log("image::", e.target.files[0]);
     setFileData(e.target.files[0]);
-    console.log(URL.createObjectURL(e.target.files[0]));
+    // console.log(URL.createObjectURL(e.target.files[0]));
 
     try {
       const result = await Storage.put(fileData.name, fileData, {
@@ -38,7 +38,7 @@ const DiscoverScreen = () => {
   };
 
   return (
-    <MainDiv style={{ height: height - 100 }}>
+    <Background style={{ height: height - 74 }}>
       <Header screenName={"Discover"} />
 
       <Searchbar />
@@ -51,7 +51,7 @@ const DiscoverScreen = () => {
       <Carousel>
         {DummyData.map((landmark, index) => {
           return (
-            <LandMarkCard
+            <LndMrkCard
               key={index}
               LandMark_Name={landmark.LandMark_Name}
               Category={landmark.Category}
@@ -111,7 +111,7 @@ const DiscoverScreen = () => {
           type="file"
         />
       </Button> */}
-    </MainDiv>
+    </Background>
   );
 };
 

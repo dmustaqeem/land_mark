@@ -6,19 +6,21 @@ import {
   Button,
   Snackbar,
   Alert,
+  Link,
 } from "@mui/material";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import { ReactComponent as ProfileIcon } from "../assets/svgs/profileIcon.svg";
+
 import theme from "../Theme";
-import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+
 import { useNavigate } from "react-router-dom";
 
 import { Formik } from "formik";
 import * as yup from "yup";
 import {
   Logo,
-  ClickTextLower,
   Error,
-  MainContainer,
+  Background,
   LogoHeader,
   ColumnContainer,
   headingStylePrimary,
@@ -28,9 +30,9 @@ import {
   iconStyle,
   textFieldLabelStyle,
   StyledTextField,
-  ButtonStyle,
   LinkStyle,
   squareButtonIconStyle,
+  solidButtonStyle,
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { useState } from "react";
@@ -48,7 +50,13 @@ const ConfirmSignUp = ({ setIsLoggedIn }) => {
   let navigate = useNavigate();
 
   return (
-    <MainContainer>
+    <Background
+      style={{
+        justifyContent: "space-evenly",
+        padding: 0,
+        gap: 0,
+      }}
+    >
       <LogoHeader>
         <div
           style={{
@@ -79,17 +87,18 @@ const ConfirmSignUp = ({ setIsLoggedIn }) => {
             Code: "",
           }}
           onSubmit={async (values, { resetForm }) => {
-            console.log("OnSubmit click", values);
+            // console.log("OnSubmit click", values);
             try {
               const confirmSignUp = await Auth.confirmSignUp(
                 values.UserName,
-                values.Code
+                `${values.Code}`
               );
               setSnackBarMessage("Success");
               setOpenSnackBar(true);
               setSeverity("success");
               console.log("ConfirmSign up : ", confirmSignUp);
-              setIsLoggedIn(true);
+              // setIsLoggedIn(true);
+              navigate("/");
               resetForm();
             } catch (error) {
               setSnackBarMessage("Error");
@@ -105,7 +114,7 @@ const ConfirmSignUp = ({ setIsLoggedIn }) => {
             <>
               <ColumnContainer>
                 <RowContainer>
-                  <PersonRoundedIcon style={iconStyle} />
+                  <ProfileIcon />
                   <Typography style={textFieldLabelStyle}>Username</Typography>
                 </RowContainer>
                 <StyledTextField
@@ -139,7 +148,7 @@ const ConfirmSignUp = ({ setIsLoggedIn }) => {
               {!props.isSubmitting ? (
                 <Button
                   onClick={props.handleSubmit}
-                  style={ButtonStyle}
+                  style={solidButtonStyle}
                   variant="contained"
                 >
                   Login
@@ -150,9 +159,10 @@ const ConfirmSignUp = ({ setIsLoggedIn }) => {
                 />
               )}
 
-              <ClickTextLower
+              <Link
+                style={LinkStyle}
                 onClick={async () => {
-                  console.log("Resend verification code clicked");
+                  // console.log("Resend verification code clicked");
                   if (props.values.UserName) {
                     try {
                       await Auth.resendSignUp(props.values.UserName);
@@ -169,7 +179,7 @@ const ConfirmSignUp = ({ setIsLoggedIn }) => {
                 // underline="none"
               >
                 {"Resend verification code"}
-              </ClickTextLower>
+              </Link>
             </>
           )}
         </Formik>
@@ -184,9 +194,9 @@ const ConfirmSignUp = ({ setIsLoggedIn }) => {
         <Typography style={headingStyleSecondary}>
           By creating an account, you agree to our
         </Typography>
-        <ClickTextLower style={LinkStyle} href="#">
+        <Link style={LinkStyle} href="#">
           {"Terms & Privacy Policy"}
-        </ClickTextLower>
+        </Link>
       </div>
 
       <Snackbar
@@ -211,11 +221,11 @@ const ConfirmSignUp = ({ setIsLoggedIn }) => {
         }}
       >
         Already have an account?{" "}
-        <ClickTextLower style={LinkStyle} href="/">
+        <Link style={{ ...LinkStyle, fontWeight: "700" }} href="/">
           {"Log In"}
-        </ClickTextLower>
+        </Link>
       </Typography>
-    </MainContainer>
+    </Background>
   );
 };
 export default ConfirmSignUp;

@@ -1,16 +1,22 @@
 import React, { Component } from "react";
-import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+import { ReactComponent as ProfileIcon } from "../assets/svgs/profileIcon.svg";
+
 import QuestionMarkSharpIcon from "@mui/icons-material/QuestionMarkSharp";
 import Logo1 from "../assets/images/LndMark_logo.svg";
-import { Typography, Snackbar, Alert, CircularProgress } from "@mui/material";
+import {
+  Typography,
+  Snackbar,
+  Alert,
+  CircularProgress,
+  Link,
+} from "@mui/material";
 import Button from "@mui/material/Button";
 import theme from "../Theme";
 import { useState } from "react";
 import {
   Logo,
-  ClickTextLower,
   Error,
-  MainContainer,
+  Background,
   LogoHeader,
   ColumnContainer,
   headingStylePrimary,
@@ -20,9 +26,9 @@ import {
   iconStyle,
   textFieldLabelStyle,
   StyledTextField,
-  ButtonStyle,
   LinkStyle,
   squareButtonIconStyle,
+  solidButtonStyle,
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { Formik } from "formik";
@@ -39,7 +45,13 @@ const ForgotPasswordScreen = () => {
   const [severity, setSeverity] = useState("info");
   let navigate = useNavigate();
   return (
-    <MainContainer>
+    <Background
+      style={{
+        justifyContent: "space-evenly",
+        padding: 0,
+        gap: 0,
+      }}
+    >
       <LogoHeader>
         <div
           style={{
@@ -61,7 +73,7 @@ const ForgotPasswordScreen = () => {
           Forgot Your Password?
         </Typography>
         <Typography style={headingStyleSecondary}>
-          Enter your username to recover password.
+          Enter your username to reset your password.
         </Typography>
       </ColumnContainer>
       <CustomCard>
@@ -71,7 +83,7 @@ const ForgotPasswordScreen = () => {
             UserName: "",
           }}
           onSubmit={async (values, { resetForm }) => {
-            console.log("OnSubmit click", values);
+            // console.log("OnSubmit click", values);
             try {
               await Auth.forgotPassword(values.UserName);
               // .then((data) => console.log(data))
@@ -95,7 +107,7 @@ const ForgotPasswordScreen = () => {
             <>
               <ColumnContainer>
                 <RowContainer>
-                  <PersonRoundedIcon style={iconStyle} />
+                  <ProfileIcon />
                   <Typography style={textFieldLabelStyle}>Username</Typography>
                 </RowContainer>
                 <StyledTextField
@@ -111,7 +123,7 @@ const ForgotPasswordScreen = () => {
               {!props.isSubmitting ? (
                 <Button
                   onClick={props.handleSubmit}
-                  style={ButtonStyle}
+                  style={solidButtonStyle}
                   variant="contained"
                 >
                   Submit
@@ -133,9 +145,9 @@ const ForgotPasswordScreen = () => {
         }}
       >
         <Typography style={headingStyleSecondary}>Read our</Typography>
-        <ClickTextLower style={LinkStyle} href="#">
+        <Link style={LinkStyle} href="#">
           {"Terms & Privacy Policy"}
-        </ClickTextLower>
+        </Link>
       </div>
 
       <Snackbar
@@ -160,11 +172,11 @@ const ForgotPasswordScreen = () => {
         }}
       >
         Already have an account?{" "}
-        <ClickTextLower style={LinkStyle} href="/">
+        <Link style={{ ...LinkStyle, fontWeight: "700" }} href="/">
           {"Log In"}
-        </ClickTextLower>
+        </Link>
       </Typography>
-    </MainContainer>
+    </Background>
   );
 };
 export default ForgotPasswordScreen;

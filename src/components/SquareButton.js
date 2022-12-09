@@ -8,7 +8,7 @@ const HelpButton = styled.div`
   height: 43.5px;
   width: 43.5px;
   border-radius: 12px;
-  border: 1px solid #dcecf6;
+  border: 1px solid ${theme.palette.secondary.main};
   justify-content: center;
   align-items: center;
   cursor: pointer;

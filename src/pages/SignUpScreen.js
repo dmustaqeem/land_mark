@@ -1,8 +1,10 @@
 // import React, { Component } from "react";
-import EmailIcon from "@mui/icons-material/Email";
 import Logo1 from "../assets/images/LndMark_logo.svg";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import LockIcon from "@mui/icons-material/Lock";
+import { ReactComponent as ProfileIcon } from "../assets/svgs/profileIcon.svg";
+import { ReactComponent as PasswordIcon } from "../assets/svgs/passwordIcon.svg";
+import { ReactComponent as EmailIcon } from "../assets/svgs/emailIcon.svg";
 
 import {
   Typography,
@@ -10,11 +12,10 @@ import {
   CircularProgress,
   Snackbar,
   Alert,
+  Link,
 } from "@mui/material";
 import theme from "../Theme";
 import {
-  ButtonStyle,
-  ClickTextLower,
   ColumnContainer,
   Error,
   iconStyle,
@@ -22,13 +23,14 @@ import {
   LinkStyle,
   Logo,
   LogoHeader,
-  MainContainer,
+  Background,
   RowContainer,
   headingStylePrimary,
   headingStyleSecondary,
   squareButtonIconStyle,
   StyledTextField,
   textFieldLabelStyle,
+  solidButtonStyle,
 } from "../components/StyledComponents";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -53,7 +55,13 @@ const SignUpScreen = () => {
   const [severity, setSeverity] = useState("info");
   let navigate = useNavigate();
   return (
-    <MainContainer>
+    <Background
+      style={{
+        justifyContent: "space-evenly",
+        padding: 0,
+        gap: 0,
+      }}
+    >
       <LogoHeader>
         <div
           style={{
@@ -116,7 +124,7 @@ const SignUpScreen = () => {
             <>
               <ColumnContainer>
                 <RowContainer>
-                  <PersonRoundedIcon style={iconStyle} />
+                  <ProfileIcon />
                   <Typography style={textFieldLabelStyle}>Username</Typography>
                 </RowContainer>
                 <StyledTextField
@@ -131,7 +139,7 @@ const SignUpScreen = () => {
               </ColumnContainer>
               <ColumnContainer>
                 <RowContainer>
-                  <EmailIcon style={iconStyle} />
+                  <EmailIcon />
                   <Typography style={textFieldLabelStyle}>Email</Typography>
                 </RowContainer>
                 <StyledTextField
@@ -146,7 +154,7 @@ const SignUpScreen = () => {
               </ColumnContainer>
               <ColumnContainer>
                 <RowContainer>
-                  <LockIcon style={iconStyle} />
+                  <PasswordIcon />
                   <Typography style={textFieldLabelStyle}>Password</Typography>
                 </RowContainer>
                 <StyledTextField
@@ -164,7 +172,7 @@ const SignUpScreen = () => {
 
               <ColumnContainer>
                 <RowContainer>
-                  <LockIcon style={iconStyle} />
+                  <PasswordIcon />
                   <Typography style={textFieldLabelStyle}>
                     Confirm Password
                   </Typography>
@@ -186,10 +194,10 @@ const SignUpScreen = () => {
               {!props.isSubmitting ? (
                 <Button
                   onClick={props.handleSubmit}
-                  style={ButtonStyle}
+                  style={solidButtonStyle}
                   variant="contained"
                 >
-                  Login
+                  Create an Account
                 </Button>
               ) : (
                 <CircularProgress
@@ -210,9 +218,9 @@ const SignUpScreen = () => {
         <Typography style={headingStyleSecondary}>
           By creating an account, you agree to our
         </Typography>
-        <ClickTextLower style={LinkStyle} href="#">
+        <Link style={LinkStyle} href="#">
           {"Terms & Privacy Policy"}
-        </ClickTextLower>
+        </Link>
       </div>
 
       <Snackbar
@@ -237,11 +245,11 @@ const SignUpScreen = () => {
         }}
       >
         Already have an account?{" "}
-        <ClickTextLower style={LinkStyle} href="/">
+        <Link style={{ ...LinkStyle, fontWeight: "700" }} href="/">
           {"Log In"}
-        </ClickTextLower>
+        </Link>
       </Typography>
-    </MainContainer>
+    </Background>
   );
 };
 export default SignUpScreen;

@@ -11,6 +11,7 @@ import ForgotPasswordSubmitScreen from "./pages/ForgotPasswordSubmitScreen";
 import { useEffect, useState } from "react";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import UserProfile from "./pages/UserProfile";
+// import SuccessScreen from "./pages/SuccessScreen";
 Auth.configure(awsmobile);
 API.configure(awsmobile);
 Storage.configure(awsmobile);
@@ -54,9 +55,10 @@ const App = () => {
         path="/forgotpasswordsubmit"
         element={<ForgotPasswordSubmitScreen />}
       />
+      {/* <Route path="/success/:type" element={<SuccessScreen />} /> */}
 
       <Route element={<ProtectedRoute loggedIn={loggedIn} />}>
-        <Route path="/profile" element={<UserProfile />} />
+        <Route element={<UserProfile />} />
         <Route
           path="/welcome"
           element={

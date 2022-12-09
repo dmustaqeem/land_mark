@@ -1,9 +1,14 @@
 import { Avatar, Typography } from "@mui/material";
 import { useWindowDimensions } from "../utils/WindowWidthHeight";
 import { headingStylePrimary } from "./StyledComponents";
+import DummyDisplay from "../assets/images/DummyDisplay.png";
 
 const Header = ({ username, home, screenName }) => {
-  const { width } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
+
+  const headingFontSize = {
+    fontSize: height < 700 ? 23 : 28,
+  };
   return (
     <div
       style={{
@@ -27,21 +32,10 @@ const Header = ({ username, home, screenName }) => {
               gap: 5,
             }}
           >
-            <Typography
-              // style={{
-              //   fontSize: width < 500 ? 25 : 35,
-              // }}
-              variant="screen_heading"
-            >
+            <Typography style={headingFontSize} variant="screen_heading">
               Welcome,
             </Typography>
-            <Typography
-              style={{
-                fontSize: 35,
-              }}
-            >
-              {username}
-            </Typography>
+            <Typography style={headingFontSize}>{username}</Typography>
           </div>
         </>
       ) : (
@@ -57,7 +51,7 @@ const Header = ({ username, home, screenName }) => {
         </Typography>
       )}
 
-      <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+      <Avatar alt="Remy Sharp" src={DummyDisplay} />
     </div>
   );
 };

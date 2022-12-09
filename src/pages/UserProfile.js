@@ -12,7 +12,7 @@ import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import {
   CustomCard,
-  MainDiv,
+  Background,
   headingStylePrimary,
   headingStyleSecondary,
   squareButtonIconStyle,
@@ -24,7 +24,7 @@ import {
 import { useWindowDimensions } from "../utils/WindowWidthHeight";
 import theme from "../Theme";
 import { DummyData } from "../DummyData";
-import LandMarkCard from "../components/LandMarkCard";
+import LndMrkCard from "../components/LndMrkCard";
 
 const SocialInfoContainer = styled.div`
   flex-direction: column;
@@ -34,14 +34,7 @@ const SocialInfoContainer = styled.div`
 const UserProfile = ({ setValue }) => {
   const { width, height } = useWindowDimensions();
   return (
-    <MainDiv
-      style={{
-        gap: theme.spacing(4),
-        alignItems: "center",
-        height: height - 100,
-        padding: theme.spacing(3),
-      }}
-    >
+    <Background style={{ height: height - 74, justifyContent: "space-evenly" }}>
       <div
         style={{
           display: "flex",
@@ -150,8 +143,8 @@ const UserProfile = ({ setValue }) => {
             display: "flex",
             flexDirection: "row",
             height: "68px",
-            borderTop: `1px solid #DCECF6`,
-            borderBottom: `1px solid #DCECF6`,
+            borderTop: `1px solid ${theme.palette.secondary.main}`,
+            borderBottom: `1px solid ${theme.palette.secondary.main}`,
             width: "100%",
             alignItems: "center",
             justifyContent: "space-between",
@@ -169,8 +162,8 @@ const UserProfile = ({ setValue }) => {
           <SocialInfoContainer
             style={{
               flex: 3,
-              borderLeft: "1px solid #DCECF6",
-              borderRight: "1px solid #DCECF6",
+              borderLeft: `1px solid ${theme.palette.secondary.main}`,
+              borderRight: `1px solid ${theme.palette.secondary.main}`,
             }}
           >
             <Typography style={headingStyleSecondary}>Followers</Typography>
@@ -219,7 +212,7 @@ const UserProfile = ({ setValue }) => {
       <CardRowDiv>
         {DummyData.map((landmark, index) => {
           return (
-            <LandMarkCard
+            <LndMrkCard
               key={index}
               LandMark_Name={landmark.LandMark_Name}
               Category={landmark.Category}
@@ -228,7 +221,7 @@ const UserProfile = ({ setValue }) => {
           );
         })}
       </CardRowDiv>
-    </MainDiv>
+    </Background>
   );
 };
 

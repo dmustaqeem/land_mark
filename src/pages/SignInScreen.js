@@ -1,21 +1,25 @@
 import React, { Component } from "react";
 import Logo1 from "../assets/images/LndMark_logo.svg";
 import "@fontsource/lato";
-import { Typography, CircularProgress, Snackbar, Alert } from "@mui/material";
+import { ReactComponent as ProfileIcon } from "../assets/svgs/profileIcon.svg";
+import { ReactComponent as PasswordIcon } from "../assets/svgs/passwordIcon.svg";
+import {
+  Typography,
+  CircularProgress,
+  Snackbar,
+  Alert,
+  Link,
+} from "@mui/material";
 import Button from "@mui/material/Button";
-import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import theme from "../Theme";
 
 import { Formik } from "formik";
 import "@fontsource/lato";
-import { SocialIcon } from "react-social-icons";
 import QuestionMarkSharpIcon from "@mui/icons-material/QuestionMarkSharp";
 import * as yup from "yup";
 import {
   Error,
   Logo,
-  ClickTextLower,
-  MainContainer,
   LogoHeader,
   ColumnContainer,
   headingStylePrimary,
@@ -25,16 +29,18 @@ import {
   iconStyle,
   textFieldLabelStyle,
   StyledTextField,
-  ButtonStyle,
   LinkStyle,
   socialButtonStyle,
   squareButtonIconStyle,
+  Background,
+  solidButtonStyle,
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { useState } from "react";
 import LockIcon from "@mui/icons-material/Lock";
 import { useNavigate } from "react-router-dom";
 import SquareButton from "../components/SquareButton";
+import SocialMediaButton from "../components/SocialMediaButton";
 
 const SignInScreen = ({ setIsLoggedIn }) => {
   const [openSnackBar, setOpenSnackBar] = useState(false);
@@ -48,7 +54,13 @@ const SignInScreen = ({ setIsLoggedIn }) => {
     Password: yup.string().required("Password error"),
   });
   return (
-    <MainContainer>
+    <Background
+      style={{
+        justifyContent: "space-evenly",
+        padding: 0,
+        gap: 0,
+      }}
+    >
       <LogoHeader>
         <div
           style={{
@@ -81,7 +93,7 @@ const SignInScreen = ({ setIsLoggedIn }) => {
             Password: "",
           }}
           onSubmit={async (values, { resetForm }) => {
-            console.log("OnSubmit click", values);
+            // console.log("OnSubmit click", values);
             try {
               const user = await Auth.signIn(values.UserName, values.Password);
               if (user) {
@@ -106,7 +118,7 @@ const SignInScreen = ({ setIsLoggedIn }) => {
             <>
               <ColumnContainer>
                 <RowContainer>
-                  <PersonRoundedIcon style={iconStyle} />
+                  <ProfileIcon />
                   <Typography style={textFieldLabelStyle}>Username</Typography>
                 </RowContainer>
                 <StyledTextField
@@ -121,7 +133,7 @@ const SignInScreen = ({ setIsLoggedIn }) => {
               </ColumnContainer>
               <ColumnContainer>
                 <RowContainer>
-                  <LockIcon style={iconStyle} />
+                  <PasswordIcon />
                   <Typography style={textFieldLabelStyle}>Password</Typography>
                 </RowContainer>
                 <StyledTextField
@@ -140,7 +152,7 @@ const SignInScreen = ({ setIsLoggedIn }) => {
               {!props.isSubmitting ? (
                 <Button
                   onClick={props.handleSubmit}
-                  style={ButtonStyle}
+                  style={solidButtonStyle}
                   variant="contained"
                 >
                   Login
@@ -154,9 +166,9 @@ const SignInScreen = ({ setIsLoggedIn }) => {
           )}
         </Formik>
 
-        <ClickTextLower style={LinkStyle} href="/forgotpassword">
+        <Link style={LinkStyle} href="/forgotpassword">
           {"Forgot Your Password?"}
-        </ClickTextLower>
+        </Link>
       </CustomCard>
       <Typography style={headingStyleSecondary}>or login with</Typography>
       <RowContainer
@@ -164,24 +176,9 @@ const SignInScreen = ({ setIsLoggedIn }) => {
           gap: theme.spacing(4),
         }}
       >
-        <SocialIcon
-          style={socialButtonStyle}
-          network="facebook"
-          bgColor="white"
-          fgColor="#4E74C3"
-        />
-        <SocialIcon
-          style={socialButtonStyle}
-          network="twitter"
-          bgColor="white"
-          fgColor="#15B6FC"
-        />
-        <SocialIcon
-          style={socialButtonStyle}
-          network="google"
-          bgColor="white"
-          fgColor="blue"
-        />
+        <SocialMediaButton type={"facebook"} />
+        <SocialMediaButton />
+        <SocialMediaButton type={"google"} />
       </RowContainer>
       <Snackbar
         open={openSnackBar}
@@ -205,11 +202,11 @@ const SignInScreen = ({ setIsLoggedIn }) => {
         }}
       >
         Don’t have an account?{" "}
-        <ClickTextLower style={LinkStyle} href="/signup">
+        <Link style={{ ...LinkStyle, fontWeight: "700" }} href="/signup">
           {"Sign Up"}
-        </ClickTextLower>
+        </Link>
       </Typography>
-    </MainContainer>
+    </Background>
   );
 };
 export default SignInScreen;

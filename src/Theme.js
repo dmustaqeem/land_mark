@@ -20,7 +20,7 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      light: "#0088DF",
+      main: "#0088DF",
       dark: "#005D9E",
     },
     secondary: {
@@ -87,7 +87,6 @@ const theme = createTheme({
     marginTop: 20,
     letterSpacing: 0,
   },
-  palette: {},
   typography: {
     more_under_heading: {
       color: "#9DA7C0",
@@ -117,30 +116,6 @@ const theme = createTheme({
       fontSize: 35,
       fontWeight: 200,
       color: "#0C143D",
-    },
-    screen_sub_heading: {
-      fontFamily: "Poppins",
-      fontSize: 18,
-      fontWeight: 600,
-      color: "#0C143D",
-    },
-    card_heading: {
-      fontFamily: "Lato",
-      fontSize: 15,
-      fontWeight: 1000,
-      color: "#0C143D",
-    },
-    card_category: {
-      fontFamily: "Lato",
-      fontSize: 14,
-      fontWeight: 100,
-      color: "#9DA7C0",
-    },
-    card_distance: {
-      fontFamily: "Lato",
-      fontSize: 13,
-      fontWeight: 100,
-      color: "#0099F1",
     },
 
     clicktext_lower_blue: {

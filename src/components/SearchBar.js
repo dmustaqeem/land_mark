@@ -2,27 +2,30 @@ import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
-import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 import styled from "styled-components";
 import { useState } from "react";
+import { ReactComponent as SearchIcon } from "../assets/svgs/searchIcon.svg";
+
+import theme from "../Theme";
 
 const WhiteBorderTextField = styled(TextField)`
   & .MuiOutlinedInput-root {
     & fieldset {
-      border-color: #dcecf6;
+      border: 1px solid ${theme.palette.secondary.main};
+      border-radius: 14px;
     }
     &:hover fieldset {
-      border-color: white;
+      border: 2px solid ${theme.palette.secondary.main};
     }
   }
 `;
 
 const MuiStack = styled(Stack)`
   width: 100%;
-  border: 1px solid #dcecf6;
+  /* border: 1px solid #dcecf6; */
   /* box-shadow: 0px 10px 24px -13px rgba(0, 0, 0, 0.39); */
-  border-radius: 14px;
+  /* border-radius: 14px; */
 `;
 
 const Searchbar = () => {
@@ -45,7 +48,7 @@ const Searchbar = () => {
               ...params.InputProps,
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon sx={{ color: "#005D9E" }} />
+                  <SearchIcon />
                 </InputAdornment>
               ),
             }}

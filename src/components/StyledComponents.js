@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import Background from "../assets/images/Background.png";
 import * as Mui from "@mui/material";
 import theme from "../Theme";
 
@@ -17,20 +16,27 @@ export const CardRowDiv = styled.div`
   flex-direction: row;
   width: 100%;
   align-items: center;
-  height: 215px;
+  min-height: 215px;
+  @media (max-height: 700px) {
+    min-height: 170px;
+  }
   gap: ${theme.spacing(4)};
 `;
 export const Error = styled.div`
+  display: flex;
   color: red;
   font-size: 13px;
+  align-self: center;
 `;
 
-export const MainDiv = styled.div`
+export const Background = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   overflow-y: auto;
   align-items: center;
+  height: 100vh;
+
   /* position: absolute; */
   background: linear-gradient(180deg, #f3faff 0%, rgba(243, 250, 255, 0) 100%);
   padding: ${theme.spacing(4)};
@@ -43,14 +49,24 @@ export const Logo = styled.img`
   /* margin-bottom: 20px; */
 `;
 export const solidButtonStyle = {
-  backgroundColor: theme.palette.primary.light,
+  backgroundColor: theme.palette.primary.main,
   borderRadius: "12px",
   border: "0",
   fontWeight: 700,
   textTransform: "unset",
-  width: "169px",
-  height: "42px",
+  width: "100%",
+  height: "50px",
 };
+
+// export const ButtonStyle = {
+//   height: "50px",
+//   BackgroundColor: "#0088DF",
+//   borderRadius: "12px",
+//   fontWeight: "600",
+//   fontSize: "13px",
+//   lineHeight: "20px",
+//   textTransform: "unset",
+// };
 export const outlinedButtonStyle = {
   borderRadius: "12px",
   border: "2px solid #0088DF",
@@ -62,28 +78,27 @@ export const outlinedButtonStyle = {
 
 export const viewAllCardsButtonStyle = {
   textDecoration: "underline",
-  fontWeight: 600,
+  fontWeight: 400,
   fontSize: "16px",
   lineHeight: "20px",
-  color: "#0088DF",
+  color: theme.palette.text.light_blue,
   textTransform: "unset",
+};
+
+export const cardRowHeading = {
+  fontFamily: "Poppins",
+  fontSize: 20,
+  fontWeight: 900,
+  color: "#00000",
 };
 
 export const StyledTextField = styled(Mui.TextField)`
   fieldset {
     border-radius: 14px;
   }
-`;
-
-export const MainContainer = styled.div`
-  display: flex;
-  /* padding-top: ${theme.spacing(6)}; */
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
-  width: 100%;
-  background: linear-gradient(180deg, #f3faff 0%, rgba(243, 250, 255, 0) 100%);
-  justify-content: space-evenly;
+  .MuiOutlinedInput-notchedOutline {
+    border-color: ${theme.palette.secondary.main} !important;
+  }
 `;
 
 export const LogoHeader = styled.div`
@@ -139,29 +154,22 @@ export const textFieldLabelStyle = {
   fontWeight: 400,
   fontSize: "13px",
   lineHeight: "16px",
-  color: " #656565",
+  color: "#656565",
 };
 export const LinkStyle = {
-  color: "#0088df",
+  color: theme.palette.primary.main,
   fontSize: "14px",
-  fontWeight: 600,
+  fontWeight: 500,
+  cursor: "pointer",
+  alignSelf: "center",
 };
 
 export const iconStyle = {
-  color: "#0088DF",
+  color: theme.palette.primary.main,
   height: "20px",
   width: "20px",
 };
 
-export const ButtonStyle = {
-  height: "50px",
-  BackgroundColor: "#0088DF",
-  borderRadius: "12px",
-  fontWeight: "600",
-  fontSize: "13px",
-  lineHeight: "20px",
-  textTransform: "unset",
-};
 export const CustomCard = styled.div`
   display: flex;
   flex-direction: column;
@@ -173,9 +181,3 @@ export const CustomCard = styled.div`
   gap: ${theme.spacing(5)};
   padding: ${theme.spacing(4)};
 `;
-
-export const ClickTextLower = styled(Mui.Link)`
-  align-self: center;
-  cursor: pointer;
-`;
-// export const InputField = styled(Mui.OutlinedInput)``;

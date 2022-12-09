@@ -6,8 +6,7 @@ import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 //   StarIcon,
 //   MoreHorizIcon,
 // } from "@mui/icons-material";
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import PublicTwoToneIcon from "@mui/icons-material/PublicTwoTone";
+import PublicIcon from "@mui/icons-material/Public";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import AddIcon from "@mui/icons-material/Add";
@@ -18,6 +17,9 @@ import DiscoverScreen from "../pages/DiscoverScreen";
 import MoreScreen from "../pages/MoreScreen";
 import Activate from "../pages/ActivateScreen";
 import UserProfile from "../pages/UserProfile";
+import { ReactComponent as HomeIcon } from "../assets/svgs/homeIcon.svg";
+import { ReactComponent as HomeBlueIcon } from "../assets/svgs/homeBlueIcon.svg";
+import theme from "../Theme";
 
 const NavigationBottomAction = styled(BottomNavigationAction)(`
   color: #9DA7C0;
@@ -30,7 +32,8 @@ const NavigationBottomAction = styled(BottomNavigationAction)(`
     max-width:10px;
   } */
   &.Mui-selected {
-  border-top: 3px solid #0099F1;
+    color: ${theme.palette.primary.main};
+  border-top: 3px solid ${theme.palette.primary.main};
   }
   height: 100%;
 `);
@@ -38,7 +41,7 @@ const NavigationBottomAction = styled(BottomNavigationAction)(`
 const NavigationBottom = styled(BottomNavigation)`
   position: fixed;
   display: "flex";
-  min-height: 100px;
+  min-height: 74px;
   @media (max-height: 700px) {
     height: 70px;
   }
@@ -48,9 +51,20 @@ const NavigationBottom = styled(BottomNavigation)`
   box-shadow: 0px -9px 13px -7px rgba(0, 0, 0, 0.31);
 `;
 
+const RoundButton = styled("div")({
+  display: "flex",
+  backgroundColor: theme.palette.primary.dark,
+  height: "75%",
+  width: "71%",
+  justifyContent: "center",
+  alignItems: "center",
+  borderRadius: "100%",
+  border: `2px solid ${theme.palette.secondary.main}`,
+});
 const iconStyle = {
-  fontSize: "35px",
-  paddingBottom: "1px",
+  gap: theme.spacing(3),
+  letterSpacing: "0.2px",
+  minWidth: "fit-content",
 };
 
 const BottomNavBar = ({ setIsLoggedIn, username }) => {
@@ -78,16 +92,21 @@ const BottomNavBar = ({ setIsLoggedIn, username }) => {
         }}
       >
         <NavigationBottomAction
-          sx={{
-            width: 10,
+          style={{
+            ...iconStyle,
+            fontWeight: value === 0 ? 600 : 400,
           }}
           label="Welcome"
-          icon={<HomeRoundedIcon style={iconStyle} />}
+          icon={value === 0 ? <HomeBlueIcon /> : <HomeIcon />}
         />
 
         <NavigationBottomAction
+          style={{
+            ...iconStyle,
+            fontWeight: value === 1 ? 600 : 400,
+          }}
           label="Discover"
-          icon={<PublicTwoToneIcon style={iconStyle} />}
+          icon={<PublicIcon />}
         />
         <NavigationBottomAction
           style={{
@@ -95,35 +114,33 @@ const BottomNavBar = ({ setIsLoggedIn, username }) => {
             maxWidth: "80px",
           }}
           icon={
-            <div
-              style={{
-                display: "flex",
-                backgroundColor: "#005D9E",
-                height: "75%",
-                width: "95%",
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: "100%",
-              }}
-            >
+            <RoundButton>
               <AddIcon
                 style={{
-                  height: 40,
-                  width: 40,
+                  height: 30,
+                  width: 30,
                   color: "white",
                 }}
               />
-            </div>
+            </RoundButton>
           }
         />
 
         <NavigationBottomAction
+          style={{
+            ...iconStyle,
+            fontWeight: value === 3 ? 600 : 400,
+          }}
           label="Activate"
-          icon={<StarRoundedIcon style={iconStyle} />}
+          icon={<StarRoundedIcon />}
         />
         <NavigationBottomAction
+          style={{
+            ...iconStyle,
+            fontWeight: value === 4 ? 600 : 400,
+          }}
           label="More"
-          icon={<MoreHorizIcon style={iconStyle} />}
+          icon={<MoreHorizIcon />}
         />
       </NavigationBottom>
     </>

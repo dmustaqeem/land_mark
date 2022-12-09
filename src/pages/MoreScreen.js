@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import {
-  MainDiv,
+  Background,
   headingStylePrimary,
   headingStyleSecondary,
   outlinedButtonStyle,
@@ -29,14 +29,14 @@ const MoreScreen = ({ setIsLoggedIn, setValue }) => {
   const { height, width } = useWindowDimensions();
 
   return (
-    <MainDiv
+    <Background
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         gap: theme.spacing(6),
-        height: height - 100,
+        height: height - 74,
       }}
     >
       <div
@@ -103,7 +103,7 @@ const MoreScreen = ({ setIsLoggedIn, setValue }) => {
       >
         Log Out
       </Button>
-    </MainDiv>
+    </Background>
   );
 };
 

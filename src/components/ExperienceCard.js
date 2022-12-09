@@ -16,7 +16,8 @@ const ContentContainer = styled.div`
   max-width: 350px;
   width: 350px;
   height: 200px;
-  box-shadow: 0px 6px 30px rgba(30, 61, 83, 0.08);
+  box-shadow: -1px 8px 6px -3px rgba(0, 0, 0, 0.26);
+  margin: 10px;
 `;
 
 const ImgDiv = styled.div`
@@ -70,7 +71,11 @@ const ExperienceCard = ({
           padding: theme.spacing(4),
         }}
       >
-        <Typography style={headingStylePrimary}>{experienceName}</Typography>
+        <Typography
+          style={{ fontWeight: "600", fontSize: "17px", color: "#00000" }}
+        >
+          {experienceName}
+        </Typography>
         <Typography style={headingStyleSecondary}>
           {experienceCategory}
         </Typography>

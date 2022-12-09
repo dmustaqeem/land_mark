@@ -1,28 +1,30 @@
 import React, { Component } from "react";
 import {
-  MainDiv,
+  Background,
   TextButtonRow,
   CardRowDiv,
   viewAllCardsButtonStyle,
+  ColumnContainer,
+  cardRowHeading,
 } from "../components/StyledComponents";
 import { useWindowDimensions } from "../utils/WindowWidthHeight";
 import Searchbar from "../components/SearchBar";
 import { Button, Typography } from "@mui/material";
 import ExperienceCard from "../components/ExperienceCard";
 import styled from "styled-components";
-import CategoryButton from "../components/CategoryButton";
+import ExperienceCategoryButton from "../components/ExperienceCategoryButton";
 import { DummyCategory, DummyData } from "../DummyData";
-import LandMarkCard from "../components/LandMarkCard";
+import LndMrkCard from "../components/LndMrkCard";
 import theme from "../Theme";
 import Header from "../components/Header";
 import { Carousel } from "../components/Carousel";
 
-const CategoryRowDiv = styled.div`
+const ExperienceCategoryRowDiv = styled.div`
   display: flex;
   flex-direction: row;
   overflow-x: auto;
   width: 100%;
-  height: fit-content;
+  min-height: 40px;
   align-items: center;
   gap: ${theme.spacing(3)};
 `;
@@ -31,15 +33,10 @@ const ActivateScreen = () => {
   const { height, width } = useWindowDimensions();
 
   return (
-    <MainDiv
-      style={{
-        height: height - 100,
-      }}
-    >
+    <Background style={{ height: height - 74, justifyContent: "space-evenly" }}>
       <Header screenName={"Activate"} />
       <Searchbar />
-
-      <Carousel dots>
+      <Carousel style={{}} dots>
         {DummyData.map((exp, index) => {
           return (
             <ExperienceCard
@@ -51,34 +48,42 @@ const ActivateScreen = () => {
           );
         })}
       </Carousel>
-
-      <CategoryRowDiv>
+      <ExperienceCategoryRowDiv>
         {DummyCategory.map((category, index) => {
           return (
-            <CategoryButton key={index} categoryName={category.Category_name} />
-          );
-        })}
-      </CategoryRowDiv>
-      <TextButtonRow>
-        <Typography variant="screen_sub_heading">Newest Experiences</Typography>
-        <Button style={viewAllCardsButtonStyle} variant="text">
-          View All
-        </Button>
-      </TextButtonRow>
-      <CardRowDiv>
-        {DummyData.map((landmark, index) => {
-          return (
-            <LandMarkCard
+            <ExperienceCategoryButton
               key={index}
-              LandMark_Name={landmark.LandMark_Name}
-              Category={landmark.Category}
-              Distance={landmark.Distance}
-              image={landmark.image}
+              categoryName={category.Category_name}
             />
           );
         })}
-      </CardRowDiv>
-    </MainDiv>
+      </ExperienceCategoryRowDiv>
+      <ColumnContainer
+        style={{
+          width: "100%",
+        }}
+      >
+        <TextButtonRow>
+          <Typography style={cardRowHeading}>Newest Experiences</Typography>
+          <Button style={viewAllCardsButtonStyle} variant="text">
+            View All
+          </Button>
+        </TextButtonRow>
+        <CardRowDiv>
+          {DummyData.map((landmark, index) => {
+            return (
+              <LndMrkCard
+                key={index}
+                LandMark_Name={landmark.LandMark_Name}
+                Category={landmark.Category}
+                Distance={landmark.Distance}
+                image={landmark.image}
+              />
+            );
+          })}
+        </CardRowDiv>
+      </ColumnContainer>
+    </Background>
   );
 };
 
