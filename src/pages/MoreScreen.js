@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import styled from "styled-components";
 import {
   Background,
   headingStylePrimary,
@@ -7,35 +6,42 @@ import {
   outlinedButtonStyle,
 } from "../components/StyledComponents";
 import { Typography } from "@mui/material";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import PersonIcon from "@mui/icons-material/Person";
-import StarsIcon from "@mui/icons-material/Stars";
-import HistoryIcon from "@mui/icons-material/History";
-import InfoIcon from "@mui/icons-material/Info";
 import theme from "../Theme";
 import Button from "@mui/material/Button";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import OptionsCard from "../components/OptionsCard";
 import { useWindowDimensions } from "../utils/WindowWidthHeight";
+import { ReactComponent as ProfileCircle } from "../assets/svgs/profile-circle.svg";
+import { ReactComponent as ActivityIcon } from "../assets/svgs/activity.svg";
+import { ReactComponent as ClockIcon } from "../assets/svgs/clock.svg";
+import { ReactComponent as InfoIcon } from "../assets/svgs/info-circle.svg";
+import { ReactComponent as NotificationIcon } from "../assets/svgs/notification-bing.svg";
+import { ReactComponent as RankingIcon } from "../assets/svgs/ranking.svg";
 
 const groupElements = {
   display: "flex",
   flexDirection: "column",
 };
+const iconBackground = {
+  display: "flex",
+  flexDirection: "column",
+  backgroundColor: "#E0F1F8",
+  borderRadius: "10px",
+  height: "40px",
+  width: "40px",
+  justifyContent: "center",
+  alignItems: "center",
+};
 const MoreScreen = ({ setIsLoggedIn, setValue }) => {
   let navigate = useNavigate();
-  const { height, width } = useWindowDimensions();
+  const { height } = useWindowDimensions();
 
   return (
     <Background
       style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
         justifyContent: "center",
-        gap: theme.spacing(6),
+        gap: theme.spacing(7),
         height: height - 74,
       }}
     >
@@ -59,30 +65,54 @@ const MoreScreen = ({ setIsLoggedIn, setValue }) => {
         <div style={{ ...groupElements, gap: theme.spacing(4) }}>
           <OptionsCard
             label={"Notifications"}
-            icon={<NotificationsIcon style={theme.more_screen_icons_style} />}
+            icon={
+              <div style={iconBackground}>
+                <NotificationIcon />
+              </div>
+            }
           />
           <OptionsCard
             label={"Profile"}
-            icon={<PersonIcon style={theme.more_screen_icons_style} />}
+            icon={
+              <div style={iconBackground}>
+                <ProfileCircle />
+              </div>
+            }
             onClick={() => {
               setValue(5);
             }}
           />
           <OptionsCard
             label={"Achievements"}
-            icon={<StarsIcon style={theme.more_screen_icons_style} />}
+            icon={
+              <div style={iconBackground}>
+                <RankingIcon />
+              </div>
+            }
           />
           <OptionsCard
             label={"Analytics"}
-            icon={<BarChartIcon style={theme.more_screen_icons_style} />}
+            icon={
+              <div style={iconBackground}>
+                <ActivityIcon />
+              </div>
+            }
           />
           <OptionsCard
             label={"History"}
-            icon={<HistoryIcon style={theme.more_screen_icons_style} />}
+            icon={
+              <div style={iconBackground}>
+                <ClockIcon />
+              </div>
+            }
           />
           <OptionsCard
             label={"About"}
-            icon={<InfoIcon style={theme.more_screen_icons_style} />}
+            icon={
+              <div style={iconBackground}>
+                <InfoIcon />
+              </div>
+            }
           />
         </div>
       </div>

@@ -1,4 +1,3 @@
-import { PropaneSharp } from "@mui/icons-material";
 import styled from "styled-components";
 import theme from "../Theme";
 
@@ -12,6 +11,7 @@ const HelpButton = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  background-color: #ffffff;
 `;
 const SquareButton = (props) => {
   return <HelpButton onClick={props.onClick}>{props.children}</HelpButton>;

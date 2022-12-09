@@ -1,10 +1,12 @@
 import { Avatar, Typography } from "@mui/material";
 import { useWindowDimensions } from "../utils/WindowWidthHeight";
 import { headingStylePrimary } from "./StyledComponents";
-import DummyDisplay from "../assets/images/DummyDisplay.png";
+import AvatarDummy from "../assets/images/AvatarDummy.png";
+import Badge from "@mui/material/Badge";
+import theme from "../Theme";
 
 const Header = ({ username, home, screenName }) => {
-  const { width, height } = useWindowDimensions();
+  const { height } = useWindowDimensions();
 
   const headingFontSize = {
     fontSize: height < 700 ? 23 : 28,
@@ -51,7 +53,43 @@ const Header = ({ username, home, screenName }) => {
         </Typography>
       )}
 
-      <Avatar alt="Remy Sharp" src={DummyDisplay} />
+      <Badge
+        overlap="circular"
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        badgeContent={
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              height: 18,
+              width: 18,
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: theme.palette.primary.main,
+              borderRadius: "100%",
+              border: "2px solid #FFFFFF",
+              color: "#FFFFFF",
+            }}
+          >
+            <Typography
+              style={{
+                fontWeight: "700",
+                fontSize: "11px",
+              }}
+            >
+              3
+            </Typography>
+          </div>
+        }
+      >
+        <Avatar
+          style={{
+            height: 44,
+            width: 44,
+          }}
+          src={AvatarDummy}
+        />
+      </Badge>
     </div>
   );
 };

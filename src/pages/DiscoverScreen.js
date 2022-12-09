@@ -1,6 +1,9 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import {
   Background,
+  CardRowDiv,
+  cardRowHeading,
+  ColumnContainer,
   TextButtonRow,
   viewAllCardsButtonStyle,
 } from "../components/StyledComponents";
@@ -9,58 +12,63 @@ import { Typography, Button } from "@mui/material";
 import Searchbar from "../components/SearchBar";
 import LndMrkCard from "../components/LndMrkCard";
 import { DummyData } from "../DummyData";
-import { API, graphqlOperation, Storage } from "aws-amplify";
-import * as mutations from "../graphql/mutations";
-import * as queries from "../graphql/queries";
+// import { API, graphqlOperation, Storage } from "aws-amplify";
+// import * as mutations from "../graphql/mutations";
+// import * as queries from "../graphql/queries";
 import Header from "../components/Header";
-import { Carousel } from "../components/Carousel";
 
 const DiscoverScreen = () => {
-  const { height, width } = useWindowDimensions();
-  const [fileData, setFileData] = useState("null");
+  const { height } = useWindowDimensions();
+  // const [fileData, setFileData] = useState("null");
 
-  const handleOnChange = async (e) => {
-    // console.log("image::", e.target.files[0]);
-    setFileData(e.target.files[0]);
-    // console.log(URL.createObjectURL(e.target.files[0]));
+  // const handleOnChange = async (e) => {
+  //   // console.log("image::", e.target.files[0]);
+  //   setFileData(e.target.files[0]);
+  //   // console.log(URL.createObjectURL(e.target.files[0]));
 
-    try {
-      const result = await Storage.put(fileData.name, fileData, {
-        level: "protected",
-      });
-      console.log(result);
-    } catch (error) {
-      console.log("Error uploading file: ", error);
-    }
-    // setSelectedImage(e.target.files[0]);
-    // setImageUrl(URL.createObjectURL(e.target.files[0]));
-    // onImageUrlChange(URL.createObjectURL(selectedImage));
-  };
+  //   try {
+  //     const result = await Storage.put(fileData.name, fileData, {
+  //       level: "protected",
+  //     });
+  //     console.log(result);
+  //   } catch (error) {
+  //     console.log("Error uploading file: ", error);
+  //   }
+  //   // setSelectedImage(e.target.files[0]);
+  //   // setImageUrl(URL.createObjectURL(e.target.files[0]));
+  //   // onImageUrlChange(URL.createObjectURL(selectedImage));
+  // };
 
   return (
     <Background style={{ height: height - 74 }}>
       <Header screenName={"Discover"} />
 
       <Searchbar />
-      <TextButtonRow>
-        <Typography variant="screen_sub_heading">Nearby Landmarks</Typography>
-        <Button style={viewAllCardsButtonStyle} variant="text">
-          View All
-        </Button>
-      </TextButtonRow>
-      <Carousel>
-        {DummyData.map((landmark, index) => {
-          return (
-            <LndMrkCard
-              key={index}
-              LandMark_Name={landmark.LandMark_Name}
-              Category={landmark.Category}
-              Distance={landmark.Distance}
-              image={landmark.image}
-            />
-          );
-        })}
-      </Carousel>
+      <ColumnContainer
+        style={{
+          width: "100%",
+        }}
+      >
+        <TextButtonRow>
+          <Typography style={cardRowHeading}>Discover Landmarks</Typography>
+          <Button style={viewAllCardsButtonStyle} variant="text">
+            View All
+          </Button>
+        </TextButtonRow>
+        <CardRowDiv>
+          {DummyData.map((landmark, index) => {
+            return (
+              <LndMrkCard
+                key={index}
+                LandMark_Name={landmark.LandMark_Name}
+                Category={landmark.Category}
+                Distance={landmark.Distance}
+                image={landmark.image}
+              />
+            );
+          })}
+        </CardRowDiv>
+      </ColumnContainer>
       {/* <Button
         onClick={async () => {
           try {

@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import styled from "styled-components";
 import theme from "../Theme";
-import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
+import { ReactComponent as ArrowCircle } from "../assets/svgs/arrow-circle-right.svg";
 
 const ContentContainer = styled.div`
   flex-direction: row;
@@ -10,21 +10,16 @@ const ContentContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding-left: ${theme.spacing(3)};
-  padding-right: ${theme.spacing(3)};
+  padding-right: ${theme.spacing(4)};
   width: 100%;
   height: 60px;
   display: flex;
   cursor: pointer;
 `;
-const RightIcon = styled(ChevronRightRoundedIcon)`
-  color: #9da7c0;
-  font-weight: 900;
-  border: 2px solid #9da7c0;
-  border-radius: 100px;
-`;
+
 const IconTextContainer = styled.div`
   flex-direction: row;
-  gap: ${theme.spacing(3)};
+  gap: ${theme.spacing(4)};
   display: flex;
   align-items: center;
 `;
@@ -35,11 +30,7 @@ const OptionsCard = ({ icon, label, onClick }) => {
         {icon}
         <Typography variant="more_option_text">{label}</Typography>
       </IconTextContainer>
-      <RightIcon
-        style={{
-          fontSize: "22px",
-        }}
-      />
+      <ArrowCircle />
     </ContentContainer>
   );
 };

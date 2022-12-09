@@ -56,6 +56,7 @@ export const solidButtonStyle = {
   textTransform: "unset",
   width: "100%",
   height: "50px",
+  boxShadow: "0px 0px 0px rgba(0, 0, 0, 0.00)",
 };
 
 // export const ButtonStyle = {
@@ -69,16 +70,17 @@ export const solidButtonStyle = {
 // };
 export const outlinedButtonStyle = {
   borderRadius: "12px",
-  border: "2px solid #0088DF",
+  border: `1px solid ${theme.palette.primary.main}`,
   fontWeight: 700,
   textTransform: "unset",
   width: "200px",
   height: "50px",
+  color: theme.palette.primary.main,
 };
 
 export const viewAllCardsButtonStyle = {
   textDecoration: "underline",
-  fontWeight: 400,
+  fontWeight: 500,
   fontSize: "16px",
   lineHeight: "20px",
   color: theme.palette.text.light_blue,

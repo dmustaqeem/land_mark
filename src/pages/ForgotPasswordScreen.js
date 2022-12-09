@@ -23,12 +23,12 @@ import {
   headingStyleSecondary,
   CustomCard,
   RowContainer,
-  iconStyle,
   textFieldLabelStyle,
   StyledTextField,
   LinkStyle,
   squareButtonIconStyle,
   solidButtonStyle,
+  outlinedButtonStyle,
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { Formik } from "formik";
@@ -121,13 +121,29 @@ const ForgotPasswordScreen = () => {
                 ) : null}
               </ColumnContainer>
               {!props.isSubmitting ? (
-                <Button
-                  onClick={props.handleSubmit}
-                  style={solidButtonStyle}
-                  variant="contained"
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 10,
+                  }}
                 >
-                  Submit
-                </Button>
+                  <Button
+                    onClick={props.handleSubmit}
+                    style={solidButtonStyle}
+                    variant="contained"
+                  >
+                    Submit
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      navigate("/");
+                    }}
+                    style={{ ...outlinedButtonStyle, width: "100%" }}
+                  >
+                    Cancel
+                  </Button>
+                </div>
               ) : (
                 <CircularProgress
                   sx={{ alignSelf: "center", margin: "10px" }}

@@ -35,18 +35,6 @@ const theme = createTheme({
 
   spacing: [0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024],
 
-  more_divider: {
-    backgroundColor: "#F4F5F8",
-    border: "none",
-    height: 1,
-  },
-  more_screen_icons_style: {
-    color: "#0088DF",
-    backgroundColor: "#E0F1F8",
-    borderRadius: "10px",
-    fontSize: "30px",
-    padding: "4px",
-  },
   achievement_icon_style: {
     color: "#0088DF",
     backgroundColor: "#E0F1F8",
@@ -94,9 +82,9 @@ const theme = createTheme({
       fontSize: 19,
     },
     more_option_text: {
-      color: "#0C143D",
+      color: "#00000",
       fontFamily: "Lato",
-      fontSize: 17,
+      fontSize: 16,
       fontWeight: 600,
     },
     long_card_name: {

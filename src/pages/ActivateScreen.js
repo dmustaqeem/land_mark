@@ -30,7 +30,7 @@ const ExperienceCategoryRowDiv = styled.div`
 `;
 
 const ActivateScreen = () => {
-  const { height, width } = useWindowDimensions();
+  const { height } = useWindowDimensions();
 
   return (
     <Background style={{ height: height - 74, justifyContent: "space-evenly" }}>
@@ -65,7 +65,10 @@ const ActivateScreen = () => {
       >
         <TextButtonRow>
           <Typography style={cardRowHeading}>Newest Experiences</Typography>
-          <Button style={viewAllCardsButtonStyle} variant="text">
+          <Button
+            style={{ ...viewAllCardsButtonStyle, fontSize: "14px" }}
+            variant="text"
+          >
             View All
           </Button>
         </TextButtonRow>

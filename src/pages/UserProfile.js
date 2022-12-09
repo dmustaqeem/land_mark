@@ -1,15 +1,14 @@
 import { Button, Typography } from "@mui/material";
 import styled from "styled-components";
 import SquareButton from "../components/SquareButton";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import ShareIcon from "@mui/icons-material/Share";
-import Badge from "@mui/material/Badge";
-import Avatar from "@mui/material/Avatar";
-import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
-import StarsIcon from "@mui/icons-material/Stars";
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
-import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
-import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import { ReactComponent as CoinsIcon } from "../assets/svgs/coinsIcon.svg";
+import { ReactComponent as ArrowLeftIcon } from "../assets/svgs/arrow-left.svg";
+import { ReactComponent as Achievement1 } from "../assets/svgs/achievement1.svg";
+import { ReactComponent as Achievement2 } from "../assets/svgs/achievement2.svg";
+import { ReactComponent as Achievement3 } from "../assets/svgs/achievement3.svg";
+import { ReactComponent as Achievement4 } from "../assets/svgs/achievement4.svg";
+
 import {
   CustomCard,
   Background,
@@ -20,19 +19,39 @@ import {
   viewAllCardsButtonStyle,
   CardRowDiv,
   solidButtonStyle,
+  cardRowHeading,
 } from "../components/StyledComponents";
 import { useWindowDimensions } from "../utils/WindowWidthHeight";
 import theme from "../Theme";
 import { DummyData } from "../DummyData";
 import LndMrkCard from "../components/LndMrkCard";
+import AvatarDummy from "../assets/images/AvatarDummy.png";
 
 const SocialInfoContainer = styled.div`
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   display: flex;
+  gap: ${theme.spacing(2)};
 `;
+const achievementBackground = {
+  display: "flex",
+  height: "60px",
+  width: "60px",
+  flexDirection: "column",
+  backgroundColor: "#E0F1F8",
+  borderRadius: "100%",
+  justifyContent: "center",
+  alignItems: "center",
+};
+const infoNumberStyle = {
+  fontWeight: "600",
+  fontSize: "18px",
+  lineHeight: "22px",
+  color: "#000000",
+};
 const UserProfile = ({ setValue }) => {
-  const { width, height } = useWindowDimensions();
+  const { height } = useWindowDimensions();
   return (
     <Background style={{ height: height - 74, justifyContent: "space-evenly" }}>
       <div
@@ -50,7 +69,7 @@ const UserProfile = ({ setValue }) => {
             setValue(4);
           }}
         >
-          <KeyboardBackspaceIcon />
+          <ArrowLeftIcon />
         </SquareButton>
         <Typography
           style={{ ...headingStylePrimary, color: theme.palette.text.primary }}
@@ -66,6 +85,9 @@ const UserProfile = ({ setValue }) => {
         style={{
           alignItems: "center",
           gap: theme.spacing(4),
+          maxWidth: "100%",
+          boxShadow: "0px 6px 30px rgba(30, 61, 83, 0.08)",
+          filter: "drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.0))",
         }}
       >
         <div
@@ -74,65 +96,82 @@ const UserProfile = ({ setValue }) => {
             flexDirection: "row",
             alignItems: "center",
             width: "100%",
+            paddingBottom: theme.spacing(4),
             justifyContent: "space-between",
           }}
         >
-          <Badge
-            overlap="circular"
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              backgroundImage: `url(${AvatarDummy})`,
+              backgroundSize: "cover",
+              borderRadius: "100%",
+              height: "106px",
+              width: "106px",
+              justifyContent: "flex-end",
+              position: "relative",
             }}
-            badgeContent={
-              <div
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                backgroundColor: theme.palette.primary.dark,
+                width: "74px",
+                height: "32px",
+                borderRadius: "60px",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "white",
+                gap: theme.spacing(2),
+                position: "absolute",
+                bottom: -15,
+              }}
+            >
+              <CoinsIcon />
+              <Typography
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  backgroundColor: theme.palette.primary.dark,
-                  width: "74px",
-                  height: "32px",
-                  borderRadius: "60px",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "white",
-                  gap: theme.spacing(2),
+                  fontSize: "14px",
                 }}
               >
-                <MilitaryTechIcon />
-                <Typography>510</Typography>
-              </div>
-            }
-          >
-            <Avatar
-              style={{
-                border: "2px solid #D9D9D9",
-                height: "106px",
-                width: "106px",
-              }}
-              alt="Travis Howard"
-              src="/static/images/avatar/2.jpg"
-            />
-          </Badge>
+                510
+              </Typography>
+            </div>
+          </div>
           <div
             style={{
               display: "flex",
               flexDirection: "column",
               height: "100%",
-              justifyContent: "space-evenly",
+              width: "57%",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
             }}
           >
             <Typography
               style={{
                 ...headingStylePrimary,
-                color: "black",
+                fontSize: "22px",
+                color: "#000000",
               }}
             >
               Jane Wu
             </Typography>
-            <Typography style={headingStyleSecondary}>
+            <Typography
+              style={{
+                ...headingStyleSecondary,
+                fontSize: "16px",
+                lineHeight: "20px",
+              }}
+            >
               Personal Creator
             </Typography>
-            <Button variant="contained" style={solidButtonStyle}>
+            <Button
+              variant="contained"
+              style={{ ...solidButtonStyle, height: "42px", width: "95%" }}
+            >
               Follow
             </Button>
           </div>
@@ -157,7 +196,7 @@ const UserProfile = ({ setValue }) => {
             }}
           >
             <Typography style={headingStyleSecondary}>Likes</Typography>
-            <Typography style={headingStylePrimary}>22.2K</Typography>
+            <Typography style={infoNumberStyle}>22.2K</Typography>
           </SocialInfoContainer>
           <SocialInfoContainer
             style={{
@@ -167,7 +206,7 @@ const UserProfile = ({ setValue }) => {
             }}
           >
             <Typography style={headingStyleSecondary}>Followers</Typography>
-            <Typography style={headingStylePrimary}>3.6K</Typography>
+            <Typography style={infoNumberStyle}>3.6K</Typography>
           </SocialInfoContainer>
           <SocialInfoContainer
             style={{
@@ -175,13 +214,17 @@ const UserProfile = ({ setValue }) => {
             }}
           >
             <Typography style={headingStyleSecondary}>Published</Typography>
-            <Typography style={headingStylePrimary}>102</Typography>
+            <Typography style={infoNumberStyle}>102</Typography>
           </SocialInfoContainer>
         </div>
         <Typography
           style={{
-            ...headingStylePrimary,
+            fontWeight: "600",
+            fontSize: "16px",
+            lineHeight: "20px",
+            color: "#000000",
             alignSelf: "flex-start",
+            letterSpacing: "0",
           }}
         >
           Achievements
@@ -195,16 +238,22 @@ const UserProfile = ({ setValue }) => {
             justifyContent: "space-evenly",
           }}
         >
-          <StarsIcon style={theme.achievement_icon_style} />
-          <EmojiEventsIcon style={theme.achievement_icon_style} />
-          <VerifiedUserIcon style={theme.achievement_icon_style} />
-          <WorkspacePremiumIcon style={theme.achievement_icon_style} />
+          <div style={achievementBackground}>
+            <Achievement4 />
+          </div>
+          <div style={achievementBackground}>
+            <Achievement3 />
+          </div>{" "}
+          <div style={achievementBackground}>
+            <Achievement2 />
+          </div>{" "}
+          <div style={achievementBackground}>
+            <Achievement1 />
+          </div>{" "}
         </div>
       </CustomCard>
       <TextButtonRow>
-        <Typography variant="screen_sub_heading">
-          Activate Experiences
-        </Typography>
+        <Typography style={cardRowHeading}>Recently Published</Typography>
         <Button style={viewAllCardsButtonStyle} variant="text">
           View All
         </Button>
