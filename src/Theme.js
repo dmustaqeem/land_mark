@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { createTheme } from "@mui/material/styles";
 import "@fontsource/lato";
-import "@fontsource/poppins";
 import "@fontsource/prompt";
 import "@fontsource/varela-round";
 import "@fontsource/secular-one";
@@ -46,7 +45,7 @@ const theme = createTheme({
     backgroundColor: "#0099F1",
     color: "white",
     width: "45%",
-    fontFamily: "Lato",
+    // fontFamily: "Poppins",
     fontSize: 17,
     fontWeight: 100,
     textTransform: "none",
@@ -57,7 +56,7 @@ const theme = createTheme({
     backgroundColor: "#AEB0B6",
     color: "white",
     width: "45%",
-    fontFamily: "Lato",
+    // fontFamily: "Poppins",
     fontSize: 17,
     fontWeight: 100,
     textTransform: "none",
@@ -68,7 +67,7 @@ const theme = createTheme({
     color: "white",
     backgroundColor: "#0099F1",
     width: "80%",
-    fontFamily: "Lato",
+    // fontFamily: "Poppins",
     fontSize: 18,
     textTransform: "none",
     borderRadius: 2,
@@ -76,6 +75,7 @@ const theme = createTheme({
     letterSpacing: 0,
   },
   typography: {
+    fontFamily: ["Poppins", "sans-serif"].join(","),
     more_under_heading: {
       color: "#9DA7C0",
       fontWeight: 500,
@@ -83,7 +83,6 @@ const theme = createTheme({
     },
     more_option_text: {
       color: "#00000",
-      fontFamily: "Lato",
       fontSize: 16,
       fontWeight: 600,
     },
@@ -100,14 +99,14 @@ const theme = createTheme({
       color: "white",
     },
     screen_heading: {
-      fontFamily: "Archivo Black",
+      // fontFamily: "Poppins",
       fontSize: 35,
       fontWeight: 200,
       color: "#0C143D",
     },
 
     clicktext_lower_blue: {
-      fontFamily: "Lato",
+      // fontFamily: "Poppins",
       fontSize: 14,
       fontWeight: 600,
       color: "#005D9E",

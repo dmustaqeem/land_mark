@@ -29,6 +29,14 @@ export const Error = styled.div`
   align-self: center;
 `;
 
+export const SemiHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: fit-content;
+  justify-content: space-between;
+  align-items: center;
+`;
 export const Background = styled.div`
   display: flex;
   flex-direction: column;
@@ -51,46 +59,51 @@ export const Logo = styled.img`
 export const solidButtonStyle = {
   backgroundColor: theme.palette.primary.main,
   borderRadius: "12px",
+  lineHeight: "19.73px",
   border: "0",
-  fontWeight: 700,
+  fontWeight: 500,
   textTransform: "unset",
   width: "100%",
   height: "50px",
   boxShadow: "0px 0px 0px rgba(0, 0, 0, 0.00)",
+  // fontFamily: theme.fontFamily,
+  color: "white",
+  letterSpacing: "0",
+  fontSize: "16px",
+};
+export const groupElements = {
+  display: "flex",
+  flexDirection: "column",
 };
 
-// export const ButtonStyle = {
-//   height: "50px",
-//   BackgroundColor: "#0088DF",
-//   borderRadius: "12px",
-//   fontWeight: "600",
-//   fontSize: "13px",
-//   lineHeight: "20px",
-//   textTransform: "unset",
-// };
 export const outlinedButtonStyle = {
   borderRadius: "12px",
   border: `1px solid ${theme.palette.primary.main}`,
-  fontWeight: 700,
+  fontWeight: 600,
   textTransform: "unset",
   width: "200px",
   height: "50px",
   color: theme.palette.primary.main,
+  // fontFamily: theme.fontFamily,
+  fontSize: "16px",
+  lineHeight: "19.73px",
+  letterSpacing: "0px",
 };
 
 export const viewAllCardsButtonStyle = {
   textDecoration: "underline",
-  fontWeight: 500,
+  fontWeight: 400,
   fontSize: "16px",
-  lineHeight: "20px",
+  lineHeight: "19.73px",
   color: theme.palette.text.light_blue,
   textTransform: "unset",
 };
 
 export const cardRowHeading = {
-  fontFamily: "Poppins",
+  // fontFamily: theme.fontFamily,
   fontSize: 20,
-  fontWeight: 900,
+  fontWeight: 600,
+  lineHeight: "24.66px",
   color: "#00000",
 };
 
@@ -131,7 +144,7 @@ export const socialButtonStyle = {
 };
 
 export const headingStylePrimary = {
-  fontFamily: "Lato",
+  // fontFamily: theme.fontFamily,
   fontWeight: "600",
   fontSize: "20px",
   lineHeight: "25px",
@@ -144,7 +157,7 @@ export const squareButtonIconStyle = {
   color: "#9DA7C1",
 };
 export const headingStyleSecondary = {
-  fontFamily: "Lato",
+  // fontFamily: theme.fontFamily,
   fontWeight: "400",
   fontSize: "14px",
   lineHeight: "17px",
@@ -152,7 +165,7 @@ export const headingStyleSecondary = {
   color: theme.palette.text.secondary,
 };
 export const textFieldLabelStyle = {
-  fontFamily: "Lato",
+  // fontFamily: theme.fontFamily,
   fontWeight: 400,
   fontSize: "13px",
   lineHeight: "16px",

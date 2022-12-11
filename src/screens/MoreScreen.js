@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {
   Background,
+  groupElements,
   headingStylePrimary,
   headingStyleSecondary,
   outlinedButtonStyle,
@@ -19,10 +20,6 @@ import { ReactComponent as InfoIcon } from "../assets/svgs/info-circle.svg";
 import { ReactComponent as NotificationIcon } from "../assets/svgs/notification-bing.svg";
 import { ReactComponent as RankingIcon } from "../assets/svgs/ranking.svg";
 
-const groupElements = {
-  display: "flex",
-  flexDirection: "column",
-};
 const iconBackground = {
   display: "flex",
   flexDirection: "column",
@@ -54,7 +51,14 @@ const MoreScreen = ({ setIsLoggedIn, setValue }) => {
         }}
       >
         <div style={groupElements}>
-          <Typography style={{ ...headingStylePrimary, color: "black" }}>
+          <Typography
+            style={{
+              fontWeight: 600,
+              fontSize: 24,
+              lineHeight: "29.59px",
+              textAlign: "center",
+            }}
+          >
             More
           </Typography>
           <Typography style={headingStyleSecondary}>
@@ -99,6 +103,9 @@ const MoreScreen = ({ setIsLoggedIn, setValue }) => {
             }
           />
           <OptionsCard
+            onClick={() => {
+              setValue(7);
+            }}
             label={"History"}
             icon={
               <div style={iconBackground}>

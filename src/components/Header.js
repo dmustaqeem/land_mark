@@ -4,11 +4,15 @@ import { headingStylePrimary } from "./StyledComponents";
 import AvatarDummy from "../assets/images/AvatarDummy.png";
 import Badge from "@mui/material/Badge";
 import theme from "../Theme";
+import SquareButton from "./SquareButton";
+import { ReactComponent as ArrowLeftIcon } from "../assets/svgs/arrow-left.svg";
 
-const Header = ({ username, home, screenName }) => {
+const Header = ({ username, home, screenName, setValue, backButton }) => {
   const { height } = useWindowDimensions();
 
   const headingFontSize = {
+    fontWeight: 700,
+    lineHeight: "34.52px",
     fontSize: height < 700 ? 23 : 28,
   };
   return (
@@ -22,6 +26,15 @@ const Header = ({ username, home, screenName }) => {
         justifyContent: "space-between",
       }}
     >
+      {backButton ? (
+        <SquareButton
+          onClick={() => {
+            setValue(4);
+          }}
+        >
+          <ArrowLeftIcon />
+        </SquareButton>
+      ) : null}
       {home ? (
         <>
           <div
@@ -34,19 +47,20 @@ const Header = ({ username, home, screenName }) => {
               gap: 5,
             }}
           >
-            <Typography style={headingFontSize} variant="screen_heading">
-              Welcome,
+            <Typography style={headingFontSize}>Welcome,</Typography>
+            <Typography style={{ ...headingFontSize, fontWeight: 300 }}>
+              {username}
             </Typography>
-            <Typography style={headingFontSize}>{username}</Typography>
           </div>
         </>
       ) : (
         <Typography
           style={{
-            ...headingStylePrimary,
-            color: "black",
+            fontWeight: 600,
+            fontSize: 24,
+            lineHeight: "29.59px",
+            textAlign: "center",
             flex: 1,
-            fontSize: "24px",
           }}
         >
           {screenName}
@@ -83,6 +97,9 @@ const Header = ({ username, home, screenName }) => {
         }
       >
         <Avatar
+          onClick={() => {
+            setValue(5);
+          }}
           style={{
             height: 44,
             width: 44,

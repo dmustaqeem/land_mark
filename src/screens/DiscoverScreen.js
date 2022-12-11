@@ -17,7 +17,7 @@ import { DummyData } from "../DummyData";
 // import * as queries from "../graphql/queries";
 import Header from "../components/Header";
 
-const DiscoverScreen = () => {
+const DiscoverScreen = ({ setValue }) => {
   const { height } = useWindowDimensions();
   // const [fileData, setFileData] = useState("null");
 
@@ -41,7 +41,7 @@ const DiscoverScreen = () => {
 
   return (
     <Background style={{ height: height - 74 }}>
-      <Header screenName={"Discover"} />
+      <Header setValue={setValue} screenName={"Discover"} />
 
       <Searchbar />
       <ColumnContainer

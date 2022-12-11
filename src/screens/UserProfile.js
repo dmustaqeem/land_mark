@@ -20,6 +20,7 @@ import {
   CardRowDiv,
   solidButtonStyle,
   cardRowHeading,
+  SemiHeader,
 } from "../components/StyledComponents";
 import { useWindowDimensions } from "../utils/WindowWidthHeight";
 import theme from "../Theme";
@@ -54,16 +55,7 @@ const UserProfile = ({ setValue }) => {
   const { height } = useWindowDimensions();
   return (
     <Background style={{ height: height - 74, justifyContent: "space-evenly" }}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          width: "100%",
-          height: "fit-content",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
+      <SemiHeader>
         <SquareButton
           onClick={() => {
             setValue(4);
@@ -72,14 +64,19 @@ const UserProfile = ({ setValue }) => {
           <ArrowLeftIcon />
         </SquareButton>
         <Typography
-          style={{ ...headingStylePrimary, color: theme.palette.text.primary }}
+          style={{
+            fontWeight: 600,
+            fontSize: 24,
+            lineHeight: "29.59px",
+            textAlign: "center",
+          }}
         >
           Profile
         </Typography>
         <SquareButton>
           <ShareIcon style={squareButtonIconStyle} />
         </SquareButton>
-      </div>
+      </SemiHeader>
 
       <CustomCard
         style={{
@@ -199,8 +196,12 @@ const UserProfile = ({ setValue }) => {
             <Typography style={infoNumberStyle}>22.2K</Typography>
           </SocialInfoContainer>
           <SocialInfoContainer
+            onClick={() => {
+              setValue(6);
+            }}
             style={{
               flex: 3,
+              cursor: "pointer",
               borderLeft: `1px solid ${theme.palette.secondary.main}`,
               borderRight: `1px solid ${theme.palette.secondary.main}`,
             }}

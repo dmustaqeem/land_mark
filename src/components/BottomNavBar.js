@@ -12,14 +12,17 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
-import WelcomeScreen from "../pages/WelcomeScreen";
-import DiscoverScreen from "../pages/DiscoverScreen";
-import MoreScreen from "../pages/MoreScreen";
-import Activate from "../pages/ActivateScreen";
-import UserProfile from "../pages/UserProfile";
+import WelcomeScreen from "../screens/WelcomeScreen";
+import DiscoverScreen from "../screens/DiscoverScreen";
+import MoreScreen from "../screens/MoreScreen";
+import Activate from "../screens/ActivateScreen";
+import UserProfile from "../screens/UserProfile";
 import { ReactComponent as HomeIcon } from "../assets/svgs/homeIcon.svg";
 import { ReactComponent as HomeBlueIcon } from "../assets/svgs/homeBlueIcon.svg";
+import FollowersScreen from "../screens/FollowersScreen";
 import theme from "../Theme";
+import HistoryScreen from "../screens/HistoryScreen";
+import LndMrkExpView from "./LndmrkExpView";
 
 const NavigationBottomAction = styled(BottomNavigationAction)(`
   color: #9DA7C0;
@@ -48,7 +51,7 @@ const NavigationBottom = styled(BottomNavigation)`
   align-items: center;
   width: 100%;
   bottom: 0;
-  box-shadow: 0px -9px 13px -7px rgba(0, 0, 0, 0.31);
+  box-shadow: 0px 15px 60px rgba(186, 174, 180, 0.3);
 `;
 
 const RoundButton = styled("div")({
@@ -65,24 +68,30 @@ const iconStyle = {
   gap: theme.spacing(3),
   letterSpacing: "0.2px",
   minWidth: "fit-content",
+  fontFamily: theme.fontFamily,
 };
 
 const BottomNavBar = ({ setIsLoggedIn, username }) => {
   const [value, setValue] = useState(0);
   return (
     <>
-      {value == 0 ? (
-        <WelcomeScreen username={username} />
-      ) : value == 1 ? (
-        <DiscoverScreen />
-      ) : value == 3 ? (
-        <Activate />
-      ) : value == 4 ? (
+      {value === 0 ? (
+        <WelcomeScreen setValue={setValue} username={username} />
+      ) : value === 1 ? (
+        <DiscoverScreen setValue={setValue} />
+      ) : value === 3 ? (
+        <Activate setValue={setValue} />
+      ) : value === 4 ? (
         <MoreScreen setValue={setValue} setIsLoggedIn={setIsLoggedIn} />
-      ) : value == 5 ? (
+      ) : value === 5 ? (
         <UserProfile setValue={setValue} />
+      ) : value === 6 ? (
+        <FollowersScreen setValue={setValue} />
+      ) : value === 7 ? (
+        <HistoryScreen setValue={setValue} />
+      ) : value === 20 ? (
+        <LndMrkExpView setValue={setValue} />
       ) : null}
-
       <NavigationBottom
         showLabels={true}
         value={value}

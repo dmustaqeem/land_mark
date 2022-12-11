@@ -1,6 +1,5 @@
 import React, { Component, useState } from "react";
 import styled from "styled-components";
-import "@fontsource/poppins";
 import "@fontsource/lato";
 import "@fontsource/catamaran";
 import theme from "../Theme";
@@ -15,15 +14,16 @@ const Container = styled.div`
   padding-inline: ${theme.spacing(3)};
   justify-content: center;
   align-items: center;
-  font-weight: 600;
+  font-weight: 500;
   color: ${(props) => (props.clicked ? "white" : "#0099f1")};
-  font-family: "Poppins";
+  /* font-family: "Poppins"; */
   cursor: pointer;
 `;
-const ExperienceCategoryButton = ({ categoryName }) => {
+const ExperienceCategoryButton = ({ categoryName, style }) => {
   const [clicked, setIsClicked] = useState(false);
   return (
     <Container
+      style={style}
       onClick={() => {
         setIsClicked((prev) => !prev);
       }}

@@ -16,12 +16,12 @@ import {
 } from "../components/StyledComponents";
 import Header from "../components/Header";
 
-const WelcomeScreen = ({ username }) => {
+const WelcomeScreen = ({ username, setValue }) => {
   const { height, width } = useWindowDimensions();
 
   return (
     <Background style={{ height: height - 74, justifyContent: "space-evenly" }}>
-      <Header home username={username} />
+      <Header setValue={setValue} home username={username} />
       <Searchbar />
       <ColumnContainer
         style={{

@@ -1,14 +1,14 @@
 import * as React from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
-import FM from "../assets/images/FM.jpg";
 import styled from "styled-components";
 import ShareRoundedIcon from "@mui/icons-material/ShareRounded";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useState } from "react";
 import theme from "../Theme";
+import Fab from "@mui/material/Fab";
+import Zoom from "@mui/material/Zoom";
+import { ReactComponent as InfoCircle2 } from "../assets/svgs/info-circle2.svg";
+import { ReactComponent as ArrowRight } from "../assets/svgs/arrow-right.svg";
 
 const TypoRowDiv = styled.div`
   display: flex;
@@ -18,51 +18,57 @@ const TypoRowDiv = styled.div`
 
 const ImageDiv = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background-image: ${(props) => `url(${props.image})`};
   background-size: contain;
   background-repeat: no-repeat;
+  box-shadow: ${(props) =>
+    props.modalOpen ? "inset 0 200px 0 0 rgba(0, 0, 0, 0.4)" : null};
   width: 100%;
-  max-height: 150px;
+  max-height: 145px;
   height: 100%;
+  gap: ${theme.spacing(4)};
   /* @media (max-height: 700px) {
     height: 90px;
   } */
   border-radius: 10px;
   /* margin: 10px; */
-  justify-content: space-between;
+  /* justify-content: space-between; */
   padding: ${theme.spacing(3)};
 `;
 
 const cardHeading = {
-  fontFamily: "Lato",
   fontSize: 16,
-  fontWeight: 900,
+  lineHeight: "19.73px",
+  fontWeight: 600,
   color: "#000000",
 };
 const cardCategory = {
-  fontFamily: "Lato",
   fontSize: 14,
   fontWeight: 400,
   color: theme.palette.text.secondary,
+  lineHeight: "17.26px",
 };
 const cardDistance = {
-  fontFamily: "Lato",
   fontSize: 14,
   fontWeight: 600,
   color: theme.palette.text.light_blue,
+  lineHeight: "17.26px",
 };
 
-const MuiCardContent = styled(CardContent)`
-  /* margin-bottom: 6px; */
-  padding: 0;
+const RowDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const LndMrkCard = ({ LandMark_Name, Category, Distance, image }) => {
+  const [modalOpen, setModalOpen] = useState(false);
   const [redHeart, setRedHeart] = useState("white");
 
+  const handleModal = () => setModalOpen((prev) => !prev);
   const handleHeartClick = () => {
-    redHeart == "white" ? setRedHeart("red") : setRedHeart("white");
+    redHeart === "white" ? setRedHeart("red") : setRedHeart("white");
   };
   return (
     <div
@@ -74,27 +80,67 @@ const LndMrkCard = ({ LandMark_Name, Category, Distance, image }) => {
         maxHeight: "210px",
         height: "100%",
         borderRadius: "14px",
-        boxShadow: " 0px 2px 12px -1px rgba(0,0,0,0.20)",
+        boxShadow: "0px 6px 30px rgba(30, 61, 83, 0.08)",
         alignItems: "center",
-        gap: theme.spacing(2),
+        gap: theme.spacing(3),
+        cursor: "pointer",
       }}
     >
-      <ImageDiv image={image}>
-        <FavoriteIcon sx={{ color: redHeart }} onClick={handleHeartClick} />
-        <ShareRoundedIcon
-          sx={{ color: "white" }}
-          onClick={() => {
-            console.log("Share clicked");
-          }}
-        />
+      <ImageDiv
+        modalOpen={modalOpen}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) {
+            handleModal();
+          }
+        }}
+        image={image}
+      >
+        <RowDiv>
+          <FavoriteIcon sx={{ color: redHeart }} onClick={handleHeartClick} />
+          <ShareRoundedIcon
+            sx={{ color: "white" }}
+            onClick={() => {
+              console.log("Share clicked");
+            }}
+          />
+        </RowDiv>
+        <Zoom in={modalOpen}>
+          <RowDiv
+            style={{
+              justifyContent: "space-around",
+            }}
+          >
+            <Fab
+              onClick={() => console.log("true")}
+              style={{
+                backgroundColor: "#FFFFFF",
+                height: "61px",
+                width: "61px",
+              }}
+            >
+              <ArrowRight />
+            </Fab>
+            <Fab
+              style={{
+                backgroundColor: "#FFFFFF",
+                height: "61px",
+                width: "61px",
+              }}
+            >
+              <InfoCircle2 />
+            </Fab>
+          </RowDiv>
+        </Zoom>
       </ImageDiv>
+
       <div
         style={{
           display: "flex",
           flexDirection: "column",
           width: "90%",
-          gap: theme.spacing(2),
+          gap: theme.spacing(3),
         }}
+        onClick={handleModal}
       >
         <Typography style={cardHeading}>{LandMark_Name}</Typography>
         <TypoRowDiv>

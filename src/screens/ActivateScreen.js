@@ -29,12 +29,12 @@ const ExperienceCategoryRowDiv = styled.div`
   gap: ${theme.spacing(3)};
 `;
 
-const ActivateScreen = () => {
+const ActivateScreen = ({ setValue }) => {
   const { height } = useWindowDimensions();
 
   return (
     <Background style={{ height: height - 74, justifyContent: "space-evenly" }}>
-      <Header screenName={"Activate"} />
+      <Header setValue={setValue} screenName={"Activate"} />
       <Searchbar />
       <Carousel style={{}} dots>
         {DummyData.map((exp, index) => {
