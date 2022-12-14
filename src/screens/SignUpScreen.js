@@ -1,7 +1,5 @@
 // import React, { Component } from "react";
 import Logo1 from "../assets/images/LndMark_logo.svg";
-import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
-import LockIcon from "@mui/icons-material/Lock";
 import { ReactComponent as ProfileIcon } from "../assets/svgs/profileIcon.svg";
 import { ReactComponent as PasswordIcon } from "../assets/svgs/passwordIcon.svg";
 import { ReactComponent as EmailIcon } from "../assets/svgs/emailIcon.svg";
@@ -18,7 +16,6 @@ import theme from "../Theme";
 import {
   ColumnContainer,
   Error,
-  iconStyle,
   CustomCard,
   LinkStyle,
   Logo,

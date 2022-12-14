@@ -1,5 +1,5 @@
 projects:
-  landmark:
+  lndmrk:
     schemaPath: src/graphql/schema.json
     includes:
       - src/graphql/**/*.js

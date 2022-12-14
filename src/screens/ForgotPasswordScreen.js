@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { ReactComponent as ProfileIcon } from "../assets/svgs/profileIcon.svg";
-
+import { ReactComponent as EmailIcon } from "../assets/svgs/emailIcon.svg";
 import QuestionMarkSharpIcon from "@mui/icons-material/QuestionMarkSharp";
 import Logo1 from "../assets/images/LndMark_logo.svg";
 import {
@@ -37,7 +36,7 @@ import { useNavigate } from "react-router-dom";
 import SquareButton from "../components/SquareButton";
 
 const ReviewSchema = yup.object({
-  UserName: yup.string().required("Please enter correct Username"),
+  Email: yup.string().email().required("Please enter correct email"),
 });
 const ForgotPasswordScreen = () => {
   const [openSnackBar, setOpenSnackBar] = useState(false);
@@ -73,19 +72,19 @@ const ForgotPasswordScreen = () => {
           Forgot Your Password?
         </Typography>
         <Typography style={headingStyleSecondary}>
-          Enter your username to reset your password.
+          Enter your email to reset your password.
         </Typography>
       </ColumnContainer>
       <CustomCard>
         <Formik
           validationSchema={ReviewSchema}
           initialValues={{
-            UserName: "",
+            Email: "",
           }}
           onSubmit={async (values, { resetForm }) => {
             // console.log("OnSubmit click", values);
             try {
-              await Auth.forgotPassword(values.UserName);
+              await Auth.forgotPassword(values.Email);
               // .then((data) => console.log(data))
               // .catch((err) => console.log(err));
               setSnackBarMessage("Success");
@@ -107,17 +106,17 @@ const ForgotPasswordScreen = () => {
             <>
               <ColumnContainer>
                 <RowContainer>
-                  <ProfileIcon />
-                  <Typography style={textFieldLabelStyle}>Username</Typography>
+                  <EmailIcon />
+                  <Typography style={textFieldLabelStyle}>Email</Typography>
                 </RowContainer>
                 <StyledTextField
-                  onChange={props.handleChange("UserName")}
-                  value={props.values.UserName}
+                  onChange={props.handleChange("Email")}
+                  value={props.values.Email}
                   size="medium"
                   variant="outlined"
                 />
-                {props.errors.UserName && props.touched.UserName ? (
-                  <Error>{props.errors.UserName}</Error>
+                {props.errors.Email && props.touched.Email ? (
+                  <Error>{props.errors.Email}</Error>
                 ) : null}
               </ColumnContainer>
               {!props.isSubmitting ? (

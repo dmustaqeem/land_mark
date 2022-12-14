@@ -3,7 +3,7 @@ import Logo1 from "../assets/images/LndMark_logo.svg";
 import QuestionMarkSharpIcon from "@mui/icons-material/QuestionMarkSharp";
 import LockIcon from "@mui/icons-material/Lock";
 import { ReactComponent as PasswordIcon } from "../assets/svgs/passwordIcon.svg";
-import { ReactComponent as ProfileIcon } from "../assets/svgs/profileIcon.svg";
+import { ReactComponent as EmailIcon } from "../assets/svgs/emailIcon.svg";
 
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import {
@@ -40,7 +40,7 @@ import { useState } from "react";
 import SquareButton from "../components/SquareButton";
 
 const ReviewSchema = yup.object({
-  UserName: yup.string().required("Please Enter Username"),
+  Email: yup.string().email().required("Please Enter Email"),
   Code: yup.number().required(),
   NewPassword: yup.string().required("Password error"),
 });
@@ -85,7 +85,7 @@ const ForgotPasswordSubmitScreen = () => {
         <Formik
           validationSchema={ReviewSchema}
           initialValues={{
-            UserName: "",
+            Email: "",
             Code: "",
             NewPassword: "",
           }}
@@ -93,7 +93,7 @@ const ForgotPasswordSubmitScreen = () => {
             // console.log("OnSubmit click", values);
             try {
               await Auth.forgotPasswordSubmit(
-                values.UserName,
+                values.Email,
                 `${values.Code}`,
                 values.NewPassword
               );
@@ -116,17 +116,17 @@ const ForgotPasswordSubmitScreen = () => {
             <>
               <ColumnContainer>
                 <RowContainer>
-                  <ProfileIcon />
-                  <Typography style={textFieldLabelStyle}>Username</Typography>
+                  <EmailIcon />
+                  <Typography style={textFieldLabelStyle}>Email</Typography>
                 </RowContainer>
                 <StyledTextField
-                  onChange={props.handleChange("UserName")}
-                  value={props.values.UserName}
+                  onChange={props.handleChange("Email")}
+                  value={props.values.Email}
                   size="medium"
                   variant="outlined"
                 />
-                {props.errors.UserName && props.touched.UserName ? (
-                  <Error>{props.errors.UserName}</Error>
+                {props.errors.Email && props.touched.Email ? (
+                  <Error>{props.errors.Email}</Error>
                 ) : null}
               </ColumnContainer>
               <ColumnContainer>

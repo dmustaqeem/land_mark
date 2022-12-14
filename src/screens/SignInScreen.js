@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import theme from "../Theme";
-
 import { Formik } from "formik";
 import "@fontsource/lato";
 import QuestionMarkSharpIcon from "@mui/icons-material/QuestionMarkSharp";
@@ -26,18 +25,15 @@ import {
   headingStyleSecondary,
   CustomCard,
   RowContainer,
-  iconStyle,
   textFieldLabelStyle,
   StyledTextField,
   LinkStyle,
-  socialButtonStyle,
   squareButtonIconStyle,
   Background,
   solidButtonStyle,
 } from "../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { useState } from "react";
-import LockIcon from "@mui/icons-material/Lock";
 import { useNavigate } from "react-router-dom";
 import SquareButton from "../components/SquareButton";
 import SocialMediaButton from "../components/SocialMediaButton";
@@ -50,7 +46,7 @@ const SignInScreen = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
 
   const ReviewSchema = yup.object({
-    UserName: yup.string().required("Please Enter Username"),
+    UserName: yup.string().required("Please enter your username"),
     Password: yup.string().required("Password error"),
   });
   return (

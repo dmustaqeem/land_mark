@@ -23,9 +23,10 @@ const WhiteBorderTextField = styled(TextField)`
 
 const MuiStack = styled(Stack)`
   width: 100%;
+  background-color: white;
   /* border: 1px solid #dcecf6; */
   /* box-shadow: 0px 10px 24px -13px rgba(0, 0, 0, 0.39); */
-  /* border-radius: 14px; */
+  border-radius: 14px;
 `;
 
 const Searchbar = () => {

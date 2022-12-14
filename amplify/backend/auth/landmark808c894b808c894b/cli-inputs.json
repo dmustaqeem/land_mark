@@ -1,10 +1,8 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "landmark9dd4261a_identitypool_9dd4261a",
-    "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "landma9dd4261a",
-    "userPoolName": "landmark9dd4261a_userpool_9dd4261a",
+    "resourceNameTruncated": "landma808c894b",
+    "userPoolName": "landmark808c894b_userpool_808c894b",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -16,13 +14,13 @@
     "smsVerificationMessage": "Your verification code is {####}",
     "emailVerificationSubject": "Your verification code",
     "emailVerificationMessage": "Your verification code is {####}",
-    "defaultPasswordPolicy": false,
+    "defaultPasswordPolicy": true,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
       "email"
     ],
-    "aliasAttributes": [],
+    "aliasAttributes": ["email","preferred_username"],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
@@ -31,12 +29,16 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "landma9dd4261a_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "landma808c894b_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "9dd4261a",
-    "resourceName": "landmark9dd4261a",
-    "authSelections": "identityPoolAndUserPool",
-    "useDefault": "default",
+    "sharedId": "808c894b",
+    "resourceName": "landmark808c894b808c894b",
+    "authSelections": "userPoolOnly",
+    "useDefault": "manual",
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": {},
+    "hostedUI": false,
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,

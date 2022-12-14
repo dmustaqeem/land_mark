@@ -1,8 +1,6 @@
 export type AmplifyDependentResourcesAttributes = {
     "auth": {
-        "landmark9dd4261a": {
-            "IdentityPoolId": "string",
-            "IdentityPoolName": "string",
+        "landmark808c894b808c894b": {
             "UserPoolId": "string",
             "UserPoolArn": "string",
             "UserPoolName": "string",
@@ -11,16 +9,10 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "api": {
-        "landmark": {
+        "lndmrk": {
             "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
-        }
-    },
-    "storage": {
-        "SpacialWorldTracking": {
-            "BucketName": "string",
-            "Region": "string"
         }
     }
 }

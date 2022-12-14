@@ -84,6 +84,7 @@ const LndMrkCard = ({ LandMark_Name, Category, Distance, image }) => {
         alignItems: "center",
         gap: theme.spacing(3),
         cursor: "pointer",
+        backgroundColor: "white",
       }}
     >
       <ImageDiv
