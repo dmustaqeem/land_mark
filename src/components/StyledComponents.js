@@ -76,6 +76,13 @@ export const groupElements = {
   flexDirection: "column",
 };
 
+export const screenNameStyle = {
+  fontWeight: 600,
+  fontSize: 24,
+  lineHeight: "29.59px",
+  textAlign: "center",
+  flex: 1,
+};
 export const outlinedButtonStyle = {
   borderRadius: "12px",
   border: `1px solid ${theme.palette.primary.main}`,

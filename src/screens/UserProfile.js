@@ -8,7 +8,8 @@ import { ReactComponent as Achievement1 } from "../assets/svgs/achievement1.svg"
 import { ReactComponent as Achievement2 } from "../assets/svgs/achievement2.svg";
 import { ReactComponent as Achievement3 } from "../assets/svgs/achievement3.svg";
 import { ReactComponent as Achievement4 } from "../assets/svgs/achievement4.svg";
-
+import CloseIcon from "@mui/icons-material/Close";
+import Modal from "@mui/material/Modal";
 import {
   CustomCard,
   Background,
@@ -21,12 +22,17 @@ import {
   solidButtonStyle,
   cardRowHeading,
   SemiHeader,
+  groupElements,
+  screenNameStyle,
 } from "../components/StyledComponents";
 import { useWindowDimensions } from "../utils/WindowWidthHeight";
 import theme from "../Theme";
 import { DummyData } from "../DummyData";
 import LndMrkCard from "../components/LndMrkCard";
 import AvatarDummy from "../assets/images/AvatarDummy.png";
+import { useState } from "react";
+import { creditPacks } from "../utils/CreditsPack";
+import CreditPackCard from "../components/CreditPackCard";
 
 const SocialInfoContainer = styled.div`
   flex-direction: column;
@@ -34,6 +40,19 @@ const SocialInfoContainer = styled.div`
   align-items: center;
   display: flex;
   gap: ${theme.spacing(2)};
+`;
+
+const ModalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  width: 80%;
+  background-color: white;
+  border-radius: 15px;
+  align-items: center;
+  gap: ${theme.spacing(5)};
+  padding: ${theme.spacing(3)};
+  padding-top: ${theme.spacing(4)};
 `;
 const achievementBackground = {
   display: "flex",
@@ -52,9 +71,106 @@ const infoNumberStyle = {
   color: "#000000",
 };
 const UserProfile = ({ setValue }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const handleModalOpen = () => setModalOpen(true);
+  const handleModalClose = () => setModalOpen(false);
+  const [selectedCreditPack, setSelectedCreditPack] = useState(0);
   const { height } = useWindowDimensions();
+
   return (
     <Background style={{ height: height - 74, justifyContent: "space-evenly" }}>
+      <Modal
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: theme.spacing(5),
+        }}
+        open={modalOpen}
+        onClose={handleModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              width: "87%",
+              justifyContent: "flex-end",
+            }}
+          >
+            <button
+              onClick={handleModalClose}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                backgroundColor: "white",
+                height: "30px",
+                width: "30px",
+                borderRadius: "100%",
+                alignItems: "center",
+                justifyContent: "center",
+                border: "white",
+              }}
+            >
+              <CloseIcon />
+            </button>
+          </div>
+
+          <ModalContainer>
+            <div style={{ ...groupElements, gap: theme.spacing(3) }}>
+              <Typography
+                style={{
+                  fontWeight: 600,
+                  fontSize: "26px",
+                  lineHeight: "32px",
+                  color: "#000000",
+                }}
+              >
+                Need More Credits?
+              </Typography>
+              <Typography
+                style={{
+                  ...headingStylePrimary,
+                  fontWeight: 400,
+                  lineHeight: "24px",
+                  color: theme.palette.text.secondary,
+                }}
+              >
+                Purchase a pack!
+              </Typography>
+            </div>
+
+            <div
+              style={{ ...groupElements, width: "100%", gap: theme.spacing(4) }}
+            >
+              {creditPacks.map((pack, index) => (
+                <CreditPackCard
+                  selectedCreditPack={selectedCreditPack}
+                  setSelectedCreditPack={setSelectedCreditPack}
+                  key={index}
+                  value={index}
+                  image={pack.image}
+                  price={pack.price}
+                  credits={pack.credits}
+                  details={pack.details}
+                />
+              ))}
+            </div>
+
+            <Button
+              onClick={() => {
+                setValue(30);
+              }}
+              variant="contained"
+              style={solidButtonStyle}
+            >
+              Purchase
+            </Button>
+          </ModalContainer>
+        </>
+      </Modal>
       <SemiHeader>
         <SquareButton
           onClick={() => {
@@ -63,16 +179,7 @@ const UserProfile = ({ setValue }) => {
         >
           <ArrowLeftIcon />
         </SquareButton>
-        <Typography
-          style={{
-            fontWeight: 600,
-            fontSize: 24,
-            lineHeight: "29.59px",
-            textAlign: "center",
-          }}
-        >
-          Profile
-        </Typography>
+        <Typography style={screenNameStyle}>Profile</Typography>
         <SquareButton>
           <ShareIcon style={squareButtonIconStyle} />
         </SquareButton>
@@ -112,6 +219,7 @@ const UserProfile = ({ setValue }) => {
             }}
           >
             <div
+              onClick={handleModalOpen}
               style={{
                 display: "flex",
                 flexDirection: "row",

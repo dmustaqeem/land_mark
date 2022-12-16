@@ -23,6 +23,8 @@ import FollowersScreen from "../screens/FollowersScreen";
 import theme from "../Theme";
 import HistoryScreen from "../screens/HistoryScreen";
 import LndMrkExpView from "./LndmrkExpView";
+import PaymentScreen from "../screens/payment-screen/PaymentScreen";
+import CreateSessionScreen from "../screens/CreateSessionScreen";
 
 const NavigationBottomAction = styled(BottomNavigationAction)(`
   color: #9DA7C0;
@@ -79,6 +81,8 @@ const BottomNavBar = ({ setIsLoggedIn, username }) => {
         <WelcomeScreen setValue={setValue} username={username} />
       ) : value === 1 ? (
         <DiscoverScreen setValue={setValue} />
+      ) : value === 2 ? (
+        <CreateSessionScreen setValue={setValue} />
       ) : value === 3 ? (
         <Activate setValue={setValue} />
       ) : value === 4 ? (
@@ -91,6 +95,8 @@ const BottomNavBar = ({ setIsLoggedIn, username }) => {
         <HistoryScreen setValue={setValue} />
       ) : value === 20 ? (
         <LndMrkExpView setValue={setValue} />
+      ) : value === 30 ? (
+        <PaymentScreen setValue={setValue} />
       ) : null}
       <NavigationBottom
         showLabels={true}

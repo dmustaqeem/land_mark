@@ -1,6 +1,6 @@
 import { Avatar, Typography } from "@mui/material";
 import { useWindowDimensions } from "../utils/WindowWidthHeight";
-import { headingStylePrimary } from "./StyledComponents";
+import { headingStylePrimary, screenNameStyle } from "./StyledComponents";
 import AvatarDummy from "../assets/images/AvatarDummy.png";
 import Badge from "@mui/material/Badge";
 import theme from "../Theme";
@@ -54,17 +54,7 @@ const Header = ({ username, home, screenName, setValue, backButton }) => {
           </div>
         </>
       ) : (
-        <Typography
-          style={{
-            fontWeight: 600,
-            fontSize: 24,
-            lineHeight: "29.59px",
-            textAlign: "center",
-            flex: 1,
-          }}
-        >
-          {screenName}
-        </Typography>
+        <Typography style={screenNameStyle}>{screenName}</Typography>
       )}
 
       <Badge
