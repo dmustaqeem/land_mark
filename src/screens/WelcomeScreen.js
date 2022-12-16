@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import LndMrkCard from "../components/LndMrkCard";
+import SpatialTrackingCard from "../components/SpatialTrackingCard";
 import Searchbar from "../components/SearchBar";
 import { Typography } from "@mui/material";
 import { DummyData } from "../DummyData";
+import { SpatialData } from "../DummyData";
 import { useWindowDimensions } from "../utils/WindowWidthHeight";
 
 import Button from "@mui/material/Button";
@@ -60,13 +62,14 @@ const WelcomeScreen = ({ username, setValue }) => {
           </Button>
         </TextButtonRow>
         <CardRowDiv>
-          {DummyData.map((landmark, index) => {
+          {SpatialData.map((landmark, index) => {
             return (
-              <LndMrkCard
+              <SpatialTrackingCard
                 key={index}
                 LandMark_Name={landmark.LandMark_Name}
                 Category={landmark.Category}
                 image={landmark.image}
+                lndmrklink={landmark.link}
               />
             );
           })}

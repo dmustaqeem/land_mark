@@ -29,7 +29,7 @@ const App = () => {
         if (user) {
           setIsLoggedIn(true);
           setUsername(user.username);
-          navigate("/welcome");
+          //navigate("/welcome");
         }
       } catch (err) {
         setIsLoggedIn(false);
