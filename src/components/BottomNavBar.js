@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 // import {
 //   HouseTwoToneIcon,
@@ -25,7 +25,9 @@ import HistoryScreen from "../screens/HistoryScreen";
 import LndMrkExpView from "./LndmrkExpView";
 import PaymentScreen from "../screens/payment-screen/PaymentScreen";
 import CreateSessionScreen from "../screens/CreateSessionScreen";
+import { loadStripe } from "@stripe/stripe-js";
 
+import { useStripe } from "@stripe/react-stripe-js";
 const NavigationBottomAction = styled(BottomNavigationAction)(`
   color: #9DA7C0;
   font-weight:700;
@@ -75,6 +77,23 @@ const iconStyle = {
 
 const BottomNavBar = ({ setIsLoggedIn, username }) => {
   const [value, setValue] = useState(0);
+  const [paymentIntentClientSecret, setPaymentIntentClientSecret] = useState();
+  const [productAmount, setProductAmount] = useState();
+  // useEffect(() => {
+  //   // Create PaymentIntent as soon as the page loads
+  //   fetch("http://localhost:4242/create-payment-intent", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Access-Control-Allow-Origin": "http://localhost:3000",
+  //     },
+  //     body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => setPaymentIntentClientSecret(data.clientSecret));
+  // }, [productAmount]);
+
+  console.log("payment intent client secret : ", paymentIntentClientSecret);
   return (
     <>
       {value === 0 ? (
@@ -88,7 +107,7 @@ const BottomNavBar = ({ setIsLoggedIn, username }) => {
       ) : value === 4 ? (
         <MoreScreen setValue={setValue} setIsLoggedIn={setIsLoggedIn} />
       ) : value === 5 ? (
-        <UserProfile setValue={setValue} />
+        <UserProfile setProductAmount={setProductAmount} setValue={setValue} />
       ) : value === 6 ? (
         <FollowersScreen setValue={setValue} />
       ) : value === 7 ? (

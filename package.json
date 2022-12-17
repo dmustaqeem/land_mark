@@ -50,6 +50,7 @@
     "react-swipeable-views-utils": "^0.14.0",
     "semantic-ui-react": "^2.1.2",
     "slick-carousel": "^1.8.1",
+    "stripe": "^11.4.0",
     "styled-components": "^5.3.5",
     "swc-loader": "^0.2.3",
     "web-vitals": "^2.1.4",

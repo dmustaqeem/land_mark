@@ -70,7 +70,7 @@ const infoNumberStyle = {
   lineHeight: "22px",
   color: "#000000",
 };
-const UserProfile = ({ setValue }) => {
+const UserProfile = ({ setValue, setProductAmount }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const handleModalOpen = () => setModalOpen(true);
   const handleModalClose = () => setModalOpen(false);
@@ -162,6 +162,14 @@ const UserProfile = ({ setValue }) => {
             <Button
               onClick={() => {
                 setValue(30);
+
+                const amount = creditPacks[selectedCreditPack].price;
+
+                setProductAmount(amount);
+                console.log(
+                  "selected credit pack : ",
+                  creditPacks[selectedCreditPack]
+                );
               }}
               variant="contained"
               style={solidButtonStyle}

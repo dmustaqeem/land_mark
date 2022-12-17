@@ -36,6 +36,8 @@ const ColumnContainer = styled.div`
 const CardPaymentComponent = () => {
   const [age, setAge] = useState("");
   const [value, setValue] = useState(dayjs("04-2022"));
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState(null);
 
   const handleDateChange = (newValue) => {
     setValue(newValue);
@@ -43,8 +45,35 @@ const CardPaymentComponent = () => {
   const handleChange = (event) => {
     setAge(event.target.value);
   };
-
+  // const paymentElementOptions = {
+  //   layout: "tabs",
+  // };
   return (
+    // <form>
+    //   <PaymentElement
+    //     style={{
+    //       display: "flex",
+    //       flexDirection: "column",
+    //       backgroundColor: "red",
+    //     }}
+    //     options={paymentElementOptions}
+    //   />
+    //   <button
+    //     style={{
+    //       backgroundColor: "red",
+    //     }}
+    //   >
+    //     <span
+    //       style={{
+    //         backgroundColor: "red",
+    //       }}
+    //     >
+    //       {isLoading ? <div></div> : "Pay now"}
+    //     </span>
+    //   </button>
+    //   {message && <div id="payment-message">{message}</div>}
+    // </form>
+
     <div
       style={{
         display: "flex",
