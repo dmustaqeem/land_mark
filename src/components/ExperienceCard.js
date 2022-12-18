@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import ShareRoundedIcon from "@mui/icons-material/ShareRounded";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import longImg from "../assets/images/largeImg.png";
+import longImg from "../assets/images/dummy-card-imgs/largeImg.png";
 import { useState } from "react";
 import { Typography } from "@mui/material";
 import { headingStylePrimary, headingStyleSecondary } from "./StyledComponents";

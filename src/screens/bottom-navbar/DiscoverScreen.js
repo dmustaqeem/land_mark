@@ -6,19 +6,17 @@ import {
   ColumnContainer,
   TextButtonRow,
   viewAllCardsButtonStyle,
-} from "../components/StyledComponents";
-import { useWindowDimensions } from "../utils/WindowWidthHeight";
+} from "../../components/StyledComponents";
+import { useWindowDimensions } from "../../utils/WindowWidthHeight";
 import { Typography, Button } from "@mui/material";
-import Searchbar from "../components/SearchBar";
-import LndMrkCard from "../components/LndMrkCard";
-import { DummyData } from "../DummyData";
+import Searchbar from "../../components/SearchBar";
+import LndMrkCard from "../../components/LndMrkCard";
+import { DummyData, dummyMarkers } from "../../DummyData";
 import { API, graphqlOperation, Storage } from "aws-amplify";
-import * as mutations from "../graphql/mutations";
 // import * as queries from "../graphql/queries";
-import Header from "../components/Header";
+import Header from "../../components/Header";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
-import theme from "../Theme";
-import { dummyMarkers } from "../DummyData";
+import theme from "../../Theme";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoibG5kbXJrIiwiYSI6ImNsYm5nZDhnaTBpcTMzeHA4MWp6cXJtcmQifQ.REOmW9LVp_eonzWx33W6Gw";

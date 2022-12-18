@@ -1,50 +1,51 @@
-import React, { Component } from "react";
-import Logo1 from "../assets/images/LndMark_logo.svg";
-import QuestionMarkSharpIcon from "@mui/icons-material/QuestionMarkSharp";
-import LockIcon from "@mui/icons-material/Lock";
-import { ReactComponent as PasswordIcon } from "../assets/svgs/passwordIcon.svg";
-import { ReactComponent as EmailIcon } from "../assets/svgs/emailIcon.svg";
-
-import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+// import React, { Component } from "react";
+import Logo1 from "../../assets/svgs/LndMark_logo.svg";
+import { ReactComponent as ProfileIcon } from "../../assets/svgs/profileIcon.svg";
+import { ReactComponent as PasswordIcon } from "../../assets/svgs/passwordIcon.svg";
+import { ReactComponent as EmailIcon } from "../../assets/svgs/emailIcon.svg";
 import {
   Typography,
-  CircularProgress,
   Button,
+  CircularProgress,
   Snackbar,
   Alert,
   Link,
 } from "@mui/material";
-import theme from "../Theme";
-import { Formik } from "formik";
-import * as yup from "yup";
+import theme from "../../Theme";
 import {
-  Logo,
-  Error,
-  Background,
-  LogoHeader,
   ColumnContainer,
+  Error,
+  CustomCard,
+  LinkStyle,
+  Logo,
+  LogoHeader,
+  Background,
+  RowContainer,
   headingStylePrimary,
   headingStyleSecondary,
-  CustomCard,
-  RowContainer,
-  iconStyle,
-  textFieldLabelStyle,
-  StyledTextField,
-  LinkStyle,
   squareButtonIconStyle,
+  StyledTextField,
+  textFieldLabelStyle,
   solidButtonStyle,
-} from "../components/StyledComponents";
+} from "../../components/StyledComponents";
+import { Formik } from "formik";
+import * as yup from "yup";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import SquareButton from "../components/SquareButton";
+import QuestionMarkSharpIcon from "@mui/icons-material/QuestionMarkSharp";
+import SquareButton from "../../components/SquareButton";
 
 const ReviewSchema = yup.object({
-  Email: yup.string().email().required("Please Enter Email"),
-  Code: yup.number().required(),
-  NewPassword: yup.string().required("Password error"),
+  UserName: yup.string().required("Please Enter Username"),
+  Email: yup.string().email().required("Please enter a valid email"),
+  Password: yup.string().required("Password error"),
+  PasswordConfirmation: yup
+    .string()
+    .oneOf([yup.ref("Password"), null], "Passwords must match"),
 });
-const ForgotPasswordSubmitScreen = () => {
+
+const SignUpScreen = () => {
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState("");
   const [severity, setSeverity] = useState("info");
@@ -75,38 +76,41 @@ const ForgotPasswordSubmitScreen = () => {
         }}
       >
         <Typography style={headingStylePrimary}>
-          Reset Your Password?
+          Create Your Account For FREE!
         </Typography>
         <Typography style={headingStyleSecondary}>
-          Enter verification code along with new password.
+          Enter your information below to get signed up.
         </Typography>
       </ColumnContainer>
       <CustomCard>
         <Formik
           validationSchema={ReviewSchema}
           initialValues={{
+            UserName: "",
             Email: "",
-            Code: "",
-            NewPassword: "",
+            Password: "",
+            PasswordConfirmation: "",
           }}
           onSubmit={async (values, { resetForm }) => {
-            // console.log("OnSubmit click", values);
             try {
-              await Auth.forgotPasswordSubmit(
-                values.Email,
-                `${values.Code}`,
-                values.NewPassword
-              );
+              const { user } = await Auth.signUp({
+                username: values.UserName,
+                password: values.PasswordConfirmation,
+                attributes: {
+                  email: values.Email, // optional
+                },
+              });
               setSnackBarMessage("Success");
               setOpenSnackBar(true);
               setSeverity("success");
+              console.log("sign up screen: ", user);
               resetForm();
-              navigate("/");
+              navigate("/confirmSignUp");
             } catch (error) {
               setSnackBarMessage("Error");
               setOpenSnackBar(true);
               setSeverity("error");
-              console.log("error confirming sign up", error);
+              console.log("error signing up:", error);
             } finally {
               setSeverity("info");
             }
@@ -114,6 +118,21 @@ const ForgotPasswordSubmitScreen = () => {
         >
           {(props) => (
             <>
+              <ColumnContainer>
+                <RowContainer>
+                  <ProfileIcon />
+                  <Typography style={textFieldLabelStyle}>Username</Typography>
+                </RowContainer>
+                <StyledTextField
+                  onChange={props.handleChange("UserName")}
+                  value={props.values.UserName}
+                  size="medium"
+                  variant="outlined"
+                />
+                {props.errors.UserName && props.touched.UserName ? (
+                  <Error>{props.errors.UserName}</Error>
+                ) : null}
+              </ColumnContainer>
               <ColumnContainer>
                 <RowContainer>
                   <EmailIcon />
@@ -131,48 +150,50 @@ const ForgotPasswordSubmitScreen = () => {
               </ColumnContainer>
               <ColumnContainer>
                 <RowContainer>
-                  <VerifiedUserIcon style={iconStyle} />
-                  <Typography style={textFieldLabelStyle}>
-                    Verification Code
-                  </Typography>
-                </RowContainer>
-                <StyledTextField
-                  onChange={props.handleChange("Code")}
-                  value={props.values.Code}
-                  size="medium"
-                  variant="outlined"
-                  type={"number"}
-                />
-                {props.errors.Code && props.touched.Code ? (
-                  <Error>{props.errors.Code}</Error>
-                ) : null}
-              </ColumnContainer>
-              <ColumnContainer>
-                <RowContainer>
                   <PasswordIcon />
-                  <Typography style={textFieldLabelStyle}>
-                    New Password
-                  </Typography>
+                  <Typography style={textFieldLabelStyle}>Password</Typography>
                 </RowContainer>
                 <StyledTextField
-                  onChange={props.handleChange("NewPassword")}
-                  value={props.values.NewPassword}
+                  onChange={props.handleChange("Password")}
+                  value={props.values.Password}
                   type={"password"}
                   size="medium"
                   variant="outlined"
                 />
 
-                {props.errors.NewPassword && props.touched.NewPassword ? (
-                  <Error>{props.errors.NewPassword}</Error>
+                {props.errors.Password && props.touched.Password ? (
+                  <Error>{props.errors.Password}</Error>
                 ) : null}
               </ColumnContainer>
+
+              <ColumnContainer>
+                <RowContainer>
+                  <PasswordIcon />
+                  <Typography style={textFieldLabelStyle}>
+                    Confirm Password
+                  </Typography>
+                </RowContainer>
+                <StyledTextField
+                  onChange={props.handleChange("PasswordConfirmation")}
+                  value={props.values.PasswordConfirmation}
+                  type={"password"}
+                  size="medium"
+                  variant="outlined"
+                />
+
+                {props.errors.PasswordConfirmation &&
+                props.touched.PasswordConfirmation ? (
+                  <Error>{props.errors.PasswordConfirmation}</Error>
+                ) : null}
+              </ColumnContainer>
+
               {!props.isSubmitting ? (
                 <Button
                   onClick={props.handleSubmit}
                   style={solidButtonStyle}
                   variant="contained"
                 >
-                  Submit
+                  Create an Account
                 </Button>
               ) : (
                 <CircularProgress
@@ -190,7 +211,9 @@ const ForgotPasswordSubmitScreen = () => {
           alignItems: "center",
         }}
       >
-        <Typography style={headingStyleSecondary}>Read our</Typography>
+        <Typography style={headingStyleSecondary}>
+          By creating an account, you agree to our
+        </Typography>
         <Link style={LinkStyle} href="#">
           {"Terms & Privacy Policy"}
         </Link>
@@ -225,4 +248,4 @@ const ForgotPasswordSubmitScreen = () => {
     </Background>
   );
 };
-export default ForgotPasswordSubmitScreen;
+export default SignUpScreen;

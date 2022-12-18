@@ -12,16 +12,16 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
-import WelcomeScreen from "../screens/WelcomeScreen";
-import DiscoverScreen from "../screens/DiscoverScreen";
-import MoreScreen from "../screens/MoreScreen";
-import Activate from "../screens/ActivateScreen";
-import UserProfile from "../screens/UserProfile";
+import WelcomeScreen from "../screens/bottom-navbar/WelcomeScreen";
+import DiscoverScreen from "../screens/bottom-navbar/DiscoverScreen";
+import MoreScreen from "../screens/bottom-navbar/MoreScreen";
+import ActivateScreen from "../screens/bottom-navbar/ActivateScreen";
+import UserProfile from "../screens/more-tab/UserProfile";
 import { ReactComponent as HomeIcon } from "../assets/svgs/homeIcon.svg";
 import { ReactComponent as HomeBlueIcon } from "../assets/svgs/homeBlueIcon.svg";
-import FollowersScreen from "../screens/FollowersScreen";
+import FollowersScreen from "../screens/more-tab/FollowersScreen";
 import theme from "../Theme";
-import HistoryScreen from "../screens/HistoryScreen";
+import HistoryScreen from "../screens/more-tab/HistoryScreen";
 import LndMrkExpView from "./LndmrkExpView";
 import PaymentScreen from "../screens/payment-screen/PaymentScreen";
 import CreateSessionScreen from "../screens/CreateSessionScreen";
@@ -103,7 +103,7 @@ const BottomNavBar = ({ setIsLoggedIn, username }) => {
       ) : value === 2 ? (
         <CreateSessionScreen setValue={setValue} />
       ) : value === 3 ? (
-        <Activate setValue={setValue} />
+        <ActivateScreen setValue={setValue} />
       ) : value === 4 ? (
         <MoreScreen setValue={setValue} setIsLoggedIn={setIsLoggedIn} />
       ) : value === 5 ? (

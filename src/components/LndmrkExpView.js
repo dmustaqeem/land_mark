@@ -6,7 +6,7 @@ import {
   SemiHeader,
   solidButtonStyle,
 } from "./StyledComponents";
-import lndmrkExpBg from "../assets/images/lndmrkExpBg.png";
+import lndmrkExpBg from "../assets/images/LndmrkExperienceBg.png";
 import SquareButton from "./SquareButton";
 import { ReactComponent as ArrowLeftIcon } from "../assets/svgs/arrow-left.svg";
 import { ReactComponent as ShareButton } from "../assets/svgs/shareButton.svg";

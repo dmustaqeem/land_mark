@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import LndMrkCard from "../components/LndMrkCard";
-import SpatialTrackingCard from "../components/SpatialTrackingCard";
-import Searchbar from "../components/SearchBar";
+import LndMrkCard from "../../components/LndMrkCard";
+import SpatialTrackingCard from "../../components/SpatialTrackingCard";
+import Searchbar from "../../components/SearchBar";
 import { Typography } from "@mui/material";
-import { DummyData } from "../DummyData";
-import { SpatialData } from "../DummyData";
-import { useWindowDimensions } from "../utils/WindowWidthHeight";
-
+import { DummyData, SpatialData } from "../../DummyData";
+import { useWindowDimensions } from "../../utils/WindowWidthHeight";
 import Button from "@mui/material/Button";
 import {
   Background,
@@ -15,8 +13,8 @@ import {
   viewAllCardsButtonStyle,
   cardRowHeading,
   ColumnContainer,
-} from "../components/StyledComponents";
-import Header from "../components/Header";
+} from "../../components/StyledComponents";
+import Header from "../../components/Header";
 
 const WelcomeScreen = ({ username, setValue }) => {
   const { height, width } = useWindowDimensions();

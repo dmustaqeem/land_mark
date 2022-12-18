@@ -6,18 +6,18 @@ import {
   viewAllCardsButtonStyle,
   ColumnContainer,
   cardRowHeading,
-} from "../components/StyledComponents";
-import { useWindowDimensions } from "../utils/WindowWidthHeight";
-import Searchbar from "../components/SearchBar";
+} from "../../components/StyledComponents";
+import { useWindowDimensions } from "../../utils/WindowWidthHeight";
+import Searchbar from "../../components/SearchBar";
 import { Button, Typography } from "@mui/material";
-import ExperienceCard from "../components/ExperienceCard";
+import ExperienceCard from "../../components/ExperienceCard";
 import styled from "styled-components";
-import ExperienceCategoryButton from "../components/ExperienceCategoryButton";
-import { DummyCategory, DummyData } from "../DummyData";
-import LndMrkCard from "../components/LndMrkCard";
-import theme from "../Theme";
-import Header from "../components/Header";
-import { Carousel } from "../components/Carousel";
+import ExperienceCategoryButton from "../../components/ExperienceCategoryButton";
+import { DummyCategory, DummyData } from "../../DummyData";
+import LndMrkCard from "../../components/LndMrkCard";
+import theme from "../../Theme";
+import Header from "../../components/Header";
+import { Carousel } from "../../components/Carousel";
 
 const ExperienceCategoryRowDiv = styled.div`
   display: flex;
@@ -36,7 +36,7 @@ const ActivateScreen = ({ setValue }) => {
     <Background style={{ height: height - 74, justifyContent: "space-evenly" }}>
       <Header setValue={setValue} screenName={"Activate"} />
       <Searchbar />
-      <Carousel style={{}} dots>
+      <Carousel dots>
         {DummyData.map((exp, index) => {
           return (
             <ExperienceCard

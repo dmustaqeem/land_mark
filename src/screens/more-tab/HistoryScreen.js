@@ -1,18 +1,18 @@
 import { Typography } from "@mui/material";
-import SquareButton from "../components/SquareButton";
+import SquareButton from "../../components/SquareButton";
 import {
   Background,
   groupElements,
   headingStylePrimary,
   SemiHeader,
-} from "../components/StyledComponents";
-import theme from "../Theme";
-import { useWindowDimensions } from "../utils/WindowWidthHeight";
-import { ReactComponent as ArrowLeftIcon } from "../assets/svgs/arrow-left.svg";
+} from "../../components/StyledComponents";
+import theme from "../../Theme";
+import { useWindowDimensions } from "../../utils/WindowWidthHeight";
+import { ReactComponent as ArrowLeftIcon } from "../../assets/svgs/arrow-left.svg";
 import Avatar from "@mui/material/Avatar";
-import { DummyData } from "../DummyData";
-import HistoryCard from "../components/HistoryCard";
-import Header from "../components/Header";
+import { DummyData } from "../../DummyData";
+import HistoryCard from "../../components/HistoryCard";
+import Header from "../../components/Header";
 
 const HistoryScreen = ({ setValue }) => {
   const { height } = useWindowDimensions();

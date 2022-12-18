@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { ReactComponent as EmailIcon } from "../assets/svgs/emailIcon.svg";
+import { ReactComponent as EmailIcon } from "../../assets/svgs/emailIcon.svg";
 import QuestionMarkSharpIcon from "@mui/icons-material/QuestionMarkSharp";
-import Logo1 from "../assets/images/LndMark_logo.svg";
+import Logo1 from "../../assets/svgs/LndMark_logo.svg";
 import {
   Typography,
   Snackbar,
@@ -10,7 +10,7 @@ import {
   Link,
 } from "@mui/material";
 import Button from "@mui/material/Button";
-import theme from "../Theme";
+import theme from "../../Theme";
 import { useState } from "react";
 import {
   Logo,
@@ -28,12 +28,12 @@ import {
   squareButtonIconStyle,
   solidButtonStyle,
   outlinedButtonStyle,
-} from "../components/StyledComponents";
+} from "../../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
-import SquareButton from "../components/SquareButton";
+import SquareButton from "../../components/SquareButton";
 
 const ReviewSchema = yup.object({
   Email: yup.string().email().required("Please enter correct email"),

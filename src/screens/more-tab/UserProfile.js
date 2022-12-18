@@ -1,13 +1,13 @@
 import { Button, Typography } from "@mui/material";
 import styled from "styled-components";
-import SquareButton from "../components/SquareButton";
+import SquareButton from "../../components/SquareButton";
 import ShareIcon from "@mui/icons-material/Share";
-import { ReactComponent as CoinsIcon } from "../assets/svgs/coinsIcon.svg";
-import { ReactComponent as ArrowLeftIcon } from "../assets/svgs/arrow-left.svg";
-import { ReactComponent as Achievement1 } from "../assets/svgs/achievement1.svg";
-import { ReactComponent as Achievement2 } from "../assets/svgs/achievement2.svg";
-import { ReactComponent as Achievement3 } from "../assets/svgs/achievement3.svg";
-import { ReactComponent as Achievement4 } from "../assets/svgs/achievement4.svg";
+import { ReactComponent as CoinsIcon } from "../../assets/svgs/coinsIcon.svg";
+import { ReactComponent as ArrowLeftIcon } from "../../assets/svgs/arrow-left.svg";
+import { ReactComponent as Achievement1 } from "../../assets/svgs/achievement1.svg";
+import { ReactComponent as Achievement2 } from "../../assets/svgs/achievement2.svg";
+import { ReactComponent as Achievement3 } from "../../assets/svgs/achievement3.svg";
+import { ReactComponent as Achievement4 } from "../../assets/svgs/achievement4.svg";
 import CloseIcon from "@mui/icons-material/Close";
 import Modal from "@mui/material/Modal";
 import {
@@ -24,15 +24,15 @@ import {
   SemiHeader,
   groupElements,
   screenNameStyle,
-} from "../components/StyledComponents";
-import { useWindowDimensions } from "../utils/WindowWidthHeight";
-import theme from "../Theme";
-import { DummyData } from "../DummyData";
-import LndMrkCard from "../components/LndMrkCard";
-import AvatarDummy from "../assets/images/AvatarDummy.png";
+} from "../../components/StyledComponents";
+import { useWindowDimensions } from "../../utils/WindowWidthHeight";
+import theme from "../../Theme";
+import { DummyData } from "../../DummyData";
+import LndMrkCard from "../../components/LndMrkCard";
+import AvatarDummy from "../../assets/images/dummy-avatars/AvatarDummy.png";
 import { useState } from "react";
-import { creditPacks } from "../utils/CreditsPack";
-import CreditPackCard from "../components/CreditPackCard";
+import { creditPacks } from "../../utils/CreditsPack";
+import CreditPackCard from "../../components/CreditPackCard";
 
 const SocialInfoContainer = styled.div`
   flex-direction: column;

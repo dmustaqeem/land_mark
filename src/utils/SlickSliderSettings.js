@@ -24,9 +24,5 @@ export const settings = {
     },
   ],
   appendDots: (dots) => <ul>{dots}</ul>,
-  customPaging: (i) => (
-    <div className="ft-slick__dots--custom">
-      <div className="loading" />
-    </div>
-  ),
+  customPaging: (i) => <div className="ft-slick__dots--custom"></div>,
 };

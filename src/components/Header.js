@@ -1,7 +1,7 @@
 import { Avatar, Typography } from "@mui/material";
 import { useWindowDimensions } from "../utils/WindowWidthHeight";
 import { headingStylePrimary, screenNameStyle } from "./StyledComponents";
-import AvatarDummy from "../assets/images/AvatarDummy.png";
+import AvatarDummy from "../assets/images/dummy-avatars/AvatarDummy.png";
 import Badge from "@mui/material/Badge";
 import theme from "../Theme";
 import SquareButton from "./SquareButton";

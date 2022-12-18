@@ -1,8 +1,9 @@
 // import styled from "react-emotion";
 import styled from "styled-components";
 import React, { Component } from "react";
+import theme from "../Theme";
 
-const SliderWrapper = styled("div")`
+const SliderNormalDots = styled("div")`
   width: 100%;
   margin-bottom: 40px;
   .slick-list {
@@ -191,7 +192,7 @@ const SliderWrapper = styled("div")`
     left: 0px;
   }
   .slick-next:before {
-    content: "→";
+    content: "";
   }
   [dir="rtl"] .slick-next:before {
     content: "←";
@@ -279,14 +280,34 @@ const SliderWrapper = styled("div")`
 
   /* Custom Slick Dots */
 
-  @keyframes loading {
-    from {
-      width: 0%;
-    }
+  .ft-slick__dots_narrow--custom {
+    height: 10px;
+    width: 4px;
+    background-color: #e5e7e9;
+    border-radius: 4px;
+    position: relative;
+  }
 
-    to {
-      width: 100%;
-    }
+  .slick-dots li {
+    width: 4px;
+    height: 15px;
+    transition: width 0.3s ease-in-out;
+  }
+
+  .slick-dots .slick-active {
+    width: 4px;
+    transition: width 0.3s ease-in-out;
+    padding: 0;
+    margin: 0;
+  }
+
+  .slick-dots .slick-active .ft-slick__dots_narrow--custom {
+    width: 5px;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: ${theme.palette.primary.main};
   }
 
   .ft-slick__dots--custom {
@@ -312,7 +333,7 @@ const SliderWrapper = styled("div")`
     width: 10px;
     top: 0px;
     overflow: hidden;
-    background-color: #0099f1;
+    background-color: ${theme.palette.primary.main};
   }
 `;
-export default SliderWrapper;
+export default SliderNormalDots;

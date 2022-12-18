@@ -1,54 +1,52 @@
 import React, { Component } from "react";
-import Logo1 from "../assets/images/LndMark_logo.svg";
+import Logo1 from "../../assets/svgs/LndMark_logo.svg";
+import { ReactComponent as ProfileIcon } from "../../assets/svgs/profileIcon.svg";
+import { ReactComponent as PasswordIcon } from "../../assets/svgs/passwordIcon.svg";
 import {
   Typography,
   CircularProgress,
-  Button,
   Snackbar,
   Alert,
   Link,
 } from "@mui/material";
-import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
-import { ReactComponent as ProfileIcon } from "../assets/svgs/profileIcon.svg";
-
-import theme from "../Theme";
-
-import { useNavigate } from "react-router-dom";
-
+import Button from "@mui/material/Button";
+import theme from "../../Theme";
 import { Formik } from "formik";
+import QuestionMarkSharpIcon from "@mui/icons-material/QuestionMarkSharp";
 import * as yup from "yup";
 import {
-  Logo,
   Error,
-  Background,
+  Logo,
   LogoHeader,
   ColumnContainer,
   headingStylePrimary,
   headingStyleSecondary,
   CustomCard,
   RowContainer,
-  iconStyle,
   textFieldLabelStyle,
   StyledTextField,
   LinkStyle,
   squareButtonIconStyle,
+  Background,
   solidButtonStyle,
-} from "../components/StyledComponents";
+} from "../../components/StyledComponents";
 import { Auth } from "aws-amplify";
 import { useState } from "react";
-import QuestionMarkSharpIcon from "@mui/icons-material/QuestionMarkSharp";
-import SquareButton from "../components/SquareButton";
+import { useNavigate } from "react-router-dom";
+import SquareButton from "../../components/SquareButton";
+import SocialMediaButton from "../../components/SocialMediaButton";
 
-const ReviewSchema = yup.object({
-  UserName: yup.string().required("Please Enter Username"),
-  Code: yup.number().required(),
-});
-const ConfirmSignUp = ({ setIsLoggedIn }) => {
+const SignInScreen = ({ setIsLoggedIn }) => {
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState("");
   const [severity, setSeverity] = useState("info");
-  let navigate = useNavigate();
 
+  const navigate = useNavigate();
+
+  const ReviewSchema = yup.object({
+    UserName: yup.string().required("Please enter your username"),
+    Password: yup.string().required("Password error"),
+  });
   return (
     <Background
       style={{
@@ -74,9 +72,11 @@ const ConfirmSignUp = ({ setIsLoggedIn }) => {
           gap: theme.spacing(3),
         }}
       >
-        <Typography style={headingStylePrimary}>Verify Your Email</Typography>
+        <Typography style={headingStylePrimary}>
+          Login to Your Account
+        </Typography>
         <Typography style={headingStyleSecondary}>
-          Enter your verification code sent to entered email address.
+          Enter your username and password to login
         </Typography>
       </ColumnContainer>
       <CustomCard>
@@ -84,27 +84,25 @@ const ConfirmSignUp = ({ setIsLoggedIn }) => {
           validationSchema={ReviewSchema}
           initialValues={{
             UserName: "",
-            Code: "",
+            Password: "",
           }}
           onSubmit={async (values, { resetForm }) => {
             // console.log("OnSubmit click", values);
             try {
-              const confirmSignUp = await Auth.confirmSignUp(
-                values.UserName,
-                `${values.Code}`
-              );
-              setSnackBarMessage("Success");
-              setOpenSnackBar(true);
-              setSeverity("success");
-              console.log("ConfirmSign up : ", confirmSignUp);
-              // setIsLoggedIn(true);
-              navigate("/");
-              resetForm();
+              const user = await Auth.signIn(values.UserName, values.Password);
+              if (user) {
+                setIsLoggedIn(true);
+                setSnackBarMessage("Success");
+                setOpenSnackBar(true);
+                setSeverity("success");
+                resetForm();
+                navigate("/welcome");
+              }
             } catch (error) {
               setSnackBarMessage("Error");
               setOpenSnackBar(true);
               setSeverity("error");
-              console.log("error confirming sign up", error);
+              console.log("error signing in", error);
             } finally {
               setSeverity("info");
             }
@@ -129,22 +127,22 @@ const ConfirmSignUp = ({ setIsLoggedIn }) => {
               </ColumnContainer>
               <ColumnContainer>
                 <RowContainer>
-                  <VerifiedUserIcon style={iconStyle} />
-                  <Typography style={textFieldLabelStyle}>
-                    Verification Code
-                  </Typography>
+                  <PasswordIcon />
+                  <Typography style={textFieldLabelStyle}>Password</Typography>
                 </RowContainer>
                 <StyledTextField
-                  onChange={props.handleChange("Code")}
-                  value={props.values.Code}
+                  onChange={props.handleChange("Password")}
+                  value={props.values.Password}
+                  type={"password"}
                   size="medium"
                   variant="outlined"
-                  type={"number"}
                 />
-                {props.errors.Code && props.touched.Code ? (
-                  <Error>{props.errors.Code}</Error>
+
+                {props.errors.Password && props.touched.Password ? (
+                  <Error>{props.errors.Password}</Error>
                 ) : null}
               </ColumnContainer>
+
               {!props.isSubmitting ? (
                 <Button
                   onClick={props.handleSubmit}
@@ -158,47 +156,24 @@ const ConfirmSignUp = ({ setIsLoggedIn }) => {
                   sx={{ alignSelf: "center", margin: "10px" }}
                 />
               )}
-
-              <Link
-                style={LinkStyle}
-                onClick={async () => {
-                  // console.log("Resend verification code clicked");
-                  if (props.values.UserName) {
-                    try {
-                      await Auth.resendSignUp(props.values.UserName);
-                      console.log("code resent successfully");
-                    } catch (err) {
-                      console.log("error resending code: ", err);
-                    }
-                  } else {
-                    setSnackBarMessage("Error. Enter username please.");
-                    setOpenSnackBar(true);
-                    setSeverity("error");
-                  }
-                }}
-                // underline="none"
-              >
-                {"Resend verification code"}
-              </Link>
             </>
           )}
         </Formik>
+
+        <Link style={LinkStyle} href="/forgotpassword">
+          {"Forgot Your Password?"}
+        </Link>
       </CustomCard>
-      <div
+      <Typography style={headingStyleSecondary}>or login with</Typography>
+      <RowContainer
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          gap: theme.spacing(4),
         }}
       >
-        <Typography style={headingStyleSecondary}>
-          By creating an account, you agree to our
-        </Typography>
-        <Link style={LinkStyle} href="#">
-          {"Terms & Privacy Policy"}
-        </Link>
-      </div>
-
+        <SocialMediaButton type={"facebook"} />
+        <SocialMediaButton />
+        <SocialMediaButton type={"google"} />
+      </RowContainer>
       <Snackbar
         open={openSnackBar}
         autoHideDuration={4000}
@@ -220,12 +195,12 @@ const ConfirmSignUp = ({ setIsLoggedIn }) => {
           lineHeight: "19.79px",
         }}
       >
-        Already have an account?{" "}
-        <Link style={{ ...LinkStyle, fontWeight: "700" }} href="/">
-          {"Log In"}
+        Don’t have an account?{" "}
+        <Link style={{ ...LinkStyle, fontWeight: "700" }} href="/signup">
+          {"Sign Up"}
         </Link>
       </Typography>
     </Background>
   );
 };
-export default ConfirmSignUp;
+export default SignInScreen;

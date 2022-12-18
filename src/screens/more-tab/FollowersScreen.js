@@ -1,17 +1,17 @@
-import SquareButton from "../components/SquareButton";
+import SquareButton from "../../components/SquareButton";
 import {
   Background,
   groupElements,
   headingStylePrimary,
   SemiHeader,
-} from "../components/StyledComponents";
-import { useWindowDimensions } from "../utils/WindowWidthHeight";
-import { ReactComponent as ArrowLeftIcon } from "../assets/svgs/arrow-left.svg";
+} from "../../components/StyledComponents";
+import { useWindowDimensions } from "../../utils/WindowWidthHeight";
+import { ReactComponent as ArrowLeftIcon } from "../../assets/svgs/arrow-left.svg";
 import { Typography } from "@mui/material";
-import theme from "../Theme";
-import Searchbar from "../components/SearchBar";
-import FollowerCard from "../components/FollowerCard";
-import { DummyFollowers } from "../DummyData";
+import theme from "../../Theme";
+import Searchbar from "../../components/SearchBar";
+import FollowerCard from "../../components/FollowerCard";
+import { DummyFollowers } from "../../DummyData";
 
 const FollowersScreen = ({ setValue }) => {
   const { height } = useWindowDimensions();

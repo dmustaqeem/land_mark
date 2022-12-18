@@ -5,20 +5,20 @@ import {
   headingStylePrimary,
   headingStyleSecondary,
   outlinedButtonStyle,
-} from "../components/StyledComponents";
+} from "../../components/StyledComponents";
 import { Typography } from "@mui/material";
-import theme from "../Theme";
+import theme from "../../Theme";
 import Button from "@mui/material/Button";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
-import OptionsCard from "../components/OptionsCard";
-import { useWindowDimensions } from "../utils/WindowWidthHeight";
-import { ReactComponent as ProfileCircle } from "../assets/svgs/profile-circle.svg";
-import { ReactComponent as ActivityIcon } from "../assets/svgs/activity.svg";
-import { ReactComponent as ClockIcon } from "../assets/svgs/clock.svg";
-import { ReactComponent as InfoIcon } from "../assets/svgs/info-circle.svg";
-import { ReactComponent as NotificationIcon } from "../assets/svgs/notification-bing.svg";
-import { ReactComponent as RankingIcon } from "../assets/svgs/ranking.svg";
+import OptionsCard from "../../components/OptionsCard";
+import { useWindowDimensions } from "../../utils/WindowWidthHeight";
+import { ReactComponent as ProfileCircle } from "../../assets/svgs/profile-circle.svg";
+import { ReactComponent as ActivityIcon } from "../../assets/svgs/activity.svg";
+import { ReactComponent as ClockIcon } from "../../assets/svgs/clock.svg";
+import { ReactComponent as InfoIcon } from "../../assets/svgs/info-circle.svg";
+import { ReactComponent as NotificationIcon } from "../../assets/svgs/notification-bing.svg";
+import { ReactComponent as RankingIcon } from "../../assets/svgs/ranking.svg";
 
 const iconBackground = {
   display: "flex",
