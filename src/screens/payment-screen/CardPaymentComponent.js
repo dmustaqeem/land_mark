@@ -144,7 +144,7 @@ const CardPaymentComponent = () => {
             <Typography style={textFieldLabelStyle}>Card Number</Typography>
           </RowContainer>
           <PatternFormat
-            value={123123}
+            // value={}
             format="#### #### #### ####"
             customInput={StyledTextField}
           />

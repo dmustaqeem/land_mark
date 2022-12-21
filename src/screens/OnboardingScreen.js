@@ -1,16 +1,14 @@
-import { Carousel } from "../components/Carousel";
 import { ReactComponent as Logo } from "../assets/svgs/LndMark_logo.svg";
 import { Button, Typography } from "@mui/material";
 import SliderNarrowDots from "../utils/SlickSliderDots";
 import Slider from "react-slick";
 import Onboarding2 from "../assets/images/Onboarding1.png";
 import Onboarding3 from "../assets/images/Onboarding2.png";
+import Onboarding1 from "../assets/images/Onboarding3.png";
 
-import { settings } from "../utils/SlickSliderSettings";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import {
   Background,
-  headingStylePrimary,
   headingStyleSecondary,
   outlinedButtonStyle,
   solidButtonStyle,
@@ -20,10 +18,16 @@ import { useNavigate } from "react-router-dom";
 
 const slides = [
   {
+    image: Onboarding1,
+    heading: "Adventure Time!",
+    description:
+      "Create & view location-based augmented reality (AR) Creations called Landmarks.",
+  },
+  {
     image: Onboarding3,
     heading: "Discover Landmarks",
     description:
-      "Create & view location-based augmented reality (AR) Creations called Landmarks.",
+      "Discover & activate community-made AR Creations that enhance your world.",
   },
   {
     image: Onboarding2,
@@ -70,7 +74,7 @@ const OnBoardingScreen = () => {
               <div className="ft-slick__dots_narrow--custom"></div>
             )}
             beforeChange={(oldSlide, nextSlide) => {
-              if (oldSlide === 1) {
+              if (oldSlide === 2) {
                 navigate("/signIn");
               }
             }}

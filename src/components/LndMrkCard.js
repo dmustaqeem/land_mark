@@ -62,7 +62,7 @@ const RowDiv = styled.div`
   justify-content: space-between;
 `;
 
-const LndMrkCard = ({ LandMark_Name, Category, Distance, image }) => {
+const LndMrkCard = ({ name, category, distance, image, link, id }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [redHeart, setRedHeart] = useState("white");
 
@@ -72,6 +72,7 @@ const LndMrkCard = ({ LandMark_Name, Category, Distance, image }) => {
   };
   return (
     <div
+      id={id}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -112,7 +113,7 @@ const LndMrkCard = ({ LandMark_Name, Category, Distance, image }) => {
             }}
           >
             <Fab
-              onClick={() => console.log("true")}
+              onClick={() => (window.location.href = link)}
               style={{
                 backgroundColor: "#FFFFFF",
                 height: "61px",
@@ -143,10 +144,10 @@ const LndMrkCard = ({ LandMark_Name, Category, Distance, image }) => {
         }}
         onClick={handleModal}
       >
-        <Typography style={cardHeading}>{LandMark_Name}</Typography>
+        <Typography style={cardHeading}>{name}</Typography>
         <TypoRowDiv>
-          <Typography style={cardCategory}>{Category}</Typography>
-          <Typography style={cardDistance}>{Distance}</Typography>
+          <Typography style={cardCategory}>{category}</Typography>
+          <Typography style={cardDistance}>{distance}</Typography>
         </TypoRowDiv>
       </div>
     </div>

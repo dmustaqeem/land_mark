@@ -3,7 +3,6 @@ import BackgroundImg from "../assets/images/Background.png";
 import { ReactComponent as Logo } from "../assets/svgs/LndMark_logo.svg";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { navigate } from "@storybook/addon-links";
 const SplashScreen = () => {
   const navigate = useNavigate();
 
@@ -12,8 +11,7 @@ const SplashScreen = () => {
       if (localStorage.getItem("oldUser")) {
         navigate("/signIn");
       } else {
-        localStorage.setItem("oldUser", true);
-        navigate("onboarding");
+        navigate("/onboarding");
       }
     }, 2000);
   }, []);

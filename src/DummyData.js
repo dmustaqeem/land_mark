@@ -153,55 +153,28 @@ export const DummyData = [
     Category: "First",
     Distance: "300m",
     image: img1,
+    link: "https://lndmrk-blippar-ar.netlify.app/?Model=Burger",
   },
   {
     LandMark_Name: "Random 2",
     Category: "Second",
     Distance: "200m",
     image: img2,
+    link: "https://lndmrk-blippar-ar.netlify.app/?Model=Platter",
   },
   {
     LandMark_Name: "Random 3",
     Category: "Third",
     Distance: "100m",
     image: img3,
+    link: "https://lndmrk-blippar-ar.netlify.app/?Model=Astronaut",
   },
   {
     LandMark_Name: "Random 4",
     Category: "Fourth",
     Distance: "50m",
     image: img4,
-  },
-];
-
-export const SpatialData = [
-  {
-    LandMark_Name: "Random 1",
-    Category: "First",
-    Distance: "300m",
-    image: img1,
-    link: "lndmrk-blippar-ar.netlify.app/?Model=Burger",
-  },
-  {
-    LandMark_Name: "Random 2",
-    Category: "Second",
-    Distance: "200m",
-    image: img2,
-    link: "lndmrk-blippar-ar.netlify.app/?Model=Platter",
-  },
-  {
-    LandMark_Name: "Random 3",
-    Category: "Third",
-    Distance: "100m",
-    image: img3,
-    link: "lndmrk-blippar-ar.netlify.app/?Model=Astronaut",
-  },
-  {
-    LandMark_Name: "Random 4",
-    Category: "Fourth",
-    Distance: "50m",
-    image: img4,
-    link: "lndmrk-blippar-ar.netlify.app/?Model=Trophy",
+    link: "https://lndmrk-blippar-ar.netlify.app/?Model=Trophy",
   },
 ];
 

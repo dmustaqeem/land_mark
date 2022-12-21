@@ -93,7 +93,6 @@ const BottomNavBar = ({ setIsLoggedIn, username }) => {
   //     .then((data) => setPaymentIntentClientSecret(data.clientSecret));
   // }, [productAmount]);
 
-  console.log("payment intent client secret : ", paymentIntentClientSecret);
   return (
     <>
       {value === 0 ? (
@@ -148,7 +147,7 @@ const BottomNavBar = ({ setIsLoggedIn, username }) => {
             maxWidth: "80px",
           }}
           icon={
-            <RoundButton>
+            <RoundButton id="step3">
               <AddIcon
                 style={{
                   height: 30,

@@ -206,15 +206,11 @@ const SliderNormalDots = styled("div")`
   .slick-dots {
     position: absolute;
     bottom: -40px;
-
     display: block;
-
     width: 100%;
     padding: 0;
     margin: 0;
-
     list-style: none;
-
     text-align: center;
   }
   .slick-dots li {
@@ -230,9 +226,7 @@ const SliderNormalDots = styled("div")`
   .slick-dots li button {
     font-size: 0;
     line-height: 0;
-
     display: block;
-
     width: 10px;
     height: 10px;
     /* padding: 5px; */

@@ -33,6 +33,9 @@ import AvatarDummy from "../../assets/images/dummy-avatars/AvatarDummy.png";
 import { useState } from "react";
 import { creditPacks } from "../../utils/CreditsPack";
 import CreditPackCard from "../../components/CreditPackCard";
+import Joyride from "react-joyride";
+import { steps } from "../../utils/OnboardingTourSteps";
+import Tooltip from "../../components/OnboardingTourTooltip";
 
 const SocialInfoContainer = styled.div`
   flex-direction: column;
@@ -78,316 +81,351 @@ const UserProfile = ({ setValue, setProductAmount }) => {
   const { height } = useWindowDimensions();
 
   return (
-    <Background style={{ height: height - 74, justifyContent: "space-evenly" }}>
-      <Modal
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: theme.spacing(5),
-        }}
-        open={modalOpen}
-        onClose={handleModalClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+    <>
+      {!localStorage.getItem("oldUser") && (
+        <Joyride
+          continuous
+          stepIndex={3}
+          disableScrollParentFix={true}
+          tooltipComponent={Tooltip}
+          steps={steps}
+          callback={(data) => {
+            const { action, index, status, type } = data;
+
+            if (action === "prev" && index === 3 && type === "step:after") {
+              setValue(0);
+            } else if (
+              action === "close" &&
+              index === 3 &&
+              type === "step:after"
+            ) {
+              localStorage.setItem("oldUser", true);
+
+              setValue(0);
+            }
+
+            console.log("calback data argument : ", data);
+          }}
+        />
+      )}
+      <Background
+        style={{ height: height - 74, justifyContent: "space-evenly" }}
       >
-        <>
+        <Modal
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: theme.spacing(5),
+          }}
+          open={modalOpen}
+          onClose={handleModalClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                width: "87%",
+                justifyContent: "flex-end",
+              }}
+            >
+              <button
+                onClick={handleModalClose}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  backgroundColor: "white",
+                  height: "30px",
+                  width: "30px",
+                  borderRadius: "100%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  border: "white",
+                }}
+              >
+                <CloseIcon />
+              </button>
+            </div>
+
+            <ModalContainer>
+              <div style={{ ...groupElements, gap: theme.spacing(3) }}>
+                <Typography
+                  style={{
+                    fontWeight: 600,
+                    fontSize: "26px",
+                    lineHeight: "32px",
+                    color: "#000000",
+                  }}
+                >
+                  Need More Credits?
+                </Typography>
+                <Typography
+                  style={{
+                    ...headingStylePrimary,
+                    fontWeight: 400,
+                    lineHeight: "24px",
+                    color: theme.palette.text.secondary,
+                  }}
+                >
+                  Purchase a pack!
+                </Typography>
+              </div>
+
+              <div
+                style={{
+                  ...groupElements,
+                  width: "100%",
+                  gap: theme.spacing(4),
+                }}
+              >
+                {creditPacks.map((pack, index) => (
+                  <CreditPackCard
+                    selectedCreditPack={selectedCreditPack}
+                    setSelectedCreditPack={setSelectedCreditPack}
+                    key={index}
+                    value={index}
+                    image={pack.image}
+                    price={pack.price}
+                    credits={pack.credits}
+                    details={pack.details}
+                  />
+                ))}
+              </div>
+
+              <Button
+                onClick={() => {
+                  setValue(30);
+
+                  const amount = creditPacks[selectedCreditPack].price;
+
+                  setProductAmount(amount);
+                  console.log(
+                    "selected credit pack : ",
+                    creditPacks[selectedCreditPack]
+                  );
+                }}
+                variant="contained"
+                style={solidButtonStyle}
+              >
+                Purchase
+              </Button>
+            </ModalContainer>
+          </>
+        </Modal>
+        <SemiHeader>
+          <SquareButton
+            onClick={() => {
+              setValue(4);
+            }}
+          >
+            <ArrowLeftIcon />
+          </SquareButton>
+          <Typography style={screenNameStyle}>Profile</Typography>
+          <SquareButton>
+            <ShareIcon style={squareButtonIconStyle} />
+          </SquareButton>
+        </SemiHeader>
+
+        <CustomCard
+          style={{
+            alignItems: "center",
+            gap: theme.spacing(4),
+            maxWidth: "100%",
+            boxShadow: "0px 6px 30px rgba(30, 61, 83, 0.08)",
+            filter: "drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.0))",
+          }}
+        >
           <div
             style={{
               display: "flex",
               flexDirection: "row",
-              width: "87%",
-              justifyContent: "flex-end",
+              alignItems: "center",
+              width: "100%",
+              paddingBottom: theme.spacing(4),
+              justifyContent: "space-between",
             }}
           >
-            <button
-              onClick={handleModalClose}
+            <div
               style={{
                 display: "flex",
                 flexDirection: "column",
-                backgroundColor: "white",
-                height: "30px",
-                width: "30px",
-                borderRadius: "100%",
                 alignItems: "center",
-                justifyContent: "center",
-                border: "white",
+                backgroundImage: `url(${AvatarDummy})`,
+                backgroundSize: "cover",
+                borderRadius: "100%",
+                height: "106px",
+                width: "106px",
+                justifyContent: "flex-end",
+                position: "relative",
               }}
             >
-              <CloseIcon />
-            </button>
-          </div>
-
-          <ModalContainer>
-            <div style={{ ...groupElements, gap: theme.spacing(3) }}>
-              <Typography
+              <div
+                onClick={handleModalOpen}
                 style={{
-                  fontWeight: 600,
-                  fontSize: "26px",
-                  lineHeight: "32px",
-                  color: "#000000",
+                  display: "flex",
+                  flexDirection: "row",
+                  backgroundColor: theme.palette.primary.dark,
+                  width: "74px",
+                  height: "32px",
+                  borderRadius: "60px",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "white",
+                  gap: theme.spacing(2),
+                  position: "absolute",
+                  bottom: -15,
                 }}
               >
-                Need More Credits?
-              </Typography>
+                <CoinsIcon />
+                <Typography
+                  style={{
+                    fontSize: "14px",
+                  }}
+                >
+                  510
+                </Typography>
+              </div>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+                width: "57%",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+              }}
+            >
               <Typography
                 style={{
                   ...headingStylePrimary,
-                  fontWeight: 400,
-                  lineHeight: "24px",
-                  color: theme.palette.text.secondary,
+                  fontSize: "22px",
+                  color: "#000000",
                 }}
               >
-                Purchase a pack!
+                Jane Wu
               </Typography>
-            </div>
-
-            <div
-              style={{ ...groupElements, width: "100%", gap: theme.spacing(4) }}
-            >
-              {creditPacks.map((pack, index) => (
-                <CreditPackCard
-                  selectedCreditPack={selectedCreditPack}
-                  setSelectedCreditPack={setSelectedCreditPack}
-                  key={index}
-                  value={index}
-                  image={pack.image}
-                  price={pack.price}
-                  credits={pack.credits}
-                  details={pack.details}
-                />
-              ))}
-            </div>
-
-            <Button
-              onClick={() => {
-                setValue(30);
-
-                const amount = creditPacks[selectedCreditPack].price;
-
-                setProductAmount(amount);
-                console.log(
-                  "selected credit pack : ",
-                  creditPacks[selectedCreditPack]
-                );
-              }}
-              variant="contained"
-              style={solidButtonStyle}
-            >
-              Purchase
-            </Button>
-          </ModalContainer>
-        </>
-      </Modal>
-      <SemiHeader>
-        <SquareButton
-          onClick={() => {
-            setValue(4);
-          }}
-        >
-          <ArrowLeftIcon />
-        </SquareButton>
-        <Typography style={screenNameStyle}>Profile</Typography>
-        <SquareButton>
-          <ShareIcon style={squareButtonIconStyle} />
-        </SquareButton>
-      </SemiHeader>
-
-      <CustomCard
-        style={{
-          alignItems: "center",
-          gap: theme.spacing(4),
-          maxWidth: "100%",
-          boxShadow: "0px 6px 30px rgba(30, 61, 83, 0.08)",
-          filter: "drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.0))",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            width: "100%",
-            paddingBottom: theme.spacing(4),
-            justifyContent: "space-between",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              backgroundImage: `url(${AvatarDummy})`,
-              backgroundSize: "cover",
-              borderRadius: "100%",
-              height: "106px",
-              width: "106px",
-              justifyContent: "flex-end",
-              position: "relative",
-            }}
-          >
-            <div
-              onClick={handleModalOpen}
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                backgroundColor: theme.palette.primary.dark,
-                width: "74px",
-                height: "32px",
-                borderRadius: "60px",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "white",
-                gap: theme.spacing(2),
-                position: "absolute",
-                bottom: -15,
-              }}
-            >
-              <CoinsIcon />
               <Typography
                 style={{
-                  fontSize: "14px",
+                  ...headingStyleSecondary,
+                  fontSize: "16px",
+                  lineHeight: "20px",
                 }}
               >
-                510
+                Personal Creator
               </Typography>
+              <Button
+                variant="contained"
+                style={{ ...solidButtonStyle, height: "42px", width: "95%" }}
+              >
+                Follow
+              </Button>
             </div>
           </div>
+
           <div
             style={{
               display: "flex",
-              flexDirection: "column",
-              height: "100%",
-              width: "57%",
+              flexDirection: "row",
+              height: "68px",
+              borderTop: `1px solid ${theme.palette.secondary.main}`,
+              borderBottom: `1px solid ${theme.palette.secondary.main}`,
+              width: "100%",
+              alignItems: "center",
               justifyContent: "space-between",
-              alignItems: "flex-start",
+              // backgroundColor: "red",
             }}
           >
-            <Typography
+            <SocialInfoContainer
               style={{
-                ...headingStylePrimary,
-                fontSize: "22px",
-                color: "#000000",
+                flex: 2,
               }}
             >
-              Jane Wu
-            </Typography>
-            <Typography
+              <Typography style={headingStyleSecondary}>Likes</Typography>
+              <Typography style={infoNumberStyle}>22.2K</Typography>
+            </SocialInfoContainer>
+            <SocialInfoContainer
+              onClick={() => {
+                setValue(6);
+              }}
               style={{
-                ...headingStyleSecondary,
-                fontSize: "16px",
-                lineHeight: "20px",
+                flex: 3,
+                cursor: "pointer",
+                borderLeft: `1px solid ${theme.palette.secondary.main}`,
+                borderRight: `1px solid ${theme.palette.secondary.main}`,
               }}
             >
-              Personal Creator
-            </Typography>
-            <Button
-              variant="contained"
-              style={{ ...solidButtonStyle, height: "42px", width: "95%" }}
+              <Typography style={headingStyleSecondary}>Followers</Typography>
+              <Typography style={infoNumberStyle}>3.6K</Typography>
+            </SocialInfoContainer>
+            <SocialInfoContainer
+              style={{
+                flex: 2,
+              }}
             >
-              Follow
-            </Button>
+              <Typography style={headingStyleSecondary}>Published</Typography>
+              <Typography style={infoNumberStyle}>102</Typography>
+            </SocialInfoContainer>
           </div>
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            height: "68px",
-            borderTop: `1px solid ${theme.palette.secondary.main}`,
-            borderBottom: `1px solid ${theme.palette.secondary.main}`,
-            width: "100%",
-            alignItems: "center",
-            justifyContent: "space-between",
-            // backgroundColor: "red",
-          }}
-        >
-          <SocialInfoContainer
+          <Typography
             style={{
-              flex: 2,
+              fontWeight: "600",
+              fontSize: "16px",
+              lineHeight: "20px",
+              color: "#000000",
+              alignSelf: "flex-start",
+              letterSpacing: "0",
             }}
           >
-            <Typography style={headingStyleSecondary}>Likes</Typography>
-            <Typography style={infoNumberStyle}>22.2K</Typography>
-          </SocialInfoContainer>
-          <SocialInfoContainer
-            onClick={() => {
-              setValue(6);
-            }}
+            Achievements
+          </Typography>
+          <div
+            id="step4"
             style={{
-              flex: 3,
-              cursor: "pointer",
-              borderLeft: `1px solid ${theme.palette.secondary.main}`,
-              borderRight: `1px solid ${theme.palette.secondary.main}`,
+              display: "flex",
+              flexDirection: "row",
+              width: "92%",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}
           >
-            <Typography style={headingStyleSecondary}>Followers</Typography>
-            <Typography style={infoNumberStyle}>3.6K</Typography>
-          </SocialInfoContainer>
-          <SocialInfoContainer
-            style={{
-              flex: 2,
-            }}
-          >
-            <Typography style={headingStyleSecondary}>Published</Typography>
-            <Typography style={infoNumberStyle}>102</Typography>
-          </SocialInfoContainer>
-        </div>
-        <Typography
-          style={{
-            fontWeight: "600",
-            fontSize: "16px",
-            lineHeight: "20px",
-            color: "#000000",
-            alignSelf: "flex-start",
-            letterSpacing: "0",
-          }}
-        >
-          Achievements
-        </Typography>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            width: "100%",
-            alignItems: "center",
-            justifyContent: "space-evenly",
-          }}
-        >
-          <div style={achievementBackground}>
-            <Achievement4 />
+            <div style={achievementBackground}>
+              <Achievement4 />
+            </div>
+            <div style={achievementBackground}>
+              <Achievement3 />
+            </div>{" "}
+            <div style={achievementBackground}>
+              <Achievement2 />
+            </div>{" "}
+            <div style={achievementBackground}>
+              <Achievement1 />
+            </div>{" "}
           </div>
-          <div style={achievementBackground}>
-            <Achievement3 />
-          </div>{" "}
-          <div style={achievementBackground}>
-            <Achievement2 />
-          </div>{" "}
-          <div style={achievementBackground}>
-            <Achievement1 />
-          </div>{" "}
-        </div>
-      </CustomCard>
-      <TextButtonRow>
-        <Typography style={cardRowHeading}>Recently Published</Typography>
-        <Button style={viewAllCardsButtonStyle} variant="text">
-          View All
-        </Button>
-      </TextButtonRow>
-      <CardRowDiv>
-        {DummyData.map((landmark, index) => {
-          return (
-            <LndMrkCard
-              key={index}
-              LandMark_Name={landmark.LandMark_Name}
-              Category={landmark.Category}
-              image={landmark.image}
-            />
-          );
-        })}
-      </CardRowDiv>
-    </Background>
+        </CustomCard>
+        <TextButtonRow>
+          <Typography style={cardRowHeading}>Recently Published</Typography>
+          <Button style={viewAllCardsButtonStyle} variant="text">
+            View All
+          </Button>
+        </TextButtonRow>
+        <CardRowDiv>
+          {DummyData.map((landmark, index) => {
+            return (
+              <LndMrkCard
+                key={index}
+                name={landmark.LandMark_Name}
+                category={landmark.Category}
+                image={landmark.image}
+              />
+            );
+          })}
+        </CardRowDiv>
+      </Background>
+    </>
   );
 };
 

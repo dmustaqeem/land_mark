@@ -45,10 +45,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<SplashScreen />} />
 
-      <Route
-        path="/onBoarding"
-        element={<OnBoardingScreen setIsLoggedIn={setIsLoggedIn} />}
-      />
+      <Route path="/onBoarding" element={<OnBoardingScreen />} />
 
       <Route
         path="/signIn"

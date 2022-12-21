@@ -77,9 +77,9 @@ const ActivateScreen = ({ setValue }) => {
             return (
               <LndMrkCard
                 key={index}
-                LandMark_Name={landmark.LandMark_Name}
-                Category={landmark.Category}
-                Distance={landmark.Distance}
+                name={landmark.LandMark_Name}
+                category={landmark.Category}
+                distance={landmark.Distance}
                 image={landmark.image}
               />
             );
