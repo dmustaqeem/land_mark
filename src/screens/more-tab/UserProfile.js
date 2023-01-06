@@ -73,7 +73,9 @@ const infoNumberStyle = {
   lineHeight: "22px",
   color: "#000000",
 };
-const UserProfile = ({ setValue, setProductAmount }) => {
+const UserProfile = ({ setValue, setCreditPack }) => {
+  const [credits, setCredits] = useState(localStorage.getItem("userCredits"));
+  const [username, setUsername] = useState(localStorage.getItem("username"));
   const [modalOpen, setModalOpen] = useState(false);
   const handleModalOpen = () => setModalOpen(true);
   const handleModalClose = () => setModalOpen(false);
@@ -90,7 +92,7 @@ const UserProfile = ({ setValue, setProductAmount }) => {
           tooltipComponent={Tooltip}
           steps={steps}
           callback={(data) => {
-            const { action, index, status, type } = data;
+            const { action, index, type } = data;
 
             if (action === "prev" && index === 3 && type === "step:after") {
               setValue(0);
@@ -198,10 +200,7 @@ const UserProfile = ({ setValue, setProductAmount }) => {
               <Button
                 onClick={() => {
                   setValue(30);
-
-                  const amount = creditPacks[selectedCreditPack].price;
-
-                  setProductAmount(amount);
+                  setCreditPack(creditPacks[selectedCreditPack]);
                   console.log(
                     "selected credit pack : ",
                     creditPacks[selectedCreditPack]
@@ -285,7 +284,7 @@ const UserProfile = ({ setValue, setProductAmount }) => {
                     fontSize: "14px",
                   }}
                 >
-                  510
+                  {credits}
                 </Typography>
               </div>
             </div>
@@ -306,7 +305,7 @@ const UserProfile = ({ setValue, setProductAmount }) => {
                   color: "#000000",
                 }}
               >
-                Jane Wu
+                {username}
               </Typography>
               <Typography
                 style={{

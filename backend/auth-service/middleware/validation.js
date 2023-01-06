@@ -8,7 +8,6 @@ const validateUser = (user) => {
   });
 
   const result = schema.validate(user);
-  console.log("validate result", result);
   return result;
 };
 

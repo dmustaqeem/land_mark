@@ -37,7 +37,6 @@ exports.signupUser = async (req, res) => {
   });
   try {
     const savedUser = await newUser.save();
-    console.log("Account has been registered", savedUser);
     await sendEmail(email, verificationToken);
     console.log("User saved");
     return res.status(200).send({ message: "User saved!" });
@@ -130,6 +129,7 @@ exports.loginUser = async (req, res) => {
       token: token,
       userName: user.userName,
       package: user.package,
+      credits: user.credits,
     });
   }
 };

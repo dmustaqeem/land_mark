@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { Component } from "react";
 import LndMrkCard from "../../components/LndMrkCard";
 import Searchbar from "../../components/SearchBar";
 import { Typography } from "@mui/material";
@@ -27,7 +27,7 @@ const WelcomeScreen = ({ setValue }) => {
         <Joyride
           continuous
           callback={(data) => {
-            const { action, index, status, type } = data;
+            const { action, index, type } = data;
 
             if (action === "next" && index === 2 && type === "step:after") {
               setValue(5);
@@ -57,6 +57,7 @@ const WelcomeScreen = ({ setValue }) => {
             return index === 0 ? (
               <LndMrkCard
                 id="step1"
+                key={index}
                 name={landmark.LandMark_Name}
                 category={landmark.Category}
                 distance={landmark.Distance}

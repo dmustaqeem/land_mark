@@ -14,6 +14,9 @@ import styled from "styled-components";
 import theme from "../../Theme";
 import { useEffect, useState } from "react";
 import CardPaymentComponent from "./CardPaymentComponent";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { createPaymentIntent } from "../../API/paymentApi";
 
 const Card = styled.div`
   max-width: 109.67px;
@@ -38,38 +41,28 @@ const cardTitleStyle = {
   color: "#000000",
 };
 
-const PaymentScreen = () => {
+const stripePromise = loadStripe(
+  "pk_test_51MEy5fGUbdjGry3kvVl0ofHvlMyxvD96op58kdPaG6Lw7Ez67ffjTZIovN91W7Qs0637fUr9dHqZvPD7YWSsyWPx00kXvUNgF1"
+);
+
+const PaymentScreen = ({ creditPack }) => {
   const [clientSecret, setClientSecret] = useState("");
   const { height } = useWindowDimensions();
   const [paymentMethod, setPaymentMethod] = useState(0);
 
-  // useEffect(() => {
-  //   //create a payment intent as soon as this page loads.
-  // }, []);
-  // const appearance = {
-  //   theme: "stripe",
-  // };
-  // const stripePromise = loadStripe(
-  //   "pk_test_51MEy5fGUbdjGry3kvVl0ofHvlMyxvD96op58kdPaG6Lw7Ez67ffjTZIovN91W7Qs0637fUr9dHqZvPD7YWSsyWPx00kXvUNgF1"
-  // );
-
-  // const options = {
-  //   clientSecret,
-  //   appearance,
-  // };
+  useEffect(() => {
+    const createPaymentIntentFunction = async (pack) => {
+      try {
+        const paymentIntent = await createPaymentIntent(pack);
+        console.log("payment Intent : ", paymentIntent);
+      } catch (error) {
+        console.log("payment intent function error : ", error);
+      }
+    };
+    createPaymentIntentFunction(creditPack);
+  }, [creditPack]);
 
   return (
-    // <div
-    //   style={{
-    //     display: "flex",
-    //     flexDirection: "column",
-    //   }}
-    // >
-    //   <Elements options={options} stripe={stripePromise}>
-    //     <CardPaymentComponent />
-    //   </Elements>
-    // </div>
-
     <Background
       style={{
         height: height - 72,

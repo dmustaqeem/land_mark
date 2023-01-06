@@ -9,7 +9,6 @@ import {
 import { Typography } from "@mui/material";
 import theme from "../../Theme";
 import Button from "@mui/material/Button";
-import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import OptionsCard from "../../components/OptionsCard";
 import { useWindowDimensions } from "../../utils/WindowWidthHeight";
@@ -129,6 +128,7 @@ const MoreScreen = ({ setValue, setIsLoggedIn }) => {
           try {
             localStorage.removeItem("userJwt");
             localStorage.removeItem("username");
+            localStorage.removeItem("userCredits");
             setIsLoggedIn(false);
             navigate("/");
           } catch (error) {

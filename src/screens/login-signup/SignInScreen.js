@@ -30,7 +30,6 @@ import {
   Background,
   solidButtonStyle,
 } from "../../components/StyledComponents";
-import { Auth } from "aws-amplify";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SquareButton from "../../components/SquareButton";
@@ -88,14 +87,12 @@ const SignInScreen = ({ setIsLoggedIn }) => {
             Password: "",
           }}
           onSubmit={async (values, { resetForm }) => {
-            // console.log("OnSubmit click", values);
             try {
-              // const user = await Auth.signIn(values.UserName, values.Password);
               const user = await loginUser(values.UserName, values.Password);
-              console.log("user", user);
               if (user) {
                 localStorage.setItem("userJwt", user.token);
                 localStorage.setItem("username", user.userName);
+                localStorage.setItem("userCredits", user.credits);
                 setIsLoggedIn(true);
                 setSnackBarMessage("Success");
                 setOpenSnackBar(true);

@@ -77,21 +77,7 @@ const iconStyle = {
 
 const BottomNavBar = ({ setIsLoggedIn }) => {
   const [value, setValue] = useState(0);
-  const [paymentIntentClientSecret, setPaymentIntentClientSecret] = useState();
-  const [productAmount, setProductAmount] = useState();
-  // useEffect(() => {
-  //   // Create PaymentIntent as soon as the page loads
-  //   fetch("http://localhost:4242/create-payment-intent", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Access-Control-Allow-Origin": "http://localhost:3000",
-  //     },
-  //     body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => setPaymentIntentClientSecret(data.clientSecret));
-  // }, [productAmount]);
+  const [creditPack, setCreditPack] = useState();
 
   return (
     <>
@@ -106,7 +92,7 @@ const BottomNavBar = ({ setIsLoggedIn }) => {
       ) : value === 4 ? (
         <MoreScreen setValue={setValue} setIsLoggedIn={setIsLoggedIn} />
       ) : value === 5 ? (
-        <UserProfile setProductAmount={setProductAmount} setValue={setValue} />
+        <UserProfile setCreditPack={setCreditPack} setValue={setValue} />
       ) : value === 6 ? (
         <FollowersScreen setValue={setValue} />
       ) : value === 7 ? (
@@ -114,7 +100,7 @@ const BottomNavBar = ({ setIsLoggedIn }) => {
       ) : value === 20 ? (
         <LndMrkExpView setValue={setValue} />
       ) : value === 30 ? (
-        <PaymentScreen setValue={setValue} />
+        <PaymentScreen setValue={setValue} creditPack={creditPack} />
       ) : null}
       <NavigationBottom
         showLabels={true}

@@ -2,11 +2,15 @@ const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+require("dotenv").config();
 const app = express();
 
+const port = process.env.PORT;
+const username = process.env.DB_USER_NAME;
+const password = process.env.DB_USER_PASS;
+
 const auth = require("./routes/auth");
-const { verifyUserEmail } = require("./middleware/authMiddleware");
-const uri = `mongodb+srv://lndmrkUser:lndmrkPassword@lndmrkcluster.mqpvvka.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${username}:${password}@lndmrkcluster.mqpvvka.mongodb.net/?retryWrites=true&w=majority`;
 mongoose
   .connect(uri, { useNewUrlParser: true }, { useUnifiedTopology: true })
   .then(() => console.log("Monogo is running"))
@@ -19,11 +23,6 @@ app.use(cors());
 
 app.use("/auth", auth);
 
-// app.get("/api/verify", (req, res) => {
-//   verifyUserEmail(req);
-//   return res.status(200).send("Success");
-// });
-
-app.listen(4242, () => {
-  console.log(`Listening to port 4242...`);
+app.listen(port, () => {
+  console.log(`Listening to port ${port}...`);
 });

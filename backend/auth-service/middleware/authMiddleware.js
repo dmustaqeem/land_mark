@@ -33,12 +33,14 @@ const verifyUserEmail = async (req, res) => {
 
   if (user) {
     user.isVerified = true;
-    const updatedUser = await user.save();
-    if (updatedUser) {
+    try {
+      await user.save();
+      console.log("User verified!");
       res.redirect("http://localhost:3000/");
-
-      return res.status(200).send("User verified!");
-    } else return res.status(400).send("User not verified!");
+    } catch (error) {
+      console.log("user not verified : ", error);
+      return res.status(400).send({ message: "User not verified!" });
+    }
   }
 };
 

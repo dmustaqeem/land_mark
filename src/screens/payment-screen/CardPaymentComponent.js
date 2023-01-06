@@ -45,35 +45,8 @@ const CardPaymentComponent = () => {
   const handleChange = (event) => {
     setAge(event.target.value);
   };
-  // const paymentElementOptions = {
-  //   layout: "tabs",
-  // };
-  return (
-    // <form>
-    //   <PaymentElement
-    //     style={{
-    //       display: "flex",
-    //       flexDirection: "column",
-    //       backgroundColor: "red",
-    //     }}
-    //     options={paymentElementOptions}
-    //   />
-    //   <button
-    //     style={{
-    //       backgroundColor: "red",
-    //     }}
-    //   >
-    //     <span
-    //       style={{
-    //         backgroundColor: "red",
-    //       }}
-    //     >
-    //       {isLoading ? <div></div> : "Pay now"}
-    //     </span>
-    //   </button>
-    //   {message && <div id="payment-message">{message}</div>}
-    // </form>
 
+  return (
     <div
       style={{
         display: "flex",
