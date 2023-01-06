@@ -30,7 +30,7 @@ const iconBackground = {
   justifyContent: "center",
   alignItems: "center",
 };
-const MoreScreen = ({ setIsLoggedIn, setValue }) => {
+const MoreScreen = ({ setValue }) => {
   let navigate = useNavigate();
   const { height } = useWindowDimensions();
 
@@ -125,12 +125,11 @@ const MoreScreen = ({ setIsLoggedIn, setValue }) => {
       </div>
 
       <Button
-        onClick={async () => {
+        onClick={() => {
           try {
-            const userSignout = await Auth.signOut();
-            setIsLoggedIn(false);
+            localStorage.removeItem("userJwt");
+            localStorage.removeItem("username");
             navigate("/");
-            console.log("Sign out :", userSignout);
           } catch (error) {
             console.log("error signing out: ", error);
           }

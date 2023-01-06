@@ -35,6 +35,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import QuestionMarkSharpIcon from "@mui/icons-material/QuestionMarkSharp";
 import SquareButton from "../../components/SquareButton";
+import { signupUser } from "../../API/api";
 
 const ReviewSchema = yup.object({
   UserName: yup.string().required("Please Enter Username"),
@@ -93,19 +94,28 @@ const SignUpScreen = () => {
           }}
           onSubmit={async (values, { resetForm }) => {
             try {
-              const { user } = await Auth.signUp({
-                username: values.UserName,
-                password: values.PasswordConfirmation,
-                attributes: {
-                  email: values.Email, // optional
-                },
-              });
-              setSnackBarMessage("Success");
-              setOpenSnackBar(true);
-              setSeverity("success");
-              console.log("sign up screen: ", user);
-              resetForm();
-              navigate("/confirmSignUp");
+              const user = await signupUser(
+                values.Email,
+                values.Password,
+                values.UserName
+              );
+
+              // const { user } = await Auth.signUp({
+              //   username: values.UserName,
+              //   password: values.PasswordConfirmation,
+              //   attributes: {
+              //     email: values.Email, // optional
+              //   },
+              // });
+              if (user) {
+                sessionStorage.setItem("showSuccessScreen", true);
+                setSnackBarMessage("Success");
+                setOpenSnackBar(true);
+                setSeverity("success");
+                console.log("sign up screen: ", user);
+                resetForm();
+                navigate("/success");
+              }
             } catch (error) {
               setSnackBarMessage("Error");
               setOpenSnackBar(true);

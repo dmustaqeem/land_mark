@@ -11,14 +11,6 @@
       "StackId": "arn:aws:cloudformation:ca-central-1:048453839742:stack/amplify-landmark-dev-204129/5d0dbc80-458d-11ed-8326-063541658de4",
       "AmplifyAppId": "dx5afhxt3nqu9",
       "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-landmark-dev-204129-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
-    },
-    "categories": {
-      "auth": {
-        "landmark808c894b808c894b": {}
-      },
-      "api": {
-        "lndmrk": {}
-      }
     }
   }
 }

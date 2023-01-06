@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import LndMrkCard from "../../components/LndMrkCard";
 import Searchbar from "../../components/SearchBar";
 import { Typography } from "@mui/material";
@@ -18,7 +18,7 @@ import Header from "../../components/Header";
 import Tooltip from "../../components/OnboardingTourTooltip";
 import { steps } from "../../utils/OnboardingTourSteps";
 
-const WelcomeScreen = ({ username, setValue }) => {
+const WelcomeScreen = ({ setValue }) => {
   const { height, width } = useWindowDimensions();
 
   return (
@@ -39,7 +39,7 @@ const WelcomeScreen = ({ username, setValue }) => {
           steps={steps}
         />
       )}
-      <Header setValue={setValue} home username={username} />
+      <Header setValue={setValue} home />
       <Searchbar />
       <ColumnContainer
         style={{

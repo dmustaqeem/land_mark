@@ -36,6 +36,7 @@ import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import SquareButton from "../../components/SquareButton";
+import { resetPassword } from "../../API/api";
 
 const ReviewSchema = yup.object({
   Email: yup.string().email().required("Please Enter Email"),
@@ -90,16 +91,24 @@ const ForgotPasswordSubmitScreen = () => {
           onSubmit={async (values, { resetForm }) => {
             // console.log("OnSubmit click", values);
             try {
-              await Auth.forgotPasswordSubmit(
+              const passwordChanged = await resetPassword(
                 values.Email,
-                `${values.Code}`,
+                `${values.Code}`.padStart(5, "0"),
                 values.NewPassword
               );
-              setSnackBarMessage("Success");
-              setOpenSnackBar(true);
-              setSeverity("success");
-              resetForm();
-              navigate("/");
+              if (passwordChanged) {
+                setSnackBarMessage("Success");
+                setOpenSnackBar(true);
+                setSeverity("success");
+                resetForm();
+                navigate("/");
+              }
+
+              // await Auth.forgotPasswordSubmit(
+              //   values.Email,
+              //   `${values.Code}`,
+              //   values.NewPassword
+              // );
             } catch (error) {
               setSnackBarMessage("Error");
               setOpenSnackBar(true);

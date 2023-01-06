@@ -13,64 +13,35 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 import UserProfile from "./screens/more-tab/UserProfile";
 import SplashScreen from "./screens/SplashScreen";
 import OnBoardingScreen from "./screens/OnboardingScreen";
-// import SuccessScreen from "./pages/SuccessScreen";
+import SuccessScreen from "./screens/SuccessScreen";
 Auth.configure(awsmobile);
 API.configure(awsmobile);
 Storage.configure(awsmobile);
 
 const App = () => {
   const [loggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
-  let navigate = useNavigate();
-
   useEffect(() => {
-    const getCurrentUser = async () => {
-      try {
-        let user = await Auth.currentAuthenticatedUser();
-
-        if (user) {
-          setIsLoggedIn(true);
-          setUsername(user.username);
-          //navigate("/welcome");
-        }
-      } catch (err) {
-        setIsLoggedIn(false);
-        console.log(err);
-      }
-    };
-    getCurrentUser();
-  }, [loggedIn]);
-
+    const jwt = localStorage.getItem("userJwt");
+    if (jwt) setIsLoggedIn(true);
+  }, []);
   return (
     <Routes>
-      <Route path="/" element={<SplashScreen />} />
-
-      <Route path="/onBoarding" element={<OnBoardingScreen />} />
-
-      <Route
-        path="/signIn"
-        element={<SignInScreen setIsLoggedIn={setIsLoggedIn} />}
-      />
-      <Route path="/signUp" element={<SignUpScreen />} />
-      <Route
-        path="/confirmSignUp"
-        element={<ConfirmSignUp setIsLoggedIn={setIsLoggedIn} />}
-      />
-      <Route path="/forgotpassword" element={<ForgotPasswordScreen />} />
-      <Route
-        path="/forgotpasswordsubmit"
-        element={<ForgotPasswordSubmitScreen />}
-      />
-      {/* <Route path="/success/:type" element={<SuccessScreen />} /> */}
-
-      <Route element={<ProtectedRoute loggedIn={loggedIn} />}>
-        <Route element={<UserProfile />} />
+      <Route element={<ProtectedRoute routeType={1} loggedIn={loggedIn} />}>
+        <Route path="/" element={<SplashScreen />} />
+        <Route path="/onBoarding" element={<OnBoardingScreen />} />
+        <Route path="/signIn" element={<SignInScreen />} />
+        <Route path="/signUp" element={<SignUpScreen />} />
+        <Route path="/forgotpassword" element={<ForgotPasswordScreen />} />
         <Route
-          path="/welcome"
-          element={
-            <BottomNavBar username={username} setIsLoggedIn={setIsLoggedIn} />
-          }
+          path="/forgotpasswordsubmit"
+          element={<ForgotPasswordSubmitScreen />}
         />
+        <Route path="/success" element={<SuccessScreen />} />
+        {/* <Route path="/confirmSignUp" element={<ConfirmSignUp />} /> */}
+      </Route>
+      <Route element={<ProtectedRoute routeType={2} loggedIn={loggedIn} />}>
+        <Route element={<UserProfile />} />
+        <Route path="/welcome" element={<BottomNavBar />} />
       </Route>
     </Routes>
   );

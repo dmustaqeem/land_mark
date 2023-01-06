@@ -6,9 +6,16 @@ import Badge from "@mui/material/Badge";
 import theme from "../Theme";
 import SquareButton from "./SquareButton";
 import { ReactComponent as ArrowLeftIcon } from "../assets/svgs/arrow-left.svg";
+import { useEffect, useState } from "react";
 
-const Header = ({ username, home, screenName, setValue, backButton }) => {
+const Header = ({ home, screenName, setValue, backButton }) => {
+  const [username, setUsername] = useState();
   const { height } = useWindowDimensions();
+
+  useEffect(() => {
+    const name = localStorage.getItem("username");
+    setUsername(name);
+  }, []);
 
   const headingFontSize = {
     fontWeight: 700,

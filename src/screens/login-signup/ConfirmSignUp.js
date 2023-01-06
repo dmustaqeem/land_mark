@@ -40,7 +40,7 @@ const ReviewSchema = yup.object({
   UserName: yup.string().required("Please Enter Username"),
   Code: yup.number().required(),
 });
-const ConfirmSignUp = ({ setIsLoggedIn }) => {
+const ConfirmSignUp = () => {
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState("");
   const [severity, setSeverity] = useState("info");
@@ -94,7 +94,6 @@ const ConfirmSignUp = ({ setIsLoggedIn }) => {
               setOpenSnackBar(true);
               setSeverity("success");
               console.log("ConfirmSign up : ", confirmSignUp);
-              // setIsLoggedIn(true);
               navigate("/");
               resetForm();
             } catch (error) {

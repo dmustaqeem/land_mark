@@ -35,8 +35,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SquareButton from "../../components/SquareButton";
 import SocialMediaButton from "../../components/SocialMediaButton";
+import { loginUser } from "../../API/api";
 
-const SignInScreen = ({ setIsLoggedIn }) => {
+const SignInScreen = () => {
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState("");
   const [severity, setSeverity] = useState("info");
@@ -88,24 +89,27 @@ const SignInScreen = ({ setIsLoggedIn }) => {
           }}
           onSubmit={async (values, { resetForm }) => {
             // console.log("OnSubmit click", values);
-            try {
-              const user = await Auth.signIn(values.UserName, values.Password);
-              if (user) {
-                setIsLoggedIn(true);
-                setSnackBarMessage("Success");
-                setOpenSnackBar(true);
-                setSeverity("success");
-                resetForm();
-                navigate("/welcome");
-              }
-            } catch (error) {
-              setSnackBarMessage("Error");
-              setOpenSnackBar(true);
-              setSeverity("error");
-              console.log("error signing in", error);
-            } finally {
-              setSeverity("info");
-            }
+            // try {
+            // const user = await Auth.signIn(values.UserName, values.Password);
+            const user = await loginUser(values.UserName, values.Password);
+            console.log("user", user);
+            //   if (user) {
+            //     localStorage.setItem("userJwt", user.data.token);
+            //     localStorage.setItem("username", user.data.userName);
+            //     setSnackBarMessage("Success");
+            //     setOpenSnackBar(true);
+            //     setSeverity("success");
+            //     resetForm();
+            //     navigate("/welcome");
+            //   }
+            // } catch (error) {
+            //   setSnackBarMessage("Error");
+            //   setOpenSnackBar(true);
+            //   setSeverity("error");
+            //   console.log("error signing in", error);
+            // } finally {
+            //   setSeverity("info");
+            // }
           }}
         >
           {(props) => (

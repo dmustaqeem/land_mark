@@ -34,6 +34,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import SquareButton from "../../components/SquareButton";
+import { initiateResetPassword } from "../../API/api";
 
 const ReviewSchema = yup.object({
   Email: yup.string().email().required("Please enter correct email"),
@@ -84,14 +85,18 @@ const ForgotPasswordScreen = () => {
           onSubmit={async (values, { resetForm }) => {
             // console.log("OnSubmit click", values);
             try {
-              await Auth.forgotPassword(values.Email);
+              const resetPassword = await initiateResetPassword(values.Email);
+
+              // await Auth.forgotPassword(values.Email);
               // .then((data) => console.log(data))
               // .catch((err) => console.log(err));
-              setSnackBarMessage("Success");
-              setOpenSnackBar(true);
-              setSeverity("success");
-              resetForm();
-              navigate("/forgotpasswordsubmit");
+              if (resetPassword) {
+                setSnackBarMessage("Success");
+                setOpenSnackBar(true);
+                setSeverity("success");
+                resetForm();
+                navigate("/forgotpasswordsubmit");
+              }
             } catch (error) {
               setSnackBarMessage("Error");
               setOpenSnackBar(true);
