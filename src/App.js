@@ -19,17 +19,18 @@ API.configure(awsmobile);
 Storage.configure(awsmobile);
 
 const App = () => {
-  const [loggedIn, setIsLoggedIn] = useState(false);
-  useEffect(() => {
-    const jwt = localStorage.getItem("userJwt");
-    if (jwt) setIsLoggedIn(true);
-  }, []);
+  const [jwt, setJwt] = useState(localStorage.getItem("userJwt"));
+  const [loggedIn, setIsLoggedIn] = useState(jwt ? true : false);
+  console.log("logged in", loggedIn);
   return (
     <Routes>
       <Route element={<ProtectedRoute routeType={1} loggedIn={loggedIn} />}>
         <Route path="/" element={<SplashScreen />} />
         <Route path="/onBoarding" element={<OnBoardingScreen />} />
-        <Route path="/signIn" element={<SignInScreen />} />
+        <Route
+          path="/signIn"
+          element={<SignInScreen setIsLoggedIn={setIsLoggedIn} />}
+        />
         <Route path="/signUp" element={<SignUpScreen />} />
         <Route path="/forgotpassword" element={<ForgotPasswordScreen />} />
         <Route
@@ -41,7 +42,10 @@ const App = () => {
       </Route>
       <Route element={<ProtectedRoute routeType={2} loggedIn={loggedIn} />}>
         <Route element={<UserProfile />} />
-        <Route path="/welcome" element={<BottomNavBar />} />
+        <Route
+          path="/welcome"
+          element={<BottomNavBar setIsLoggedIn={setIsLoggedIn} />}
+        />
       </Route>
     </Routes>
   );

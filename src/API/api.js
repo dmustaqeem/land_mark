@@ -21,7 +21,6 @@ export const loginUser = async (username, password) => {
     userName: username,
     password: password,
   });
-  console.log(response);
   return response.data;
   // try {
   //   return await axiosAPI.post("/auth/login-user", {

@@ -75,7 +75,7 @@ const iconStyle = {
   fontFamily: theme.fontFamily,
 };
 
-const BottomNavBar = () => {
+const BottomNavBar = ({ setIsLoggedIn }) => {
   const [value, setValue] = useState(0);
   const [paymentIntentClientSecret, setPaymentIntentClientSecret] = useState();
   const [productAmount, setProductAmount] = useState();
@@ -104,7 +104,7 @@ const BottomNavBar = () => {
       ) : value === 3 ? (
         <ActivateScreen setValue={setValue} />
       ) : value === 4 ? (
-        <MoreScreen setValue={setValue} />
+        <MoreScreen setValue={setValue} setIsLoggedIn={setIsLoggedIn} />
       ) : value === 5 ? (
         <UserProfile setProductAmount={setProductAmount} setValue={setValue} />
       ) : value === 6 ? (
